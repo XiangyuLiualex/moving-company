@@ -1,0 +1,5 @@
+@use 'variables';
+
+header, footer {
+  background-color: variables.$orange;
+}

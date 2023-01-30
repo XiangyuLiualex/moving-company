@@ -1,0 +1,39 @@
+@use 'variables';
+@import 'reset.css';
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+:root{
+  font-family: 'Poppins', sans-serif;
+}
+
+.App{
+  display: grid;
+  grid-template-rows: 130px 1fr 200px;
+  min-height: 100vh;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+*{
+  outline: 1px dashed red;
+}
+header, footer{
+  background-color: variables.$orange;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  color: white;
+  img{
+    width: 76px;
+  }
+} 
+
+header{
+  ul{
+    display: flex;
+    gap: clamp(10px, 3vw, 55px);
+  }
+}
