@@ -8,7 +8,7 @@
 
 .App{
   display: grid;
-  grid-template-rows: 130px 1fr 200px;
+  grid-template-rows: 130px 1fr auto;
   min-height: 100vh;
 }
 
@@ -20,13 +20,16 @@ a {
 *{
   outline: 1px dashed red;
 }
+
 header, footer{
   background-color: variables.$orange;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
+  align-items: baseline;
   align-items: center;
   color: white;
-  img{
+  padding: 0px 10px 0px 10px;
+  img:not(.icon){
     width: 76px;
   }
 } 
@@ -35,5 +38,55 @@ header{
   ul{
     display: flex;
     gap: clamp(10px, 3vw, 55px);
+  }
+}
+
+footer{
+  gap: clamp(10px, 1vw, 25px);
+  padding: 60px 10px 60px 10px;
+  align-items: flex-start;
+  font-size: 0.9rem;
+  .icon{
+    padding: 5px;
+    border-radius: 100%;
+    border: 2px solid white;
+  }
+  #whatsapp{
+    width: auto;
+    width: clamp(120px, 20vw, 200px);
+  }
+  & > div, & > ul{
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3rem;
+    gap: 15px
+  }
+  div{
+    width: clamp(125px, 20vw, 250px);
+  }
+  p{
+    max-width: 240px;
+  }
+  ul {
+    &>*:first-child{
+      font-size: 1.4rem;
+      margin-bottom: 25px;
+      align-self: flex-start;
+    }
+  }
+}
+
+@media (max-width: 700px){
+  footer{
+    flex-direction: column;
+    align-items: center;
+    // justify-content: space-around;
+    gap: 50px;
+    & > div{
+      align-items: center;
+    }
+    & > div, & > ul{
+      width: auto;
+    }
   }
 }
