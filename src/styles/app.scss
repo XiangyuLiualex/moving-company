@@ -1,6 +1,6 @@
 @use 'variables';
 @import 'reset.css';
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
 :root{
   font-family: 'Poppins', sans-serif;
@@ -20,11 +20,12 @@ a {
 button{
   border: none;
   cursor: pointer;
+  position: relative;
+  &:active{
+    opacity: 0.5;
+  }
 }
 
-*{
-  // outline: 1px dashed red;
-}
 
 header, footer{
   background-color: variables.$orange;
@@ -51,6 +52,10 @@ footer{
   padding: 60px 10px 60px 10px;
   align-items: flex-start;
   font-size: 0.9rem;
+  .icons{
+    display: flex;
+    gap: 15px;
+  }
   .icon{
     padding: 5px;
     border-radius: 100%;
@@ -82,16 +87,19 @@ footer{
 }
 
 @media (max-width: 700px){
+  header{
+    flex-wrap: wrap;
+  }
   footer{
     flex-direction: column;
-    align-items: center;
-    // justify-content: space-around;
+    align-items: baseline;
     gap: 50px;
     & > div{
       align-items: center;
     }
     & > div, & > ul{
       width: auto;
+      margin-left: 10vw;
     }
   }
 }
