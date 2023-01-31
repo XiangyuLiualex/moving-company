@@ -6,10 +6,10 @@ function Header(){
     <header>
       <img src={homeIcon} alt="Moving Company" />
       <ul>
-        <li><a href="">How We Work</a></li>
-        <li><a href="">Services</a></li>
-        <li><a href="">Free Quote</a></li>
-        <li><a href="">Contact</a></li>
+        <li><a href="http://">How We Work</a></li>
+        <li><a href="http://">Services</a></li>
+        <li><a href="http://">Free Quote</a></li>
+        <li><a href="http://">Contact</a></li>
       </ul>
     </header>
   )
