@@ -17,8 +17,13 @@ a {
   color: inherit;
 }
 
+button{
+  border: none;
+  cursor: pointer;
+}
+
 *{
-  outline: 1px dashed red;
+  // outline: 1px dashed red;
 }
 
 header, footer{

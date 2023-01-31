@@ -1,0 +1,102 @@
+@use 'variables';
+main{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  padding: min(10vw, 100px);
+}
+
+.title{
+  text-align: center;
+  width: min(60vw, 500px);
+  h1{
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+  }
+  p{
+    line-height: 1.3rem;
+    color: gray;
+    font-size: 0.9rem;
+  }
+}
+
+.items{
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 40px;
+  width: 100%;
+}
+main article{
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  .item-name {  
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    box-shadow: 1px 1px 5px grey;
+    border-radius: 0.2rem;
+    img{
+      height: 60px;
+    }
+  }
+  .item-quantity{
+    display: grid;
+    grid-template-columns: 40px 1fr 40px;
+    align-items: center;
+    text-align: center;
+    border: 2px solid rgb(225, 222, 222);
+    border-radius: 0.3rem;
+    button{
+      border: none;
+      background-color: rgb(225, 222, 222);
+      font-size: 2rem;
+      color: gray;
+      &:hover{
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+main .buttons{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  button{
+    font-size: 1rem;
+    padding: 15px;
+    width: min(33vw, 220px);
+    border-radius: 7px;
+    border: 2px solid variables.$orange;
+    background-color: white;
+    &:last-child{
+      background-color: variables.$orange;
+    }
+  }
+}
+
+.summary{
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  h1{
+    font-size: 2rem;
+    text-align: center;
+  }
+  table{
+    background-color: rgb(239, 238, 238);
+    table-layout: fixed;
+    border-collapse: collapse;
+    th, td{
+      padding: 20px;
+    }
+  }
+}
