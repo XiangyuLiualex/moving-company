@@ -50,33 +50,39 @@ function MovingPage(){
     deliveryHours: 2
   });
 
-  // 城市选项
-  const cities: City[] = getActiveCities() as City[];
+  // 城市选项 - 改为异步获取
+  const [cities, setCities] = useState<string[]>([]);
   const systemSettings = getSystemSettings();
 
   // 从API加载价格数据
   const [pricingData, setPricingData] = useState<AdminPricingData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // 加载价格数据
+  // 加载价格数据和城市数据
   useEffect(() => {
-    const loadPricingData = async () => {
+    const loadData = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001'}/api/pricing`);
-        if (response.ok) {
-          const data = await response.json();
-          setPricingData(data);
+        const [pricingResponse, citiesData] = await Promise.all([
+          fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001'}/api/pricing`),
+          getActiveCities()
+        ]);
+        
+        if (pricingResponse.ok) {
+          const pricingData = await pricingResponse.json();
+          setPricingData(pricingData);
         } else {
           console.error('Failed to fetch pricing data');
         }
+        
+        setCities(citiesData);
       } catch (error) {
-        console.error('Error loading pricing data:', error);
+        console.error('Error loading data:', error);
       } finally {
         setIsLoading(false);
       }
     };
 
-    loadPricingData();
+    loadData();
   }, []);
 
   // 跨省搬家价格表（从管理员设置加载）

@@ -11,26 +11,35 @@ function LocalMovingPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [showContactInfo, setShowContactInfo] = useState(false);
   const systemSettings = getSystemSettings();
+  
+  // 城市数据 - 改为异步获取
+  const [activeCities, setActiveCities] = useState<{ [key: string]: string }>({});
 
-  // 加载价格数据
+  // 加载价格数据和城市数据
   useEffect(() => {
-    const loadPricingData = async () => {
+    const loadData = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001'}/api/pricing`);
-        if (response.ok) {
-          const data = await response.json();
-          setPricingData(data);
+        const [pricingResponse, citiesData] = await Promise.all([
+          fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001'}/api/pricing`),
+          getActiveCitiesDisplayNames()
+        ]);
+        
+        if (pricingResponse.ok) {
+          const pricingData = await pricingResponse.json();
+          setPricingData(pricingData);
         } else {
           console.error('Failed to fetch pricing data');
         }
+        
+        setActiveCities(citiesData);
       } catch (error) {
-        console.error('Error loading pricing data:', error);
+        console.error('Error loading data:', error);
       } finally {
         setIsLoading(false);
       }
     };
 
-    loadPricingData();
+    loadData();
   }, []);
 
   if (isLoading) {
@@ -63,7 +72,6 @@ function LocalMovingPage() {
             <h3>{t('localMoving.serviceCities')}</h3>
             <div className="cities-container">
               {(() => {
-                const activeCities = getActiveCitiesDisplayNames();
                 const cityIcons = {
                   'Vancouver': '🏙️',
                   'Calgary': '🏔️',

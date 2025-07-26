@@ -34,26 +34,35 @@ function StoragePage(){
   // 从API加载价格数据
   const [pricingData, setPricingData] = useState<AdminPricingData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  
+  // 城市选项 - 改为异步获取
+  const [cities, setCities] = useState<string[]>([]);
 
-  // 加载价格数据
+  // 加载价格数据和城市数据
   useEffect(() => {
-    const loadPricingData = async () => {
+    const loadData = async () => {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001'}/api/pricing`);
-        if (response.ok) {
-          const data = await response.json();
-          setPricingData(data);
+        const [pricingResponse, citiesData] = await Promise.all([
+          fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001'}/api/pricing`),
+          getActiveCities()
+        ]);
+        
+        if (pricingResponse.ok) {
+          const pricingData = await pricingResponse.json();
+          setPricingData(pricingData);
         } else {
           console.error('Failed to fetch pricing data');
         }
+        
+        setCities(citiesData);
       } catch (error) {
-        console.error('Error loading pricing data:', error);
+        console.error('Error loading data:', error);
       } finally {
         setIsLoading(false);
       }
     };
 
-    loadPricingData();
+    loadData();
   }, []);
 
   // 从管理员设置加载物品类型和价格
@@ -284,7 +293,6 @@ function StoragePage(){
   const itemTypes = getItemTypes();
   
   // 城市选项
-  const cities = getActiveCities();
   const systemSettings = getSystemSettings();
   
   // 存储时间选项（1-12个月）
