@@ -292,7 +292,17 @@ app.get('/api/cities', (req, res) => {
   try {
     const stmt = db.prepare('SELECT * FROM cities_config ORDER BY city_name');
     const cities = stmt.all();
-    res.json(cities);
+    
+    // 转换为前端期望的格式
+    const formattedCities = cities.map(city => ({
+      id: city.city_name.toLowerCase(),
+      name: city.city_name,
+      displayName: city.city_name, // 可以根据需要添加中文显示名
+      isActive: Boolean(city.is_active),
+      icon: city.city_icon || '🏙️'
+    }));
+    
+    res.json(formattedCities);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -302,10 +312,10 @@ app.get('/api/cities', (req, res) => {
 app.put('/api/cities/:id', (req, res) => {
   try {
     const { id } = req.params;
-    const { city_name, city_icon, is_active } = req.body;
+    const { name, isActive, icon } = req.body;
     
-    const stmt = db.prepare('UPDATE cities_config SET city_name = ?, city_icon = ?, is_active = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?');
-    stmt.run(city_name, city_icon, is_active, id);
+    const stmt = db.prepare('UPDATE cities_config SET city_name = ?, city_icon = ?, is_active = ?, updated_at = CURRENT_TIMESTAMP WHERE city_name = ?');
+    stmt.run(name, icon || '🏙️', isActive ? 1 : 0, id);
     
     res.json({ success: true, message: '城市配置已更新' });
   } catch (error) {
