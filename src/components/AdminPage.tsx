@@ -58,6 +58,7 @@ function AdminPage() {
       }
     } else if (activeSection === 'settings') {
       saveSystemSettings(systemSettings!);
+      setSystemSettings({ ...systemSettings! }); // 直接用当前state刷新UI
       setHasChanges(false);
       alert(t('admin.settings.saveSuccess'));
     }
