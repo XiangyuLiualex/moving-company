@@ -62,7 +62,7 @@ function MovingPage(){
   useEffect(() => {
     const loadPricingData = async () => {
       try {
-        const response = await fetch('http://localhost:3001/api/pricing');
+        const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001'}/api/pricing`);
         if (response.ok) {
           const data = await response.json();
           setPricingData(data);

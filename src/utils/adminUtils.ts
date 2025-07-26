@@ -29,8 +29,8 @@ export interface AdminPricingData {
   storageItems: { [key: string]: ItemType };
 }
 
-// API基础URL
-const API_BASE_URL = 'http://localhost:3001/api';
+// API基础URL - 根据环境自动选择
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
 
 // 从后端API加载价格数据
 export const loadPricingData = async (): Promise<AdminPricingData> => {
