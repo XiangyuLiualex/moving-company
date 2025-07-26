@@ -30,12 +30,12 @@ export interface AdminPricingData {
 }
 
 // API基础URL - 根据环境自动选择
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
 
 // 从后端API加载价格数据
 export const loadPricingData = async (): Promise<AdminPricingData> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/pricing`);
+    const response = await fetch(`${API_BASE_URL}/api/pricing`);
     if (!response.ok) {
       throw new Error('Failed to fetch pricing data');
     }
@@ -51,7 +51,7 @@ export const loadPricingData = async (): Promise<AdminPricingData> => {
 // 保存价格数据到后端API
 export const savePricingData = async (data: AdminPricingData): Promise<boolean> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/pricing`, {
+    const response = await fetch(`${API_BASE_URL}/api/pricing`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -75,7 +75,7 @@ export const savePricingData = async (data: AdminPricingData): Promise<boolean> 
 // 重置价格数据为默认值
 export const resetPricingData = async (): Promise<AdminPricingData> => {
   try {
-    const response = await fetch(`${API_BASE_URL}/pricing/reset`, {
+    const response = await fetch(`${API_BASE_URL}/api/pricing/reset`, {
       method: 'POST',
     });
     
