@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ReactElement } from 'react';
 
 interface ItemProps {
   name: string;
-  image: string;
+  image: string | ReactElement;
   multiplier: number;
   reset: boolean;
   addItem: (arg0: number, arg1: number) => void;
@@ -29,11 +29,20 @@ function Item({ name, image, multiplier, reset, addItem }: ItemProps){
     }
   }
 
+  // 渲染图片或图标
+  const renderImage = () => {
+    if (typeof image === 'string') {
+      return <img src={image} alt={name} />;
+    } else {
+      return image;
+    }
+  };
+
   return (
     <article>
       <div className="item-name">
-        <img src={image} alt={name} />
-        <h1>{name}</h1>
+        {renderImage()}
+        <h1 style={{ whiteSpace: 'pre-line' }}>{name}</h1>
       </div>
       <div className="item-quantity">
         <button onClick={remove}>-</button>

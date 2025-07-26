@@ -1,0 +1,296 @@
+{
+  "header": {
+    "movingService": "Moving Service",
+    "storageFurniture": "Storage Furniture"
+  },
+  "storage": {
+    "title": "What items to store?",
+    "subtitle": "Select which items you wish to store. Each item has a fixed monthly price. We'll keep 'em safe!",
+    "chooseCity": "Choose your city",
+    "storageDuration": "Storage Duration",
+    "selectCity": "Select City",
+    "selectMonths": "Select Months",
+    "month": "Month",
+    "months": "Months",
+    "categories": {
+      "luggage": "Luggage & Boxes",
+      "transportation": "Transportation",
+      "electronics": "Electronics",
+      "furniture": "Furniture",
+      "homeDepotBoxes": "Home Depot Boxes",
+      "volumeStorage": "Volume Storage",
+      "pickupService": "Door-to-Door Pickup Service"
+    },
+    "items": {
+      "carryOnLuggage": "Carry-on Luggage\n(≤115cm)\nIncluding wheels",
+      "checkedLuggage": "Checked Luggage\n(≤165cm)\nIncluding wheels",
+      "bicycle": "Bicycle\nBattery not included\nBattery stored separately",
+      "tv": "TV\nWithout box\n(If with box, calculated as box)",
+      "gamingChair": "Gaming Chair\nWithout footrest\n(Footrest calculated separately)",
+      "twinMattress": "Twin Mattress\n(Bed Frame x2)\nFrame price x2 if needed",
+      "fullMattress": "Full Mattress\n(Bed Frame x2)\nFrame price x2 if needed",
+      "queenMattress": "Queen Mattress\n(Bed Frame x2)\nFrame price x2 if needed",
+      "kingMattress": "King Mattress\n(Bed Frame x2)\nFrame price x2 if needed",
+      "smallBox": "Home Depot\nSmall Box\n(≤110cm)",
+      "mediumBox": "Home Depot\nMedium Box\n(≤135cm)",
+      "largeBox": "Home Depot\nLarge Box\n(≤150cm)",
+      "extraLargeBox": "Home Depot\nExtra Large Box\n(≤165cm)",
+      "superLargeBox": "Home Depot\nSuper Large Box\n(≤200cm)",
+      "volumeStorage": "Volume Storage",
+      "onlyBoxPickupNoStairs": "Only Box Pickup Service\n(Every 10 pieces)\nNo Stairs",
+      "onlyBoxPickupWithStairs": "Only Box Pickup Service\n(Every 10 pieces)\nWith Stairs",
+      "furniturePickupNoStairs": "Furniture Pickup Service\nNo Stairs\n(Can carry down)",
+      "furniturePickupAssembly": "Furniture Pickup Service\nWith Assembly\n(Disassembly included)"
+    },
+    "summary": {
+      "title": "Summary",
+      "totalItems": "Total Items",
+      "monthlyStorageCost": "Monthly Storage Cost",
+      "storageDuration": "Storage Duration",
+      "storageSubtotal": "Storage Subtotal",
+      "pickupServiceFee": "Pickup Service Fee",
+      "subtotal": "Subtotal",
+      "tax": "Tax",
+      "fuelSurcharge": "Fuel Surcharge",
+      "insurance": "Insurance",
+      "packaging": "Packaging",
+      "total": "Total",
+      "tax": "Tax",
+      "additionalFees": "Additional Fees"
+    },
+    "pricingInfo": {
+      "title": "Storage Pricing Information",
+      "fixedMonthlyPrice": "Fixed Monthly Price: Each item has a fixed monthly storage price",
+      "allWarehouses": "All Warehouses: Unified pricing across all locations",
+      "noVolumeCalculation": "No Volume Calculation: Prices based on item type, not volume"
+    },
+    "buttons": {
+      "clear": "Clear",
+      "calculate": "Calculate"
+    },
+    "volumeStorage": {
+      "volume": ">6 cubic meters",
+      "unit": "month"
+    }
+  },
+  "moving": {
+    "title": "What items to move?",
+    "subtitle": "Select which items you wish to move to your new home. We'll handle everything for you!",
+    "departureLocation": "Departure Location",
+    "arriveLocation": "Arrive Location",
+    "selectCity": "Select City",
+    "postalCode": "Postal Code",
+    "localServices": "Local Services (Optional)",
+    "serviceDescription": "Pickup and delivery services are charged separately at ${rate}/hour (2 people included, minimum 2 hours)",
+    "pickupService": "Pickup Service",
+    "deliveryService": "Delivery Service",
+    "hours": "Hours",
+    "items": {
+      "beds": "Beds",
+      "fridge": "Fridge",
+      "furniture": "Furniture",
+      "oven": "Oven",
+      "sofa": "Sofa",
+      "tv": "TV",
+      "washerDryer": "Washer-dryer",
+      "dining": "Dining",
+      "desk": "Desk",
+      "wardrobe": "Wardrobe",
+      "smallBox": "Home Depot\nSmall Box\n(≤110cm)",
+      "mediumBox": "Home Depot\nMedium Box\n(≤135cm)",
+      "largeBox": "Home Depot\nLarge Box\n(≤150cm)",
+      "extraLargeBox": "Home Depot\nExtra Large Box\n(≤165cm)",
+      "superLargeBox": "Home Depot\nSuper Large Box\n(≤200cm)"
+    },
+    "summary": {
+      "title": "Summary",
+      "totalItems": "Total Items",
+      "totalM2": "Total M²",
+      "totalPallets": "Total Pallets",
+      "pricePerPallet": "Price per Pallet",
+      "intercityFee": "Intercity Fee",
+      "localServiceFee": "Local Service Fee",
+      "subtotal": "Subtotal",
+      "tax": "Tax",
+      "fuelSurcharge": "Fuel Surcharge",
+      "insurance": "Insurance",
+      "packaging": "Packaging",
+      "total": "Total",
+      "tax": "Tax",
+      "additionalFees": "Additional Fees"
+    },
+    "pricingInfo": {
+      "title": "Pricing Information",
+      "intercityMoving": "Intercity Moving: Charged per pallet (1 pallet = 2 m²)",
+      "localServices": "Local Services: ${rate}/hour (2 people included, minimum 2 hours)",
+      "palletizingFee": "Palletizing Fee: Included in intercity pricing"
+    },
+    "buttons": {
+      "clear": "Clear",
+      "calculate": "Calculate"
+    }
+  },
+  "localMoving": {
+    "title": "Local Moving Service",
+    "subtitle": "Professional local moving service with flexible hourly rates. Perfect for same-city relocations.",
+    "serviceCities": "Service Cities",
+    "serviceRules": "Service Rules & Pricing",
+    "hourlyRate": "Hourly Rate",
+    "perPersonPerHour": "${rate} per person per hour",
+    "minimumHours": "Minimum 2 hours required",
+    "additionalPersonnel": "Additional Personnel",
+    "extraPerPerson": "${rate} extra per additional person",
+    "forTwoOrMore": "For 2 or more movers",
+    "depositRequired": "Deposit Required",
+    "threePlusPeople": "3+ people booking requires deposit:",
+    "sixtyCAD": "$60 CAD or",
+    "threeHundredRMB": "¥300 RMB",
+    "serviceIncludes": "Service Includes",
+    "professionalTeam": "Professional moving team",
+    "furnitureProtection": "Furniture protection",
+    "loadingUnloading": "Loading & unloading",
+    "basicAssembly": "Basic assembly/disassembly",
+    "readyToBook": "Ready to Book?",
+    "contactUs": "Contact us to schedule your local moving service",
+    "contactButton": "Contact Us",
+    "contactInfo": "Contact Information",
+    "companyName": "Company Name",
+    "phone": "Phone",
+    "email": "Email",
+    "address": "Address",
+    "close": "Close"
+  },
+  "movingService": {
+    "title": "Choose Moving Service",
+    "subtitle": "Please select the type of moving service you need",
+    "localMoving": "Local Moving",
+    "intercityMoving": "Intercity Moving",
+    "localDescription": "Same city moving service with professional manpower",
+    "intercityDescription": "Cross-province moving with full service package"
+  },
+  "language": {
+    "zh": "中文",
+    "en": "English"
+  },
+  "footer": {
+    "contactUs": "Contact Us",
+    "call": "Call",
+    "email": "Email",
+    "description": "Professional moving company dedicated to providing safe, efficient, and caring moving experiences. We have an experienced team and advanced equipment to ensure your belongings receive the best protection during transportation."
+  },
+  "admin": {
+    "title": "Admin Console",
+    "subtitle": "Manage website configuration and pricing settings",
+    "nav": {
+      "pricing": "Pricing Management",
+      "cities": "Cities Management",
+      "items": "Items Management", 
+      "settings": "System Settings"
+    },
+    "pricing": {
+      "title": "Pricing Management",
+      "intercity": "Intercity Moving Prices",
+      "intercityDesc": "Manage pricing table for intercity moving",
+      "localServices": "Local Services Prices",
+      "localServicesDesc": "Manage pickup and delivery service prices",
+      "localMoving": "Local Moving Prices",
+      "localMovingDesc": "Manage local moving pricing settings",
+      "storage": "Storage Furniture Prices",
+      "storageDesc": "Manage storage prices for different items",
+      "from": "From City",
+      "to": "To City",
+      "price": "Price",
+      "hourlyRate": "Per Person Hourly Rate",
+      "additionalPersonFee": "Additional Person Fee",
+      "deposit": "Deposit",
+      "save": "Save",
+      "reset": "Reset",
+      "saveSuccess": "Pricing settings saved successfully!",
+      "resetConfirm": "Are you sure you want to reset all prices to default values?",
+      "resetSuccess": "Prices have been reset to default values!"
+    },
+    "cities": {
+      "title": "Cities Management",
+      "description": "Manage service cities activation status",
+      "cityName": "City Name",
+      "status": "Status",
+      "active": "Active",
+      "inactive": "Inactive"
+    },
+    "items": {
+      "title": "Items Management",
+      "description": "Manage furniture types and volume multipliers"
+    },
+        "settings": {
+      "title": "System Settings",
+      "description": "Manage website basic configuration and tax rate settings",
+      "basicConfig": {
+        "title": "Basic Configuration",
+        "websiteInfo": "Website Information",
+        "titleZh": "Chinese Title",
+        "titleEn": "English Title",
+        "descriptionZh": "Chinese Description",
+        "descriptionEn": "English Description",
+        "contactInfo": "Contact Information",
+        "companyName": "Company Name",
+        "phone": "Phone Number",
+        "email": "Email Address",
+        "address": "Company Address"
+      },
+      "pageTitles": {
+        "title": "Page Titles",
+        "home": "Home",
+        "movingService": "Moving Service",
+        "storage": "Storage Furniture"
+      },
+      "taxAndFees": {
+        "title": "Tax and Fees",
+        "taxRates": "Tax Rates",
+        "gstRate": "GST Rate",
+        "pstRate": "PST Rate",
+        "gstEnabled": "Enable GST",
+        "pstEnabled": "Enable PST",
+        "additionalFees": "Additional Fees",
+        "fuelSurcharge": "Fuel Surcharge",
+        "insuranceRate": "Insurance Rate",
+        "packagingFee": "Packaging Fee",
+        "percentage": "Percentage",
+        "fixedAmount": "Fixed Amount"
+      },
+      "save": "Save Settings",
+      "reset": "Reset Settings",
+      "saveSuccess": "System settings saved successfully!",
+      "resetConfirm": "Are you sure you want to reset all system settings to default values?",
+      "resetSuccess": "System settings have been reset to default values!"
+    },
+    "storageItems": {
+      "carryOnLuggage": "Carry-on Luggage",
+      "checkedLuggage": "Checked Luggage",
+      "bicycle": "Bicycle",
+      "tv": "TV",
+      "gamingChair": "Gaming Chair",
+      "twinBed": "Twin Mattress",
+      "fullBed": "Full Mattress",
+      "queenBed": "Queen Mattress",
+      "kingBed": "King Mattress",
+      "smallBox": "Home Depot Small Box",
+      "mediumBox": "Home Depot Medium Box",
+      "largeBox": "Home Depot Large Box",
+      "extraLargeBox": "Home Depot Extra Large Box",
+      "superLargeBox": "Home Depot Super Large Box",
+      "volumeStorage": "Volume Storage",
+      "onlyBoxPickupNoStairs": "Only Box Pickup Service (No Stairs)",
+      "onlyBoxPickupWithStairs": "Only Box Pickup Service (With Stairs)",
+      "furniturePickupNoStairs": "Furniture Pickup Service (No Stairs)",
+      "furniturePickupAssembly": "Furniture Pickup Service (With Assembly)"
+    }
+  },
+  "login": {
+    "title": "Admin Login",
+    "subtitle": "Please enter your credentials",
+    "username": "Username",
+    "password": "Password",
+    "login": "Login",
+    "loggingIn": "Logging in..."
+  }
+} 

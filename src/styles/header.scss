@@ -3,3 +3,99 @@
 header, footer {
   background-color: variables.$orange;
 }
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  
+  img {
+    height: 40px;
+    cursor: pointer;
+  }
+  
+  .header-content {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    
+    ul {
+      display: flex;
+      list-style: none;
+      gap: 40px;
+      margin: 0;
+      padding: 0;
+      
+      li {
+        a {
+          text-decoration: none;
+          color: white;
+          font-weight: 500;
+          font-size: 1.2rem;
+          transition: all 0.3s ease;
+          
+          &:hover {
+            color: #f0f0f0;
+            text-decoration: underline;
+          }
+          
+          &.active {
+            color: #1565c0;
+            font-weight: bold;
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  header {
+    padding: 10px 15px;
+    flex-direction: column;
+    gap: 15px;
+    
+    img {
+      height: 35px;
+    }
+    
+    .header-content {
+      gap: 15px;
+      
+      ul {
+        gap: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+        
+        li a {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    padding: 8px 10px;
+    
+    img {
+      height: 30px;
+    }
+    
+    .header-content {
+      gap: 10px;
+      
+      ul {
+        gap: 15px;
+        
+        li a {
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+}

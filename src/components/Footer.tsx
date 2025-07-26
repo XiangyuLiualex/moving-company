@@ -1,18 +1,22 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import homeIcon from '../assets/home_icon.png';
 import twiterIcon from '../assets/twitter.png';
 import facebookIcon from '../assets/facebook.png';
 import instagramIcon from '../assets/instagram.png';
 import whatasppIcon from '../assets/whatsapp.png';
+import { getSystemSettings } from '../utils/systemUtils';
 
 function Footer(){
+  const { t } = useTranslation();
+  const systemSettings = getSystemSettings();
+  
   return (
     <footer>
       <div>
         <img src={homeIcon} alt="Moving company" />
         <p>
-          It is along established fact that a reader will be distracted by the
-          readable content of a page whenters
+          {t('footer.description')}
         </p>
         <div className="icons">
           <img src={twiterIcon} alt="" className="icon" />
@@ -22,24 +26,24 @@ function Footer(){
       </div>
       <ul className="info-list">
         <li>About Us</li>
-        <li><a href="">About</a></li>
-        <li><a href="">Privacy & Policy</a></li>
-        <li><a href="">Terms & Conditions</a></li>
-        <li><a href="">Faq</a></li>
+        <li>About</li>
+        <li>Privacy & Policy</li>
+        <li>Terms & Conditions</li>
+        <li>FAQ</li>
       </ul>
       <ul className="info-list">
         <li>Navigate</li>
-        <li><a href="">How We Work</a></li>
-        <li><a href="">Services</a></li>
-        <li><a href="">Faq</a></li>
-        <li><a href="">Contact</a></li>
-        <li><a href="">Free Qoute</a></li>
+        <li>How We Work</li>
+        <li>Services</li>
+        <li>FAQ</li>
+        <li>Contact</li>
+        <li>Free Quote</li>
       </ul>
       <ul className="info-list">
-        <li><a href="">Contact Us</a></li>
-        <li>Ricardo Margain 444</li>
-        <li>Call: +52 81 1234 5678</li>
-        <li>Email: info@challenge.com</li>
+        <li><a href="">{t('footer.contactUs')}</a></li>
+        <li>{systemSettings.websiteInfo.address}</li>
+        <li>{t('footer.call')}: {systemSettings.websiteInfo.phone}</li>
+        <li>{t('footer.email')}: {systemSettings.websiteInfo.email}</li>
         <img src={whatasppIcon} alt="" id="whatsapp"/>
       </ul>
     </footer>

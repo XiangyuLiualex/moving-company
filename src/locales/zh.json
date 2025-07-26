@@ -1,0 +1,296 @@
+{
+  "header": {
+    "movingService": "搬家服务",
+    "storageFurniture": "存储家具"
+  },
+  "storage": {
+    "title": "需要存储什么物品？",
+    "subtitle": "选择您想要存储的物品。每件物品都有固定的月费。我们会妥善保管！",
+    "chooseCity": "选择城市",
+    "storageDuration": "存储时长",
+    "selectCity": "选择城市",
+    "selectMonths": "选择月数",
+    "month": "月",
+    "months": "个月",
+    "categories": {
+      "luggage": "行李箱",
+      "transportation": "交通工具",
+      "electronics": "电子产品",
+      "furniture": "家具",
+      "homeDepotBoxes": "Home Depot纸箱",
+      "volumeStorage": "体积存储",
+      "pickupService": "上门取货服务"
+    },
+    "items": {
+      "carryOnLuggage": "登机箱\n(≤115cm)\n含轮子",
+      "checkedLuggage": "托运行李\n(≤165cm)\n含轮子",
+      "bicycle": "自行车\n不含电池\n电池需单独存储",
+      "tv": "电视\n不含包装盒\n(如有包装盒按纸箱计算)",
+      "gamingChair": "电竞椅\n不含脚托\n(脚托需单独计算)",
+      "twinMattress": "单人床垫\n(床架×2)\n如需床架价格×2",
+      "fullMattress": "双人床垫\n(床架×2)\n如需床架价格×2",
+      "queenMattress": "大双人床垫\n(床架×2)\n如需床架价格×2",
+      "kingMattress": "特大双人床垫\n(床架×2)\n如需床架价格×2",
+      "smallBox": "Home Depot\n小号纸箱\n(≤110cm)",
+      "mediumBox": "Home Depot\n中号纸箱\n(≤135cm)",
+      "largeBox": "Home Depot\n大号纸箱\n(≤150cm)",
+      "extraLargeBox": "Home Depot\n特大纸箱\n(≤165cm)",
+      "superLargeBox": "Home Depot\n超大纸箱\n(≤200cm)",
+      "volumeStorage": "体积存储",
+      "onlyBoxPickupNoStairs": "仅纸箱取货服务\n(每10个)\n无楼梯",
+      "onlyBoxPickupWithStairs": "仅纸箱取货服务\n(每10个)\n需要抬下楼梯",
+      "furniturePickupNoStairs": "家具取货服务\n无楼梯\n(可以抬下楼梯)",
+      "furniturePickupAssembly": "家具取货服务\n需要拆装\n(含拆装服务)"
+    },
+    "summary": {
+      "title": "费用摘要",
+      "totalItems": "总物品数",
+      "monthlyStorageCost": "月度存储费用",
+      "storageDuration": "存储时长",
+      "storageSubtotal": "存储小计",
+      "pickupServiceFee": "取货服务费",
+      "subtotal": "小计",
+      "tax": "税费",
+      "fuelSurcharge": "燃油附加费",
+      "insurance": "保险费",
+      "packaging": "包装费",
+      "total": "总计",
+      "tax": "税费",
+      "additionalFees": "额外费用"
+    },
+    "pricingInfo": {
+      "title": "存储价格说明",
+      "fixedMonthlyPrice": "固定月费：每件物品都有固定的月度存储价格",
+      "allWarehouses": "所有仓库：统一价格标准",
+      "noVolumeCalculation": "无体积计算：价格基于物品类型，而非体积"
+    },
+    "buttons": {
+      "clear": "清空",
+      "calculate": "计算"
+    },
+    "volumeStorage": {
+      "volume": ">6立方米",
+      "unit": "月"
+    }
+  },
+  "moving": {
+    "title": "需要搬运什么物品？",
+    "subtitle": "选择您想要搬运到新家的物品。我们会为您处理一切！",
+    "departureLocation": "出发地",
+    "arriveLocation": "到达地",
+    "selectCity": "选择城市",
+    "postalCode": "邮政编码",
+    "localServices": "本地服务 (可选)",
+    "serviceDescription": "取货和送货服务单独收费，${rate}/小时（含2人，最少2小时）",
+    "pickupService": "取货服务",
+    "deliveryService": "送货服务",
+    "hours": "小时",
+    "items": {
+      "beds": "床",
+      "fridge": "冰箱",
+      "furniture": "家具",
+      "oven": "烤箱",
+      "sofa": "沙发",
+      "tv": "电视",
+      "washerDryer": "洗衣机-烘干机",
+      "dining": "餐桌",
+      "desk": "书桌",
+      "wardrobe": "衣柜",
+      "smallBox": "Home Depot\n小号纸箱\n(≤110cm)",
+      "mediumBox": "Home Depot\n中号纸箱\n(≤135cm)",
+      "largeBox": "Home Depot\n大号纸箱\n(≤150cm)",
+      "extraLargeBox": "Home Depot\n特大纸箱\n(≤165cm)",
+      "superLargeBox": "Home Depot\n超大纸箱\n(≤200cm)"
+    },
+    "summary": {
+      "title": "费用摘要",
+      "totalItems": "总物品数",
+      "totalM2": "总平方米",
+      "totalPallets": "总板数",
+      "pricePerPallet": "每板价格",
+      "intercityFee": "跨省费用",
+      "localServiceFee": "本地服务费",
+      "subtotal": "小计",
+      "tax": "税费",
+      "fuelSurcharge": "燃油附加费",
+      "insurance": "保险费",
+      "packaging": "包装费",
+      "total": "总计",
+      "tax": "税费",
+      "additionalFees": "额外费用"
+    },
+    "pricingInfo": {
+      "title": "价格说明",
+      "intercityMoving": "跨省搬家：按板收费（1板 = 2平方米）",
+      "localServices": "本地服务：${rate}/小时（含2人，最少2小时）",
+      "palletizingFee": "打板费：已包含在跨省价格中"
+    },
+    "buttons": {
+      "clear": "清空",
+      "calculate": "计算"
+    }
+  },
+  "localMoving": {
+    "title": "同城搬家服务",
+    "subtitle": "专业的同城搬家服务，灵活的按小时计费。完美适用于同城搬迁。",
+    "serviceCities": "服务城市",
+    "serviceRules": "服务规则和价格",
+    "hourlyRate": "小时费率",
+    "perPersonPerHour": "每人每小时${rate}",
+    "minimumHours": "最少2小时",
+    "additionalPersonnel": "额外人员",
+    "extraPerPerson": "每增加一人额外${rate}",
+    "forTwoOrMore": "适用于2人或以上",
+    "depositRequired": "需要押金",
+    "threePlusPeople": "3人以上预订需要押金：",
+    "sixtyCAD": "$60加元或",
+    "threeHundredRMB": "¥300人民币",
+    "serviceIncludes": "服务包括",
+    "professionalTeam": "专业搬家团队",
+    "furnitureProtection": "家具保护",
+    "loadingUnloading": "装卸服务",
+    "basicAssembly": "基础拆装",
+    "readyToBook": "准备预订？",
+    "contactUs": "联系我们安排同城搬家服务",
+    "contactButton": "联系我们",
+    "contactInfo": "联系信息",
+    "companyName": "公司名称",
+    "phone": "电话",
+    "email": "邮箱",
+    "address": "地址",
+    "close": "关闭"
+  },
+  "movingService": {
+    "title": "选择搬家服务",
+    "subtitle": "请选择您需要的搬家服务类型",
+    "localMoving": "同城搬家",
+    "intercityMoving": "跨省搬家",
+    "localDescription": "同城范围内的搬家服务，专业人力支持",
+    "intercityDescription": "跨城市、跨省份的搬家服务，全套服务包"
+  },
+  "language": {
+    "zh": "中文",
+    "en": "English"
+  },
+  "footer": {
+    "contactUs": "联系我们",
+    "call": "电话",
+    "email": "邮箱",
+    "description": "专业的搬家服务公司，致力于为您提供安全、高效、贴心的搬家体验。我们拥有经验丰富的团队和先进的设备，确保您的物品在运输过程中得到最好的保护。"
+  },
+  "admin": {
+    "title": "管理员控制面板",
+    "subtitle": "管理网站配置和价格设置",
+    "logout": "退出登录",
+    "nav": {
+      "pricing": "价格管理",
+      "cities": "城市管理",
+      "settings": "系统设置"
+    },
+    "pricing": {
+      "title": "价格管理",
+      "intercity": "跨省搬家价格",
+      "intercityDesc": "管理城市间搬运的价格表",
+      "localServices": "本地服务价格",
+      "localServicesDesc": "管理取货和送货服务的价格",
+      "localMoving": "同城搬家价格",
+      "localMovingDesc": "管理同城搬家的价格设置",
+      "storage": "存储家具价格",
+      "storageDesc": "管理各类物品的存储价格",
+      "from": "出发城市",
+      "to": "到达城市",
+      "price": "价格",
+      "hourlyRate": "每人每小时费率",
+      "additionalPersonFee": "额外人员费用",
+      "deposit": "押金",
+      "save": "保存",
+      "reset": "重置",
+      "saveSuccess": "价格设置已保存！",
+      "resetConfirm": "确定要重置所有价格为默认值吗？",
+      "resetSuccess": "价格已重置为默认值！"
+    },
+              "cities": {
+            "title": "城市管理",
+            "description": "管理服务城市的启用状态",
+            "cityName": "城市名称",
+            "status": "状态",
+            "active": "启用",
+            "inactive": "禁用"
+          },
+    "items": {
+      "title": "物品管理", 
+      "description": "管理家具类型和体积系数"
+    },
+              "settings": {
+            "title": "系统设置",
+            "description": "管理网站基础配置和税率费用设置",
+            "basicConfig": {
+              "title": "基础配置",
+              "websiteInfo": "网站信息",
+              "titleZh": "中文标题",
+              "titleEn": "英文标题",
+              "descriptionZh": "中文描述",
+              "descriptionEn": "英文描述",
+              "contactInfo": "联系信息",
+              "companyName": "公司名称",
+              "phone": "联系电话",
+              "email": "邮箱地址",
+              "address": "公司地址"
+            },
+            "pageTitles": {
+              "title": "页面标题",
+              "home": "首页",
+              "movingService": "搬家服务",
+              "storage": "存储家具"
+            },
+            "taxAndFees": {
+              "title": "税率和费用",
+              "taxRates": "税率设置",
+              "gstRate": "GST税率",
+              "pstRate": "PST税率",
+              "gstEnabled": "启用GST",
+              "pstEnabled": "启用PST",
+              "additionalFees": "额外费用",
+              "fuelSurcharge": "燃油附加费",
+              "insuranceRate": "保险费率",
+              "packagingFee": "包装材料费",
+              "percentage": "百分比",
+              "fixedAmount": "固定金额"
+            },
+            "save": "保存设置",
+            "reset": "重置设置",
+            "saveSuccess": "系统设置已保存！",
+            "resetConfirm": "确定要重置所有系统设置为默认值吗？",
+            "resetSuccess": "系统设置已重置为默认值！"
+          },
+    "storageItems": {
+      "carryOnLuggage": "登机箱",
+      "checkedLuggage": "托运行李",
+      "bicycle": "自行车",
+      "tv": "电视",
+      "gamingChair": "电竞椅",
+      "twinBed": "单人床垫",
+      "fullBed": "双人床垫",
+      "queenBed": "大双人床垫",
+      "kingBed": "特大双人床垫",
+      "smallBox": "Home Depot小号纸箱",
+      "mediumBox": "Home Depot中号纸箱",
+      "largeBox": "Home Depot大号纸箱",
+      "extraLargeBox": "Home Depot特大纸箱",
+      "superLargeBox": "Home Depot超大纸箱",
+      "volumeStorage": "体积存储",
+      "onlyBoxPickupNoStairs": "仅纸箱取货服务(无楼梯)",
+      "onlyBoxPickupWithStairs": "仅纸箱取货服务(有楼梯)",
+      "furniturePickupNoStairs": "家具取货服务(无楼梯)",
+      "furniturePickupAssembly": "家具取货服务(含拆装)"
+    }
+  },
+  "login": {
+    "title": "管理员登录",
+    "subtitle": "请输入您的登录凭据",
+    "username": "用户名",
+    "password": "密码",
+    "login": "登录",
+    "loggingIn": "登录中..."
+  }
+} 

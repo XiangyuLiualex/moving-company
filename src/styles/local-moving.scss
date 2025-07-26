@@ -1,0 +1,350 @@
+@use 'variables';
+
+// 同城搬家页面样式 - 蓝色主题
+.local-moving-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  padding: min(10vw, 100px);
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  min-height: 100vh;
+  
+  .title {
+    text-align: center;
+    width: min(60vw, 500px);
+    
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      color: #1565c0;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    p {
+      line-height: 1.3rem;
+      color: #1976d2;
+      font-size: 0.9rem;
+    }
+  }
+  
+  .content-section {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 800px;
+    
+    .rules-section {
+      width: 100%;
+      
+      h2 {
+        font-size: 2rem;
+        color: #1565c0;
+        margin-bottom: 30px;
+        text-align: center;
+      }
+      
+      .cities-section {
+        margin-bottom: 40px;
+        
+        h3 {
+          font-size: 1.5rem;
+          color: #1565c0;
+          margin-bottom: 20px;
+          text-align: center;
+        }
+        
+        .cities-container {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 20px;
+          
+          .city-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(21, 101, 192, 0.1);
+            border: 2px solid #e3f2fd;
+            transition: all 0.3s ease;
+            
+            &:hover {
+              transform: translateY(-3px);
+              box-shadow: 0 8px 25px rgba(21, 101, 192, 0.2);
+              border-color: #2196f3;
+            }
+            
+            .city-icon {
+              font-size: 2.5rem;
+              min-width: 50px;
+              text-align: center;
+            }
+            
+            .city-content {
+              flex: 1;
+              
+              h4 {
+                font-size: 1.2rem;
+                color: #1565c0;
+                margin-bottom: 5px;
+                font-weight: bold;
+              }
+              
+              p {
+                color: #1976d2;
+                font-size: 0.9rem;
+                margin: 0;
+              }
+            }
+          }
+        }
+      }
+      
+      .rules-container {
+        display: grid;
+        gap: 25px;
+        margin-bottom: 40px;
+        
+        .rule-item {
+          display: flex;
+          align-items: flex-start;
+          gap: 20px;
+          background: rgba(255, 255, 255, 0.95);
+          padding: 25px;
+          border-radius: 15px;
+          box-shadow: 0 5px 15px rgba(21, 101, 192, 0.1);
+          border: 2px solid #e3f2fd;
+          transition: all 0.3s ease;
+          
+          &:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(21, 101, 192, 0.2);
+            border-color: #2196f3;
+          }
+          
+          .rule-icon {
+            font-size: 2.5rem;
+            min-width: 60px;
+            text-align: center;
+          }
+          
+          .rule-content {
+            flex: 1;
+            
+            h3 {
+              font-size: 1.3rem;
+              color: #1565c0;
+              margin-bottom: 10px;
+              font-weight: bold;
+            }
+            
+            p {
+              color: #1976d2;
+              margin-bottom: 8px;
+              line-height: 1.4;
+              
+              strong {
+                color: #1565c0;
+                font-weight: bold;
+              }
+            }
+            
+            ul {
+              list-style: none;
+              padding: 0;
+              margin: 10px 0 0 0;
+              
+              li {
+                color: #1976d2;
+                padding: 3px 0;
+                position: relative;
+                padding-left: 20px;
+                
+                &:before {
+                  content: "•";
+                  color: #2196f3;
+                  font-weight: bold;
+                  position: absolute;
+                  left: 0;
+                }
+              }
+            }
+          }
+        }
+      }
+      
+      .contact-section {
+        background: rgba(255, 255, 255, 0.95);
+        padding: 30px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 8px 25px rgba(21, 101, 192, 0.2);
+        border: 2px solid #2196f3;
+        
+        h3 {
+          font-size: 1.5rem;
+          color: #1565c0;
+          margin-bottom: 10px;
+        }
+        
+        p {
+          color: #1976d2;
+          margin-bottom: 20px;
+        }
+        
+        .contact-button {
+          background: #2196f3;
+          color: white;
+          border: none;
+          padding: 15px 30px;
+          border-radius: 10px;
+          font-size: 1.1rem;
+          font-weight: bold;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          
+          &:hover {
+            background: #1976d2;
+            transform: translateY(-2px);
+          }
+        }
+      }
+    }
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .local-moving-page {
+    padding: 20px;
+    gap: 30px;
+    
+    .title h1 {
+      font-size: 2rem;
+    }
+    
+    .content-section {
+      .rules-section {
+        .cities-section {
+          .cities-container {
+            grid-template-columns: 1fr;
+            gap: 15px;
+            
+            .city-item {
+              padding: 15px;
+              
+              .city-icon {
+                font-size: 2rem;
+                min-width: 40px;
+              }
+              
+              .city-content h4 {
+                font-size: 1.1rem;
+              }
+            }
+          }
+        }
+        
+        .rules-container {
+          gap: 20px;
+          
+          .rule-item {
+            flex-direction: column;
+            text-align: center;
+            gap: 15px;
+            
+            .rule-icon {
+              font-size: 2rem;
+              min-width: auto;
+            }
+            
+            .rule-content h3 {
+              font-size: 1.2rem;
+            }
+          }
+        }
+      }
+    }
+  }
+} 
+
+// 联系信息弹窗样式
+.contact-info-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+
+  .contact-info-content {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+
+    h4 {
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 1.3rem;
+      text-align: center;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 10px;
+    }
+
+    .contact-details {
+      margin-bottom: 25px;
+
+      .contact-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 0;
+        border-bottom: 1px solid #eee;
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        strong {
+          color: #333;
+          font-weight: 600;
+          min-width: 80px;
+        }
+
+        span {
+          color: #666;
+          text-align: right;
+          flex: 1;
+          margin-left: 15px;
+        }
+      }
+    }
+
+    .close-button {
+      width: 100%;
+      padding: 12px;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background: #0056b3;
+      }
+    }
+  }
+} 

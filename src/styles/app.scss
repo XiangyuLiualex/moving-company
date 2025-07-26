@@ -1,5 +1,6 @@
 @use 'variables';
 @import 'reset.css';
+@import 'header.scss';
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
 
 :root{
@@ -10,6 +11,19 @@
   display: grid;
   grid-template-rows: 130px 1fr auto;
   min-height: 100vh;
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .App {
+    grid-template-rows: auto 1fr auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .App {
+    grid-template-rows: auto 1fr auto;
+  }
 }
 
 a {
@@ -26,32 +40,21 @@ button{
   }
 }
 
-
-header, footer{
+// 页脚样式
+footer{
   background-color: variables.$orange;
   display: flex;
   justify-content: space-evenly;
-  align-items: baseline;
-  align-items: center;
+  align-items: flex-start;
   color: white;
-  padding: 0px 10px 0px 10px;
+  padding: 60px 10px 60px 10px;
+  gap: clamp(10px, 1vw, 25px);
+  font-size: 0.9rem;
+  
   img:not(.icon){
     width: 76px;
   }
-} 
-
-header{
-  ul{
-    display: flex;
-    gap: clamp(10px, 3vw, 55px);
-  }
-}
-
-footer{
-  gap: clamp(10px, 1vw, 25px);
-  padding: 60px 10px 60px 10px;
-  align-items: flex-start;
-  font-size: 0.9rem;
+  
   .icons{
     display: flex;
     gap: 15px;
@@ -86,20 +89,194 @@ footer{
   }
 }
 
-@media (max-width: 700px){
-  header{
-    flex-wrap: wrap;
-  }
+// 页脚响应式设计
+@media (max-width: 768px){
   footer{
     flex-direction: column;
-    align-items: baseline;
-    gap: 50px;
+    align-items: center;
+    gap: 30px;
+    padding: 40px 20px;
+    
     & > div{
       align-items: center;
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
     }
+    
     & > div, & > ul{
-      width: auto;
-      margin-left: 10vw;
+      width: 100%;
+      margin-left: 0;
     }
+    
+    p {
+      max-width: 100%;
+      text-align: center;
+      font-size: 0.85rem;
+    }
+    
+    ul {
+      text-align: center;
+      
+      &>*:first-child{
+        font-size: 1.3rem;
+        margin-bottom: 20px;
+        align-self: center;
+      }
+      
+      li {
+        font-size: 0.85rem;
+      }
+    }
+    
+    .icons {
+      justify-content: center;
+    }
+    
+    #whatsapp {
+      width: 150px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  footer {
+    padding: 25px 15px;
+    gap: 25px;
+    font-size: 0.8rem;
+    
+    & > div, & > ul {
+      gap: 8px;
+    }
+    
+    p {
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+    
+    ul {
+      &>*:first-child{
+        font-size: 1.1rem;
+        margin-bottom: 15px;
+      }
+      
+      li {
+        font-size: 0.8rem;
+      }
+    }
+    
+    .icons {
+      gap: 8px;
+    }
+    
+    .icon {
+      padding: 3px;
+      width: 30px;
+      height: 30px;
+    }
+    
+    img:not(.icon) {
+      width: 60px;
+    }
+    
+    #whatsapp {
+      width: 120px;
+    }
+  }
+}
+
+@media (max-width: 360px) {
+  footer {
+    padding: 20px 10px;
+    gap: 20px;
+    
+    & > div, & > ul {
+      gap: 6px;
+    }
+    
+    p {
+      font-size: 0.75rem;
+    }
+    
+    ul {
+      &>*:first-child{
+        font-size: 1rem;
+        margin-bottom: 12px;
+      }
+      
+      li {
+        font-size: 0.75rem;
+      }
+    }
+    
+    .icons {
+      gap: 6px;
+    }
+    
+    .icon {
+      width: 25px;
+      height: 25px;
+    }
+    
+    img:not(.icon) {
+      width: 50px;
+    }
+    
+    #whatsapp {
+      width: 100px;
+    }
+  }
+}
+
+// 通用移动端优化
+@media (max-width: 768px) {
+  * {
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-size: 14px;
+  }
+  
+  h1 {
+    font-size: 1.8rem !important;
+  }
+  
+  h2 {
+    font-size: 1.5rem !important;
+  }
+  
+  h3 {
+    font-size: 1.2rem !important;
+  }
+  
+  button {
+    min-height: 44px; // 确保触摸友好
+  }
+  
+  input, select, textarea {
+    font-size: 16px; // 防止iOS缩放
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 13px;
+  }
+  
+  h1 {
+    font-size: 1.5rem !important;
+  }
+  
+  h2 {
+    font-size: 1.3rem !important;
+  }
+  
+  h3 {
+    font-size: 1.1rem !important;
+  }
+  
+  .container, .page-container {
+    padding: 10px;
   }
 }

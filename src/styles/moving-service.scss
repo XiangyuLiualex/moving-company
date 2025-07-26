@@ -1,0 +1,160 @@
+@use 'variables';
+
+// 搬家服务选择页面样式
+.moving-service-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  padding: min(10vw, 100px);
+  background: linear-gradient(135deg, #fff5e6 0%, #ffe4b3 100%);
+  min-height: 100vh;
+  
+  .title {
+    text-align: center;
+    width: min(60vw, 500px);
+    
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      color: variables.$orange;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    p {
+      line-height: 1.3rem;
+      color: #666;
+      font-size: 0.9rem;
+    }
+  }
+  
+  .service-options {
+    display: flex;
+    gap: 40px;
+    width: 100%;
+    max-width: 1000px;
+    justify-content: center;
+    
+    .service-card {
+      flex: 1;
+      max-width: 450px;
+      padding: 40px 30px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      border: 3px solid transparent;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      text-align: center;
+      
+      &:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        border-color: variables.$orange;
+      }
+      
+      .service-icon {
+        margin-bottom: 25px;
+        
+        .icon-placeholder {
+          font-size: 4rem;
+          margin: 0 auto;
+          width: 80px;
+          height: 80px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: linear-gradient(135deg, variables.$orange, #ff8c42);
+          border-radius: 50%;
+          color: white;
+          box-shadow: 0 5px 15px rgba(255, 140, 0, 0.3);
+        }
+      }
+      
+      h2 {
+        font-size: 1.8rem;
+        margin-bottom: 15px;
+        color: variables.$orange;
+        font-weight: bold;
+      }
+      
+      p {
+        color: #666;
+        margin-bottom: 20px;
+        line-height: 1.4;
+      }
+      
+      ul {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 30px;
+        
+        li {
+          padding: 8px 0;
+          color: #555;
+          position: relative;
+          
+          &:before {
+            content: "✓";
+            color: variables.$orange;
+            font-weight: bold;
+            margin-right: 10px;
+          }
+        }
+      }
+      
+      .select-button {
+        background: variables.$orange;
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 10px;
+        font-size: 1.1rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+        
+        &:hover {
+          background: #ff8c42;
+          transform: scale(1.05);
+        }
+      }
+    }
+  }
+}
+
+// 响应式设计
+@media (max-width: 768px) {
+  .moving-service-page {
+    padding: 20px;
+    gap: 30px;
+    
+    .title h1 {
+      font-size: 2rem;
+    }
+    
+    .service-options {
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      
+      .service-card {
+        width: 100%;
+        max-width: 400px;
+        padding: 30px 20px;
+        
+        .service-icon .icon-placeholder {
+          font-size: 3rem;
+          width: 60px;
+          height: 60px;
+        }
+        
+        h2 {
+          font-size: 1.5rem;
+        }
+      }
+    }
+  }
+} 
