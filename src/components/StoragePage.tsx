@@ -14,7 +14,7 @@ import {
 } from '@mui/icons-material';
 import { AdminPricingData } from '../utils/adminUtils';
 import { getActiveCities } from '../utils/cityUtils';
-import { getSystemSettings, calculateTax, calculateAdditionalFees } from '../utils/systemUtils';
+import { defaultSystemSettings, SystemSettings, calculateTax, calculateAdditionalFees } from '../utils/systemUtils';
 import '../styles/storage.scss';
 
 interface ItemType {
@@ -31,20 +31,22 @@ function StoragePage(){
   const [itemQuantities, setItemQuantities] = useState<{[key: string]: number}>({});
   const [reset, setReset] = useState(false);
 
+  // 城市选项 - 改为异步获取
+  const [cities, setCities] = useState<string[]>([]);
+  const [systemSettings, setSystemSettings] = useState<SystemSettings>(defaultSystemSettings);
+
   // 从API加载价格数据
   const [pricingData, setPricingData] = useState<AdminPricingData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  
-  // 城市选项 - 改为异步获取
-  const [cities, setCities] = useState<string[]>([]);
 
   // 加载价格数据和城市数据
   useEffect(() => {
     const loadData = async () => {
       try {
-        const [pricingResponse, citiesData] = await Promise.all([
+        const [pricingResponse, citiesData, settingsResponse] = await Promise.all([
           fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001'}/api/pricing`),
-          getActiveCities()
+          getActiveCities(),
+          fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001'}/api/settings`)
         ]);
         
         if (pricingResponse.ok) {
@@ -52,6 +54,13 @@ function StoragePage(){
           setPricingData(pricingData);
         } else {
           console.error('Failed to fetch pricing data');
+        }
+        
+        if (settingsResponse.ok) {
+          const settingsData = await settingsResponse.json();
+          setSystemSettings(settingsData);
+        } else {
+          console.error('Failed to fetch system settings');
         }
         
         setCities(citiesData);

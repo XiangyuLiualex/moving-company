@@ -70,22 +70,32 @@ export const defaultSystemSettings: SystemSettings = {
   }
 };
 
-// 从localStorage获取系统设置
+// 从API获取系统设置
 export const getSystemSettings = (): SystemSettings => {
-  try {
-    const stored = localStorage.getItem('systemSettings');
-    return stored ? JSON.parse(stored) : defaultSystemSettings;
-  } catch {
-    return defaultSystemSettings;
-  }
+  // 这个函数现在只返回默认设置，实际设置通过API获取
+  return defaultSystemSettings;
 };
 
-// 保存系统设置到localStorage
-export const saveSystemSettings = (settings: SystemSettings): void => {
+// 保存系统设置到API
+export const saveSystemSettings = async (settings: SystemSettings): Promise<boolean> => {
   try {
-    localStorage.setItem('systemSettings', JSON.stringify(settings));
+    const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+    const response = await fetch(`${API_BASE_URL}/api/settings`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ settings }),
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to save system settings');
+    }
+    
+    return true;
   } catch (error) {
-    console.error('Failed to save system settings:', error);
+    console.error('Failed to save system settings to API:', error);
+    return false;
   }
 };
 

@@ -27,25 +27,6 @@ export const defaultCities: SimpleCityData[] = [
   }
 ];
 
-// 从localStorage获取城市数据
-export const getCitiesData = (): SimpleCityData[] => {
-  try {
-    const stored = localStorage.getItem('citiesData');
-    return stored ? JSON.parse(stored) : defaultCities;
-  } catch {
-    return defaultCities;
-  }
-};
-
-// 保存城市数据到localStorage
-export const saveCitiesData = (cities: SimpleCityData[]): void => {
-  try {
-    localStorage.setItem('citiesData', JSON.stringify(cities));
-  } catch (error) {
-    console.error('Failed to save cities data:', error);
-  }
-};
-
 // 获取启用的城市列表
 export const getActiveCities = async (): Promise<string[]> => {
   try {
@@ -86,13 +67,4 @@ export const getActiveCitiesDisplayNames = async (): Promise<{ [key: string]: st
     result[city.name] = city.displayName;
   });
   return result;
-};
-
-// 更新城市状态
-export const updateCityStatus = (cityId: string, isActive: boolean): void => {
-  const cities = getCitiesData();
-  const updatedCities = cities.map(city => 
-    city.id === cityId ? { ...city, isActive } : city
-  );
-  saveCitiesData(updatedCities);
 }; 

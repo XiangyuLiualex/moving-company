@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getActiveCitiesDisplayNames } from '../utils/cityUtils';
 import { AdminPricingData } from '../utils/adminUtils';
-import { getSystemSettings } from '../utils/systemUtils';
+import { defaultSystemSettings, SystemSettings } from '../utils/systemUtils';
 import '../styles/local-moving.scss';
 
 function LocalMovingPage() {
@@ -10,7 +10,7 @@ function LocalMovingPage() {
   const [pricingData, setPricingData] = useState<AdminPricingData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [showContactInfo, setShowContactInfo] = useState(false);
-  const systemSettings = getSystemSettings();
+  const [systemSettings, setSystemSettings] = useState<SystemSettings>(defaultSystemSettings);
   
   // 城市数据 - 改为异步获取
   const [activeCities, setActiveCities] = useState<{ [key: string]: string }>({});
@@ -19,9 +19,10 @@ function LocalMovingPage() {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const [pricingResponse, citiesData] = await Promise.all([
+        const [pricingResponse, citiesData, settingsResponse] = await Promise.all([
           fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001'}/api/pricing`),
-          getActiveCitiesDisplayNames()
+          getActiveCitiesDisplayNames(),
+          fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001'}/api/settings`)
         ]);
         
         if (pricingResponse.ok) {
@@ -29,6 +30,13 @@ function LocalMovingPage() {
           setPricingData(pricingData);
         } else {
           console.error('Failed to fetch pricing data');
+        }
+        
+        if (settingsResponse.ok) {
+          const settingsData = await settingsResponse.json();
+          setSystemSettings(settingsData);
+        } else {
+          console.error('Failed to fetch system settings');
         }
         
         setActiveCities(citiesData);

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AdminPricingData, loadPricingData, savePricingData, resetPricingData, City, loadCitiesData, saveCitiesData, loadSystemSettings, saveSystemSettings, resetSystemSettings } from '../utils/adminUtils';
-import { getCitiesData, saveCitiesData as saveCitiesLocal, updateCityStatus } from '../utils/cityUtils';
-import { getSystemSettings, saveSystemSettings as saveSettingsLocal, defaultSystemSettings } from '../utils/systemUtils';
+import { defaultSystemSettings } from '../utils/systemUtils';
 import { logout } from '../utils/authUtils';
 import { useNavigate } from 'react-router-dom';
 import type { SystemSettings } from '../utils/systemUtils';

@@ -4,7 +4,7 @@ import Item from './Item';
 import { Inventory2 } from '@mui/icons-material';
 import { AdminPricingData } from '../utils/adminUtils';
 import { getActiveCities } from '../utils/cityUtils';
-import { getSystemSettings, calculateTax, calculateAdditionalFees } from '../utils/systemUtils';
+import { defaultSystemSettings, SystemSettings, calculateTax, calculateAdditionalFees } from '../utils/systemUtils';
 import '../styles/main.scss';
 
 // 导入图片
@@ -52,7 +52,7 @@ function MovingPage(){
 
   // 城市选项 - 改为异步获取
   const [cities, setCities] = useState<string[]>([]);
-  const systemSettings = getSystemSettings();
+  const [systemSettings, setSystemSettings] = useState<SystemSettings>(defaultSystemSettings);
 
   // 从API加载价格数据
   const [pricingData, setPricingData] = useState<AdminPricingData | null>(null);
@@ -62,9 +62,10 @@ function MovingPage(){
   useEffect(() => {
     const loadData = async () => {
       try {
-        const [pricingResponse, citiesData] = await Promise.all([
+        const [pricingResponse, citiesData, settingsResponse] = await Promise.all([
           fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001'}/api/pricing`),
-          getActiveCities()
+          getActiveCities(),
+          fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001'}/api/settings`)
         ]);
         
         if (pricingResponse.ok) {
@@ -72,6 +73,13 @@ function MovingPage(){
           setPricingData(pricingData);
         } else {
           console.error('Failed to fetch pricing data');
+        }
+        
+        if (settingsResponse.ok) {
+          const settingsData = await settingsResponse.json();
+          setSystemSettings(settingsData);
+        } else {
+          console.error('Failed to fetch system settings');
         }
         
         setCities(citiesData);
