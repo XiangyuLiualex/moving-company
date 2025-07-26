@@ -71,7 +71,14 @@ function StoragePage(){
       }
     };
 
+    // 初始加载
     loadData();
+
+    // 每30秒自动刷新数据
+    const interval = setInterval(loadData, 30000);
+
+    // 清理定时器
+    return () => clearInterval(interval);
   }, []);
 
   // 从管理员设置加载物品类型和价格
@@ -395,6 +402,20 @@ function StoragePage(){
       <div className="title">
         <h1>{t('storage.title')}</h1>
         <p>{t('storage.subtitle')}</p>
+        <button 
+          onClick={() => window.location.reload()} 
+          style={{ 
+            marginTop: '10px', 
+            padding: '5px 10px', 
+            fontSize: '12px',
+            backgroundColor: '#f0f0f0',
+            border: '1px solid #ccc',
+            borderRadius: '4px',
+            cursor: 'pointer'
+          }}
+        >
+          刷新数据
+        </button>
       </div>
       
       {/* 位置和存储时间选择区域 */}

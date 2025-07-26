@@ -47,7 +47,14 @@ function LocalMovingPage() {
       }
     };
 
+    // 初始加载
     loadData();
+
+    // 每30秒自动刷新数据
+    const interval = setInterval(loadData, 30000);
+
+    // 清理定时器
+    return () => clearInterval(interval);
   }, []);
 
   if (isLoading) {
@@ -70,6 +77,20 @@ function LocalMovingPage() {
       <div className="title">
         <h1>{t('localMoving.title')}</h1>
         <p>{t('localMoving.subtitle')}</p>
+        <button 
+          onClick={() => window.location.reload()} 
+          style={{ 
+            marginTop: '10px', 
+            padding: '5px 10px', 
+            fontSize: '12px',
+            backgroundColor: '#f0f0f0',
+            border: '1px solid #ccc',
+            borderRadius: '4px',
+            cursor: 'pointer'
+          }}
+        >
+          刷新数据
+        </button>
       </div>
       
       <div className="content-section">
