@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { AdminPricingData, loadPricingData, savePricingData, resetPricingData, City } from '../utils/adminUtils';
-import { getCitiesData, saveCitiesData, updateCityStatus } from '../utils/cityUtils';
-import { getSystemSettings, saveSystemSettings, defaultSystemSettings } from '../utils/systemUtils';
+import { AdminPricingData, loadPricingData, savePricingData, resetPricingData, City, loadCitiesData, saveCitiesData, loadSystemSettings, saveSystemSettings, resetSystemSettings } from '../utils/adminUtils';
+import { getCitiesData, saveCitiesData as saveCitiesLocal, updateCityStatus } from '../utils/cityUtils';
+import { getSystemSettings, saveSystemSettings as saveSettingsLocal, defaultSystemSettings } from '../utils/systemUtils';
 import { logout } from '../utils/authUtils';
 import { useNavigate } from 'react-router-dom';
 import type { SystemSettings } from '../utils/systemUtils';
@@ -17,6 +17,7 @@ function AdminPage() {
   const [activeSection, setActiveSection] = useState<AdminSection>('pricing');
   const [pricingData, setPricingData] = useState<AdminPricingData | null>(null);
   const [systemSettings, setSystemSettings] = useState<SystemSettings | null>(null);
+  const [cities, setCities] = useState<any[]>([]);
   const [hasChanges, setHasChanges] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -24,12 +25,14 @@ function AdminPage() {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const [pricing, settings] = await Promise.all([
+        const [pricing, settings, citiesData] = await Promise.all([
           loadPricingData(),
-          Promise.resolve(getSystemSettings())
+          loadSystemSettings(),
+          loadCitiesData()
         ]);
         setPricingData(pricing);
         setSystemSettings(settings);
+        setCities(citiesData);
       } catch (error) {
         console.error('Failed to load data:', error);
       } finally {
@@ -56,11 +59,23 @@ function AdminPage() {
       } else {
         alert('保存失败，请重试');
       }
+    } else if (activeSection === 'cities') {
+      const success = await saveCitiesData(cities);
+      if (success) {
+        setHasChanges(false);
+        alert('城市设置保存成功');
+      } else {
+        alert('保存失败，请重试');
+      }
     } else if (activeSection === 'settings') {
-      saveSystemSettings(systemSettings!);
-      setSystemSettings({ ...systemSettings! }); // 直接用当前state刷新UI
-      setHasChanges(false);
-      alert(t('admin.settings.saveSuccess'));
+      const success = await saveSystemSettings(systemSettings!);
+      if (success) {
+        setSystemSettings({ ...systemSettings! }); // 直接用当前state刷新UI
+        setHasChanges(false);
+        alert(t('admin.settings.saveSuccess'));
+      } else {
+        alert('保存失败，请重试');
+      }
     }
   };
 
@@ -80,10 +95,15 @@ function AdminPage() {
       }
     } else if (activeSection === 'settings') {
       if (window.confirm(t('admin.settings.resetConfirm'))) {
-        setSystemSettings(defaultSystemSettings);
-        saveSystemSettings(defaultSystemSettings);
-        setHasChanges(false);
-        alert(t('admin.settings.resetSuccess'));
+        try {
+          const defaultData = await resetSystemSettings();
+          setSystemSettings(defaultData);
+          setHasChanges(false);
+          alert(t('admin.settings.resetSuccess'));
+        } catch (error) {
+          console.error('Failed to reset system settings:', error);
+          alert('重置失败，请重试');
+        }
       }
     }
   };
@@ -182,7 +202,14 @@ function AdminPage() {
           />
         );
       case 'cities':
-        return <CitiesManagement />;
+        return (
+          <CitiesManagement 
+            cities={cities}
+            onUpdateCities={setCities}
+            onSave={handleSave}
+            hasChanges={hasChanges}
+          />
+        );
       case 'settings':
         return (
           <SystemSettingsManagement 
@@ -515,25 +542,21 @@ interface CityData {
   description: string;
 }
 
+interface CitiesManagementProps {
+  cities: any[];
+  onUpdateCities: (cities: any[]) => void;
+  onSave: () => void;
+  hasChanges: boolean;
+}
 
-
-function CitiesManagement() {
+function CitiesManagement({ cities, onUpdateCities, onSave, hasChanges }: CitiesManagementProps) {
   const { t } = useTranslation();
-  const [cities, setCities] = useState<SimpleCityData[]>([]);
-
-  // 加载城市数据
-  useEffect(() => {
-    const citiesData = getCitiesData();
-    setCities(citiesData);
-  }, []);
 
   const handleToggleCityStatus = (cityId: string) => {
     const updatedCities = cities.map(city => 
       city.id === cityId ? { ...city, isActive: !city.isActive } : city
     );
-    setCities(updatedCities);
-    saveCitiesData(updatedCities);
-    updateCityStatus(cityId, !cities.find(city => city.id === cityId)?.isActive || false);
+    onUpdateCities(updatedCities);
   };
 
   return (
@@ -541,6 +564,15 @@ function CitiesManagement() {
       <div className="cities-header">
         <h2>{t('admin.cities.title')}</h2>
         <p>{t('admin.cities.description')}</p>
+        <div className="cities-actions">
+          <button 
+            className="save-btn" 
+            onClick={onSave}
+            disabled={!hasChanges}
+          >
+            保存
+          </button>
+        </div>
       </div>
 
       {/* 城市列表 */}

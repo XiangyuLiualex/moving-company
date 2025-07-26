@@ -91,6 +91,108 @@ export const resetPricingData = async (): Promise<AdminPricingData> => {
   }
 };
 
+// 从后端API加载城市数据
+export const loadCitiesData = async (): Promise<any[]> => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/cities`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch cities data');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Failed to load cities data from API:', error);
+    // 返回默认数据作为后备
+    return [];
+  }
+};
+
+// 保存城市数据到后端API
+export const saveCitiesData = async (cities: any[]): Promise<boolean> => {
+  try {
+    // 逐个更新城市数据
+    for (const city of cities) {
+      const response = await fetch(`${API_BASE_URL}/api/cities/${city.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          city_name: city.name,
+          city_icon: city.icon || '🏙️',
+          is_active: city.isActive ? 1 : 0
+        }),
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to save city data');
+      }
+    }
+    
+    return true;
+  } catch (error) {
+    console.error('Failed to save cities data to API:', error);
+    return false;
+  }
+};
+
+// 从后端API加载系统设置
+export const loadSystemSettings = async (): Promise<any> => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/settings`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch system settings');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Failed to load system settings from API:', error);
+    // 返回默认数据作为后备
+    return {};
+  }
+};
+
+// 保存系统设置到后端API
+export const saveSystemSettings = async (settings: any): Promise<boolean> => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/settings`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ settings }),
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to save system settings');
+    }
+    
+    return true;
+  } catch (error) {
+    console.error('Failed to save system settings to API:', error);
+    return false;
+  }
+};
+
+// 重置系统设置为默认值
+export const resetSystemSettings = async (): Promise<any> => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/settings/reset`, {
+      method: 'POST',
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to reset system settings');
+    }
+    
+    // 重新加载默认数据
+    return await loadSystemSettings();
+  } catch (error) {
+    console.error('Failed to reset system settings:', error);
+    return {};
+  }
+};
+
 // 默认价格数据（作为后备）
 export const defaultPricingData: AdminPricingData = {
   // 跨省搬家价格

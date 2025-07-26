@@ -38,6 +38,17 @@ const initDatabase = () => {
     )
   `);
 
+  // 系统设置表
+  db.exec(`
+    CREATE TABLE IF NOT EXISTS system_settings (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      setting_key TEXT UNIQUE NOT NULL,
+      setting_value TEXT NOT NULL,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )
+  `);
+
   // 插入默认价格数据
   const defaultPricing = {
     intercityPricing: JSON.stringify({
@@ -183,6 +194,28 @@ const initDatabase = () => {
     { name: 'Winnipeg', icon: '🏞️', active: 1 }
   ];
 
+  // 插入默认系统设置数据
+  const defaultSystemSettings = {
+    'websiteInfo.titleZh': '搬家服务公司',
+    'websiteInfo.titleEn': 'Moving Company',
+    'websiteInfo.descriptionZh': '专业的搬家服务，提供同城搬家、跨省搬家、家具存储等服务',
+    'websiteInfo.descriptionEn': 'Professional moving services including local moving, intercity moving, and furniture storage',
+    'websiteInfo.companyName': '搬家服务公司',
+    'websiteInfo.phone': '+1-xxx-xxx-xxxx',
+    'websiteInfo.email': 'info@movingcompany.com',
+    'websiteInfo.address': 'Vancouver, BC, Canada',
+    'taxAndFees.gstRate': '5',
+    'taxAndFees.pstRate': '7',
+    'taxAndFees.gstEnabled': 'true',
+    'taxAndFees.pstEnabled': 'true',
+    'taxAndFees.fuelSurcharge': '3',
+    'taxAndFees.fuelSurchargeEnabled': 'true',
+    'taxAndFees.insuranceRate': '1',
+    'taxAndFees.insuranceEnabled': 'true',
+    'taxAndFees.packagingFee': '20',
+    'taxAndFees.packagingEnabled': 'true'
+  };
+
   // 检查是否已有数据
   const existingPricing = db.prepare('SELECT COUNT(*) as count FROM pricing_config').get();
   if (existingPricing.count === 0) {
@@ -197,6 +230,14 @@ const initDatabase = () => {
     const insertCity = db.prepare('INSERT OR IGNORE INTO cities_config (city_name, city_icon, is_active) VALUES (?, ?, ?)');
     defaultCities.forEach(city => {
       insertCity.run(city.name, city.icon, city.active);
+    });
+  }
+
+  const existingSettings = db.prepare('SELECT COUNT(*) as count FROM system_settings').get();
+  if (existingSettings.count === 0) {
+    const insertSetting = db.prepare('INSERT OR IGNORE INTO system_settings (setting_key, setting_value) VALUES (?, ?)');
+    Object.entries(defaultSystemSettings).forEach(([key, value]) => {
+      insertSetting.run(key, value);
     });
   }
 };
@@ -295,6 +336,83 @@ app.delete('/api/cities/:id', (req, res) => {
     stmt.run(id);
     
     res.json({ success: true, message: '城市已删除' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// 获取系统设置
+app.get('/api/settings', (req, res) => {
+  try {
+    const stmt = db.prepare('SELECT setting_key, setting_value FROM system_settings');
+    const rows = stmt.all();
+    
+    const settings = {};
+    rows.forEach(row => {
+      const keys = row.setting_key.split('.');
+      let current = settings;
+      
+      for (let i = 0; i < keys.length - 1; i++) {
+        if (!current[keys[i]]) {
+          current[keys[i]] = {};
+        }
+        current = current[keys[i]];
+      }
+      
+      // 处理布尔值
+      if (row.setting_value === 'true' || row.setting_value === 'false') {
+        current[keys[keys.length - 1]] = row.setting_value === 'true';
+      } else if (!isNaN(row.setting_value)) {
+        current[keys[keys.length - 1]] = parseFloat(row.setting_value);
+      } else {
+        current[keys[keys.length - 1]] = row.setting_value;
+      }
+    });
+    
+    res.json(settings);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// 更新系统设置
+app.put('/api/settings', (req, res) => {
+  try {
+    const { settings } = req.body;
+    
+    const updateStmt = db.prepare('UPDATE system_settings SET setting_value = ?, updated_at = CURRENT_TIMESTAMP WHERE setting_key = ?');
+    const insertStmt = db.prepare('INSERT OR REPLACE INTO system_settings (setting_key, setting_value, updated_at) VALUES (?, ?, CURRENT_TIMESTAMP)');
+    
+    const flattenSettings = (obj, prefix = '') => {
+      const result = {};
+      Object.entries(obj).forEach(([key, value]) => {
+        const newKey = prefix ? `${prefix}.${key}` : key;
+        if (typeof value === 'object' && value !== null) {
+          Object.assign(result, flattenSettings(value, newKey));
+        } else {
+          result[newKey] = String(value);
+        }
+      });
+      return result;
+    };
+    
+    const flattenedSettings = flattenSettings(settings);
+    Object.entries(flattenedSettings).forEach(([key, value]) => {
+      insertStmt.run(key, value);
+    });
+    
+    res.json({ success: true, message: '系统设置已更新' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// 重置系统设置为默认值
+app.post('/api/settings/reset', (req, res) => {
+  try {
+    db.prepare('DELETE FROM system_settings').run();
+    initDatabase();
+    res.json({ success: true, message: '系统设置已重置为默认值' });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
