@@ -13,7 +13,7 @@ import {
   LocalShipping 
 } from '@mui/icons-material';
 import { AdminPricingData } from '../utils/adminUtils';
-import { getActiveCities } from '../utils/cityUtils';
+import { getActiveCities, SimpleCityData } from '../utils/cityUtils';
 import { defaultSystemSettings, SystemSettings, calculateTax, calculateAdditionalFees } from '../utils/systemUtils';
 import '../styles/storage.scss';
 
@@ -32,7 +32,7 @@ function StoragePage(){
   const [reset, setReset] = useState(false);
 
   // 城市选项 - 改为异步获取
-  const [cities, setCities] = useState<string[]>([]);
+  const [cities, setCities] = useState<SimpleCityData[]>([]);
   const [systemSettings, setSystemSettings] = useState<SystemSettings>(defaultSystemSettings);
 
   // 从API加载价格数据
@@ -416,7 +416,7 @@ function StoragePage(){
             >
               <option value="">{t('storage.selectCity')}</option>
               {cities.map(city => (
-                <option key={city} value={city}>{city}</option>
+                <option key={city.name} value={city.name}>{city.name}</option>
               ))}
             </select>
           </div>

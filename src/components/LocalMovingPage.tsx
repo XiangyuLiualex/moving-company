@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { getActiveCitiesDisplayNames } from '../utils/cityUtils';
+import { getActiveCities, SimpleCityData } from '../utils/cityUtils';
 import { AdminPricingData } from '../utils/adminUtils';
-import { defaultSystemSettings, SystemSettings } from '../utils/systemUtils';
+import { SystemSettings, defaultSystemSettings } from '../utils/systemUtils';
 import '../styles/local-moving.scss';
 
 function LocalMovingPage() {
@@ -13,7 +13,7 @@ function LocalMovingPage() {
   const [systemSettings, setSystemSettings] = useState<SystemSettings>(defaultSystemSettings);
   
   // 城市数据 - 改为异步获取
-  const [activeCities, setActiveCities] = useState<{ [key: string]: string }>({});
+  const [activeCities, setActiveCities] = useState<SimpleCityData[]>([]);
 
   // 加载价格数据和城市数据
   useEffect(() => {
@@ -21,7 +21,7 @@ function LocalMovingPage() {
       try {
         const [pricingResponse, citiesData, settingsResponse] = await Promise.all([
           fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001'}/api/pricing`),
-          getActiveCitiesDisplayNames(),
+          getActiveCities(),
           fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001'}/api/settings`)
         ]);
         
@@ -98,12 +98,12 @@ function LocalMovingPage() {
                   'Winnipeg': 'Winnipeg Metropolitan Area'
                 };
                 
-                return Object.entries(activeCities).map(([cityName, displayName]) => (
-                  <div key={cityName} className="city-item">
-                    <div className="city-icon">{cityIcons[cityName as keyof typeof cityIcons] || '🏙️'}</div>
+                return activeCities.map((city) => (
+                  <div key={city.name} className="city-item">
+                    <div className="city-icon">{cityIcons[city.name as keyof typeof cityIcons] || '🏙️'}</div>
                     <div className="city-content">
-                      <h4>{displayName}</h4>
-                      <p>{cityDescriptions[cityName as keyof typeof cityDescriptions] || 'Metropolitan Area'}</p>
+                      <h4>{city.displayName}</h4>
+                      <p>{cityDescriptions[city.name as keyof typeof cityDescriptions] || 'Metropolitan Area'}</p>
                     </div>
                   </div>
                 ));

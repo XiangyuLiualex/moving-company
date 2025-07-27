@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import Item from './Item';
 import { Inventory2 } from '@mui/icons-material';
 import { AdminPricingData } from '../utils/adminUtils';
-import { getActiveCities } from '../utils/cityUtils';
+import { getActiveCities, SimpleCityData } from '../utils/cityUtils';
 import { defaultSystemSettings, SystemSettings, calculateTax, calculateAdditionalFees } from '../utils/systemUtils';
 import '../styles/main.scss';
 
@@ -52,7 +52,7 @@ function MovingPage(){
   });
 
   // 城市选项 - 改为异步获取
-  const [cities, setCities] = useState<string[]>([]);
+  const [cities, setCities] = useState<SimpleCityData[]>([]);
   const [systemSettings, setSystemSettings] = useState<SystemSettings>(defaultSystemSettings);
 
   // 从API加载价格数据
@@ -271,15 +271,15 @@ function MovingPage(){
               <option value="">{t('moving.selectCity')}</option>
               {cities.map(city => (
                 <option 
-                  key={city} 
-                  value={city}
-                  disabled={!isCitySelectable(city, true)}
+                  key={city.name} 
+                  value={city.name}
+                  disabled={!isCitySelectable(city.name, true)}
                   style={{
-                    color: isCitySelectable(city, true) ? 'inherit' : '#ccc',
-                    fontStyle: isCitySelectable(city, true) ? 'normal' : 'italic'
+                    color: isCitySelectable(city.name, true) ? 'inherit' : '#ccc',
+                    fontStyle: isCitySelectable(city.name, true) ? 'normal' : 'italic'
                   }}
                 >
-                  {city} {!isCitySelectable(city, true) && '(Already Selected)'}
+                  {city.name} {!isCitySelectable(city.name, true) && '(Already Selected)'}
                 </option>
               ))}
             </select>
@@ -302,15 +302,15 @@ function MovingPage(){
               <option value="">{t('moving.selectCity')}</option>
               {cities.map(city => (
                 <option 
-                  key={city} 
-                  value={city}
-                  disabled={!isCitySelectable(city, false)}
+                  key={city.name} 
+                  value={city.name}
+                  disabled={!isCitySelectable(city.name, false)}
                   style={{
-                    color: isCitySelectable(city, false) ? 'inherit' : '#ccc',
-                    fontStyle: isCitySelectable(city, false) ? 'normal' : 'italic'
+                    color: isCitySelectable(city.name, false) ? 'inherit' : '#ccc',
+                    fontStyle: isCitySelectable(city.name, false) ? 'normal' : 'italic'
                   }}
                 >
-                  {city} {!isCitySelectable(city, false) && '(Already Selected)'}
+                  {city.name} {!isCitySelectable(city.name, false) && '(Already Selected)'}
                 </option>
               ))}
             </select>
