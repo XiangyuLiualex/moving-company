@@ -235,7 +235,6 @@ function AdminPage() {
             cities={cities}
             onUpdateCities={handleUpdateCities}
             onSave={handleSave}
-            onReset={handleReset}
             hasChanges={hasChanges}
           />
         );
@@ -575,11 +574,10 @@ interface CitiesManagementProps {
   cities: any[];
   onUpdateCities: (cities: any[]) => void;
   onSave: () => void;
-  onReset: () => void;
   hasChanges: boolean;
 }
 
-function CitiesManagement({ cities, onUpdateCities, onSave, onReset, hasChanges }: CitiesManagementProps) {
+function CitiesManagement({ cities, onUpdateCities, onSave, hasChanges }: CitiesManagementProps) {
   const { t } = useTranslation();
 
   const handleToggleCityStatus = (cityId: string) => {
@@ -593,7 +591,6 @@ function CitiesManagement({ cities, onUpdateCities, onSave, onReset, hasChanges 
     <div className="cities-management">
       <div className="cities-header">
         <h2>{t('admin.cities.title')}</h2>
-        <p>{t('admin.cities.description')}</p>
         <div className="cities-actions">
           <button 
             className="save-btn" 
@@ -601,12 +598,6 @@ function CitiesManagement({ cities, onUpdateCities, onSave, onReset, hasChanges 
             disabled={!hasChanges}
           >
             {t('admin.cities.save')}
-          </button>
-          <button 
-            className="reset-btn" 
-            onClick={onReset}
-          >
-            {t('admin.cities.reset')}
           </button>
         </div>
       </div>
