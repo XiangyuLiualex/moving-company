@@ -175,6 +175,43 @@
         }
       }
     }
+    
+    .cities-actions {
+      display: flex;
+      gap: 15px;
+      
+      button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        
+        &.save-btn {
+          background: #28a745;
+          color: white;
+          
+          &:hover:not(:disabled) {
+            background: #218838;
+          }
+          
+          &:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+          }
+        }
+        
+        &.reset-btn {
+          background: #dc3545;
+          color: white;
+          
+          &:hover {
+            background: #c82333;
+          }
+        }
+      }
+    }
   }
 
   .pricing-sections {
