@@ -215,7 +215,9 @@
       "cityName": "City Name",
       "status": "Status",
       "active": "Active",
-      "inactive": "Inactive"
+      "inactive": "Inactive",
+      "save": "Save",
+      "reset": "Reset"
     },
     "items": {
       "title": "Items Management",

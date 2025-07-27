@@ -95,6 +95,18 @@ function AdminPage() {
           alert('重置失败，请重试');
         }
       }
+    } else if (activeSection === 'cities') {
+      if (window.confirm('确定要重置城市设置吗？')) {
+        try {
+          const citiesData = await loadCitiesData();
+          setCities(citiesData);
+          setHasChanges(false);
+          alert('城市设置已重置');
+        } catch (error) {
+          console.error('Failed to reset cities data:', error);
+          alert('重置失败，请重试');
+        }
+      }
     } else if (activeSection === 'settings') {
       if (window.confirm(t('admin.settings.resetConfirm'))) {
         try {
@@ -223,6 +235,7 @@ function AdminPage() {
             cities={cities}
             onUpdateCities={handleUpdateCities}
             onSave={handleSave}
+            onReset={handleReset}
             hasChanges={hasChanges}
           />
         );
@@ -562,10 +575,11 @@ interface CitiesManagementProps {
   cities: any[];
   onUpdateCities: (cities: any[]) => void;
   onSave: () => void;
+  onReset: () => void;
   hasChanges: boolean;
 }
 
-function CitiesManagement({ cities, onUpdateCities, onSave, hasChanges }: CitiesManagementProps) {
+function CitiesManagement({ cities, onUpdateCities, onSave, onReset, hasChanges }: CitiesManagementProps) {
   const { t } = useTranslation();
 
   const handleToggleCityStatus = (cityId: string) => {
@@ -586,7 +600,13 @@ function CitiesManagement({ cities, onUpdateCities, onSave, hasChanges }: Cities
             onClick={onSave}
             disabled={!hasChanges}
           >
-            保存
+            {t('admin.cities.save')}
+          </button>
+          <button 
+            className="reset-btn" 
+            onClick={onReset}
+          >
+            {t('admin.cities.reset')}
           </button>
         </div>
       </div>
