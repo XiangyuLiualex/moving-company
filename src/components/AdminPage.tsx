@@ -1,12 +1,45 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { AdminPricingData, loadPricingData, savePricingData, resetPricingData, City, loadCitiesData, saveCitiesData, loadSystemSettings, saveSystemSettings, resetSystemSettings } from '../utils/adminUtils';
-import { defaultSystemSettings, type SystemSettings } from '../utils/systemUtils';
-import { logout } from '../utils/authUtils';
 import { useNavigate } from 'react-router-dom';
-
+import { defaultSystemSettings, type SystemSettings } from '../utils/systemUtils';
+import { loadPricingData, savePricingData, resetPricingData, loadCitiesData, saveCitiesData, loadSystemSettings, saveSystemSettings, resetSystemSettings } from '../utils/adminUtils';
+import type { AdminPricingData, City } from '../utils/adminUtils';
+import { logout } from '../utils/authUtils';
 import type { SimpleCityData } from '../utils/cityUtils';
 import '../styles/AdminPage.scss';
+
+// Toast提示组件
+interface ToastProps {
+  message: string;
+  type: 'success' | 'error';
+  isVisible: boolean;
+  onClose: () => void;
+}
+
+function Toast({ message, type, isVisible, onClose }: ToastProps) {
+  useEffect(() => {
+    if (isVisible) {
+      const timer = setTimeout(() => {
+        onClose();
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [isVisible, onClose]);
+
+  if (!isVisible) return null;
+
+  return (
+    <div className={`toast toast-${type}`}>
+      <div className="toast-content">
+        <span className="toast-icon">
+          {type === 'success' ? '✓' : '✕'}
+        </span>
+        <span className="toast-message">{message}</span>
+      </div>
+      <button className="toast-close" onClick={onClose}>×</button>
+    </div>
+  );
+}
 
 type AdminSection = 'pricing' | 'cities' | 'settings';
 
@@ -19,6 +52,25 @@ function AdminPage() {
   const [cities, setCities] = useState<any[]>([]);
   const [hasChanges, setHasChanges] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  
+  // Toast状态
+  const [toast, setToast] = useState<{
+    message: string;
+    type: 'success' | 'error';
+    isVisible: boolean;
+  }>({
+    message: '',
+    type: 'success',
+    isVisible: false
+  });
+
+  const showToast = (message: string, type: 'success' | 'error') => {
+    setToast({ message, type, isVisible: true });
+  };
+
+  const hideToast = () => {
+    setToast(prev => ({ ...prev, isVisible: false }));
+  };
 
   // 加载数据
   useEffect(() => {
@@ -54,17 +106,17 @@ function AdminPage() {
       const success = await savePricingData(pricingData!);
       if (success) {
         setHasChanges(false);
-        alert(t('admin.pricing.saveSuccess'));
+        showToast(t('admin.pricing.saveSuccess'), 'success');
       } else {
-        alert('保存失败，请重试');
+        showToast('保存失败，请重试', 'error');
       }
     } else if (activeSection === 'cities') {
       const success = await saveCitiesData(cities);
       if (success) {
         setHasChanges(false);
-        alert('城市设置保存成功');
+        showToast('城市设置保存成功', 'success');
       } else {
-        alert('保存失败，请重试');
+        showToast('保存失败，请重试', 'error');
       }
     } else if (activeSection === 'settings') {
       console.log('准备保存系统设置:', systemSettings);
@@ -73,10 +125,10 @@ function AdminPage() {
         setSystemSettings({ ...systemSettings! }); // 直接用当前state刷新UI
         setHasChanges(false);
         console.log('系统设置保存成功');
-        alert(t('admin.settings.saveSuccess'));
+        showToast(t('admin.settings.saveSuccess'), 'success');
       } else {
         console.error('系统设置保存失败');
-        alert('保存失败，请重试');
+        showToast('保存失败，请重试', 'error');
       }
     }
   };
@@ -89,10 +141,10 @@ function AdminPage() {
           const defaultData = await resetPricingData();
           setPricingData(defaultData);
           setHasChanges(false);
-          alert(t('admin.pricing.resetSuccess'));
+          showToast(t('admin.pricing.resetSuccess'), 'success');
         } catch (error) {
           console.error('Failed to reset pricing data:', error);
-          alert('重置失败，请重试');
+          showToast('重置失败，请重试', 'error');
         }
       }
     } else if (activeSection === 'cities') {
@@ -101,10 +153,10 @@ function AdminPage() {
           const citiesData = await loadCitiesData();
           setCities(citiesData);
           setHasChanges(false);
-          alert('城市设置已重置');
+          showToast('城市设置已重置', 'success');
         } catch (error) {
           console.error('Failed to reset cities data:', error);
-          alert('重置失败，请重试');
+          showToast('重置失败，请重试', 'error');
         }
       }
     } else if (activeSection === 'settings') {
@@ -113,10 +165,10 @@ function AdminPage() {
           const defaultData = await resetSystemSettings();
           setSystemSettings(defaultData);
           setHasChanges(false);
-          alert(t('admin.settings.resetSuccess'));
+          showToast(t('admin.settings.resetSuccess'), 'success');
         } catch (error) {
           console.error('Failed to reset system settings:', error);
-          alert('重置失败，请重试');
+          showToast('重置失败，请重试', 'error');
         }
       }
     }
@@ -264,6 +316,12 @@ function AdminPage() {
 
   return (
     <div className="admin-page">
+      <Toast 
+        message={toast.message}
+        type={toast.type}
+        isVisible={toast.isVisible}
+        onClose={hideToast}
+      />
       <div className="admin-header">
         <div className="header-content">
           <div className="header-left">
