@@ -175,52 +175,6 @@
         }
       }
     }
-    
-
-  }
-}
-
-// 城市管理样式
-.cities-management {
-  .cities-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 30px;
-    
-    h2 {
-      margin-bottom: 0;
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-    
-    .cities-actions {
-      display: flex;
-      gap: 15px;
-      
-      button {
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 0.9rem;
-        transition: all 0.3s ease;
-        
-        &.save-btn {
-          background: #28a745;
-          color: white;
-          
-          &:hover:not(:disabled) {
-            background: #218838;
-          }
-          
-          &:disabled {
-            background: #6c757d;
-            cursor: not-allowed;
-          }
-        }
-      }
-    }
   }
 
   .pricing-sections {
@@ -586,17 +540,43 @@
 // 城市管理样式
 .cities-management {
   .cities-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 30px;
     
     h2 {
-      margin-bottom: 10px;
+      margin-bottom: 0;
       border-bottom: none;
       padding-bottom: 0;
     }
     
-    p {
-      color: #666;
-      margin-bottom: 0;
+    .cities-actions {
+      display: flex;
+      gap: 15px;
+      
+      button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        
+        &.save-btn {
+          background: #28a745;
+          color: white;
+          
+          &:hover:not(:disabled) {
+            background: #218838;
+          }
+          
+          &:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+          }
+        }
+      }
     }
   }
 
