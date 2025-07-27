@@ -62,26 +62,36 @@ function MovingPage(){
   useEffect(() => {
     const loadData = async () => {
       try {
+        console.log('开始加载数据...');
         const [pricingResponse, citiesData, settingsResponse] = await Promise.all([
           fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001'}/api/pricing`),
           getActiveCities(),
           fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001'}/api/settings`)
         ]);
         
+        console.log('API响应状态:', {
+          pricing: pricingResponse.ok,
+          cities: 'async function',
+          settings: settingsResponse.ok
+        });
+        
         if (pricingResponse.ok) {
           const pricingData = await pricingResponse.json();
           setPricingData(pricingData);
+          console.log('价格数据加载成功:', pricingData);
         } else {
           console.error('Failed to fetch pricing data');
         }
         
         if (settingsResponse.ok) {
           const settingsData = await settingsResponse.json();
+          console.log('系统设置数据:', settingsData);
           setSystemSettings(settingsData);
         } else {
           console.error('Failed to fetch system settings');
         }
         
+        console.log('城市数据:', citiesData);
         setCities(citiesData);
       } catch (error) {
         console.error('Error loading data:', error);
