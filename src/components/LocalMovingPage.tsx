@@ -97,13 +97,23 @@ function LocalMovingPage() {
                   'Calgary': 'Calgary Metropolitan Area',
                   'Winnipeg': 'Winnipeg Metropolitan Area'
                 };
+                const cityChineseNames = {
+                  'Vancouver': '温哥华',
+                  'Calgary': '卡尔加里',
+                  'Winnipeg': '温尼伯'
+                };
+                const cityChineseDescriptions = {
+                  'Vancouver': '大温哥华地区',
+                  'Calgary': '卡尔加里都会区',
+                  'Winnipeg': '温尼伯都会区'
+                };
                 
                 return activeCities.map((city) => (
                   <div key={city.name} className="city-item">
                     <div className="city-icon">{cityIcons[city.name as keyof typeof cityIcons] || '🏙️'}</div>
                     <div className="city-content">
-                      <h4>{city.displayName}</h4>
-                      <p>{cityDescriptions[city.name as keyof typeof cityDescriptions] || 'Metropolitan Area'}</p>
+                      <h4>{cityChineseNames[city.name as keyof typeof cityChineseNames] || city.displayName}</h4>
+                      <p>{cityChineseDescriptions[city.name as keyof typeof cityChineseDescriptions] || cityDescriptions[city.name as keyof typeof cityDescriptions] || 'Metropolitan Area'}</p>
                     </div>
                   </div>
                 ));
