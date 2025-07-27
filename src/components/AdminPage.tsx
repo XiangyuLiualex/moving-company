@@ -174,6 +174,11 @@ function AdminPage() {
   const updateSystemSettings = (field: string, value: any) => {
     console.log('updateSystemSettings 被调用:', { field, value, valueType: typeof value });
     
+    // 特别关注基础配置的更新
+    if (field.startsWith('websiteInfo.')) {
+      console.log('基础配置更新:', field, '=', value);
+    }
+    
     setSystemSettings(prev => {
       if (!prev) return prev;
       const newSettings = { ...prev };

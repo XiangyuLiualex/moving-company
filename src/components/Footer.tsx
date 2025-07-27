@@ -1,15 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import homeIcon from '../assets/home_icon.png';
 import twiterIcon from '../assets/twitter.png';
 import facebookIcon from '../assets/facebook.png';
 import instagramIcon from '../assets/instagram.png';
 import whatasppIcon from '../assets/whatsapp.png';
-import { getSystemSettings } from '../utils/systemUtils';
+import { defaultSystemSettings, SystemSettings } from '../utils/systemUtils';
 
 function Footer(){
   const { t } = useTranslation();
-  const systemSettings = getSystemSettings();
+  const [systemSettings, setSystemSettings] = useState<SystemSettings>(defaultSystemSettings);
+
+  // 从API加载系统设置
+  useEffect(() => {
+    const loadSystemSettings = async () => {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001'}/api/settings`);
+        if (response.ok) {
+          const settingsData = await response.json();
+          console.log('Footer加载系统设置:', settingsData);
+          setSystemSettings(settingsData);
+        } else {
+          console.error('Failed to fetch system settings in Footer');
+        }
+      } catch (error) {
+        console.error('Error loading system settings in Footer:', error);
+      }
+    };
+
+    loadSystemSettings();
+  }, []);
   
   return (
     <footer>
