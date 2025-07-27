@@ -4,7 +4,6 @@ import { AdminPricingData, loadPricingData, savePricingData, resetPricingData, l
 import { defaultSystemSettings, SystemSettings, saveSystemSettings } from '../utils/systemUtils';
 import { logout } from '../utils/authUtils';
 import { useNavigate } from 'react-router-dom';
-import type { SimpleCityData } from '../utils/cityUtils';
 import '../styles/AdminPage.scss';
 
 type AdminSection = 'pricing' | 'cities' | 'settings';
