@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AdminPricingData, loadPricingData, savePricingData, resetPricingData, City, loadCitiesData, saveCitiesData, loadSystemSettings, saveSystemSettings, resetSystemSettings } from '../utils/adminUtils';
-import { defaultSystemSettings } from '../utils/systemUtils';
+import { defaultSystemSettings, type SystemSettings } from '../utils/systemUtils';
 import { logout } from '../utils/authUtils';
 import { useNavigate } from 'react-router-dom';
-import type { SystemSettings } from '../utils/systemUtils';
+
 import type { SimpleCityData } from '../utils/cityUtils';
 import '../styles/AdminPage.scss';
 
