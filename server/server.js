@@ -361,6 +361,31 @@ app.delete('/api/cities/:id', (req, res) => {
   }
 });
 
+// 重置城市数据到默认值
+app.post('/api/cities/reset', (req, res) => {
+  try {
+    // 清空现有数据
+    const deleteStmt = db.prepare('DELETE FROM cities_config');
+    deleteStmt.run();
+    
+    // 重新插入默认数据
+    const defaultCities = [
+      { name: 'Vancouver', icon: '🏙️', active: 1 },
+      { name: 'Calgary', icon: '🏔️', active: 1 },
+      { name: 'Winnipeg', icon: '🏞️', active: 1 }
+    ];
+    
+    const insertCity = db.prepare('INSERT INTO cities_config (city_name, city_icon, is_active) VALUES (?, ?, ?)');
+    defaultCities.forEach(city => {
+      insertCity.run(city.name, city.icon, city.active);
+    });
+    
+    res.json({ success: true, message: '城市数据已重置为默认值' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // 获取系统设置
 app.get('/api/settings', (req, res) => {
   try {

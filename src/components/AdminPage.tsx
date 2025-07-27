@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { AdminPricingData, loadPricingData, savePricingData, resetPricingData, City, loadCitiesData, saveCitiesData, loadSystemSettings, saveSystemSettings, resetSystemSettings } from '../utils/adminUtils';
-import { defaultSystemSettings } from '../utils/systemUtils';
+import { AdminPricingData, loadPricingData, savePricingData, resetPricingData, loadCitiesData, saveCitiesData, resetCitiesData } from '../utils/adminUtils';
+import { defaultSystemSettings, SystemSettings, saveSystemSettings, resetSystemSettings } from '../utils/systemUtils';
 import { logout } from '../utils/authUtils';
 import { useNavigate } from 'react-router-dom';
 import type { SystemSettings } from '../utils/systemUtils';
@@ -92,6 +92,18 @@ function AdminPage() {
           alert(t('admin.pricing.resetSuccess'));
         } catch (error) {
           console.error('Failed to reset pricing data:', error);
+          alert('重置失败，请重试');
+        }
+      }
+    } else if (activeSection === 'cities') {
+      if (window.confirm(t('admin.cities.resetConfirm'))) {
+        try {
+          const defaultData = await resetCitiesData();
+          setCities(defaultData);
+          setHasChanges(false);
+          alert(t('admin.cities.resetSuccess'));
+        } catch (error) {
+          console.error('Failed to reset cities data:', error);
           alert('重置失败，请重试');
         }
       }
@@ -217,6 +229,7 @@ function AdminPage() {
             cities={cities}
             onUpdateCities={setCities}
             onSave={handleSave}
+            onReset={handleReset}
             hasChanges={hasChanges}
           />
         );
@@ -556,10 +569,11 @@ interface CitiesManagementProps {
   cities: any[];
   onUpdateCities: (cities: any[]) => void;
   onSave: () => void;
+  onReset: () => void;
   hasChanges: boolean;
 }
 
-function CitiesManagement({ cities, onUpdateCities, onSave, hasChanges }: CitiesManagementProps) {
+function CitiesManagement({ cities, onUpdateCities, onSave, onReset, hasChanges }: CitiesManagementProps) {
   const { t } = useTranslation();
 
   const handleToggleCityStatus = (cityId: string) => {
@@ -581,6 +595,12 @@ function CitiesManagement({ cities, onUpdateCities, onSave, hasChanges }: Cities
             disabled={!hasChanges}
           >
             保存
+          </button>
+          <button 
+            className="reset-btn" 
+            onClick={onReset}
+          >
+            重置
           </button>
         </div>
       </div>
