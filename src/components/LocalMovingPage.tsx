@@ -5,8 +5,9 @@ import { AdminPricingData } from '../utils/adminUtils';
 import { SystemSettings, defaultSystemSettings } from '../utils/systemUtils';
 import '../styles/local-moving.scss';
 
+
 function LocalMovingPage() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [pricingData, setPricingData] = useState<AdminPricingData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [showContactInfo, setShowContactInfo] = useState(false);
@@ -108,12 +109,25 @@ function LocalMovingPage() {
                   'Winnipeg': '温尼伯都会区'
                 };
                 
+                // 获取当前语言
+                const currentLanguage = i18n.language;
+                
                 return activeCities.map((city) => (
                   <div key={city.name} className="city-item">
                     <div className="city-icon">{cityIcons[city.name as keyof typeof cityIcons] || '🏙️'}</div>
                     <div className="city-content">
-                      <h4>{cityChineseNames[city.name as keyof typeof cityChineseNames] || city.displayName}</h4>
-                      <p>{cityChineseDescriptions[city.name as keyof typeof cityChineseDescriptions] || cityDescriptions[city.name as keyof typeof cityDescriptions] || 'Metropolitan Area'}</p>
+                      <h4>
+                        {currentLanguage === 'zh' 
+                          ? cityChineseNames[city.name as keyof typeof cityChineseNames] 
+                          : city.displayName
+                        }
+                      </h4>
+                      <p>
+                        {currentLanguage === 'zh'
+                          ? cityChineseDescriptions[city.name as keyof typeof cityChineseDescriptions]
+                          : cityDescriptions[city.name as keyof typeof cityDescriptions]
+                        } || 'Metropolitan Area'
+                      </p>
                     </div>
                   </div>
                 ));
