@@ -29,10 +29,6 @@ type PricingTable = {
 function MovingPage(){
   const { t } = useTranslation();
   
-  // 添加明显的调试信息
-  console.log('MovingPage组件已加载');
-  alert('MovingPage组件已加载 - 调试信息');
-  
   const [totalItems, setTotalItems] = useState(0);
   const [totalm2, setTotalm2] = useState(0);
   const [reset, setReset] = useState(false);
