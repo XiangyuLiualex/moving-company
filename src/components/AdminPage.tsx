@@ -67,12 +67,15 @@ function AdminPage() {
         alert('保存失败，请重试');
       }
     } else if (activeSection === 'settings') {
+      console.log('准备保存系统设置:', systemSettings);
       const success = await saveSystemSettings(systemSettings!);
       if (success) {
         setSystemSettings({ ...systemSettings! }); // 直接用当前state刷新UI
         setHasChanges(false);
+        console.log('系统设置保存成功');
         alert(t('admin.settings.saveSuccess'));
       } else {
+        console.error('系统设置保存失败');
         alert('保存失败，请重试');
       }
     }
@@ -169,6 +172,8 @@ function AdminPage() {
 
   // 更新系统设置
   const updateSystemSettings = (field: string, value: any) => {
+    console.log('updateSystemSettings 被调用:', { field, value, valueType: typeof value });
+    
     setSystemSettings(prev => {
       if (!prev) return prev;
       const newSettings = { ...prev };
@@ -180,6 +185,7 @@ function AdminPage() {
       }
       current[keys[keys.length - 1]] = value;
       
+      console.log('系统设置更新后:', newSettings);
       return newSettings;
     });
     setHasChanges(true);

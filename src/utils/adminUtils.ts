@@ -155,6 +155,8 @@ export const loadSystemSettings = async (): Promise<any> => {
 // 保存系统设置到后端API
 export const saveSystemSettings = async (settings: any): Promise<boolean> => {
   try {
+    console.log('saveSystemSettings 开始调用API，数据:', settings);
+    
     const response = await fetch(`${API_BASE_URL}/api/settings`, {
       method: 'PUT',
       headers: {
@@ -163,9 +165,16 @@ export const saveSystemSettings = async (settings: any): Promise<boolean> => {
       body: JSON.stringify({ settings }),
     });
     
+    console.log('API响应状态:', response.status, response.ok);
+    
     if (!response.ok) {
+      const errorText = await response.text();
+      console.error('API响应错误:', errorText);
       throw new Error('Failed to save system settings');
     }
+    
+    const result = await response.json();
+    console.log('API响应结果:', result);
     
     return true;
   } catch (error) {

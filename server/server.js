@@ -389,6 +389,7 @@ app.get('/api/settings', (req, res) => {
 app.put('/api/settings', (req, res) => {
   try {
     const { settings } = req.body;
+    console.log('后端收到系统设置更新请求:', settings);
     
     const updateStmt = db.prepare('UPDATE system_settings SET setting_value = ?, updated_at = CURRENT_TIMESTAMP WHERE setting_key = ?');
     const insertStmt = db.prepare('INSERT OR REPLACE INTO system_settings (setting_key, setting_value, updated_at) VALUES (?, ?, CURRENT_TIMESTAMP)');
@@ -407,12 +408,17 @@ app.put('/api/settings', (req, res) => {
     };
     
     const flattenedSettings = flattenSettings(settings);
+    console.log('扁平化后的系统设置:', flattenedSettings);
+    
     Object.entries(flattenedSettings).forEach(([key, value]) => {
+      console.log('保存设置项:', key, '=', value);
       insertStmt.run(key, value);
     });
     
+    console.log('系统设置更新完成');
     res.json({ success: true, message: '系统设置已更新' });
   } catch (error) {
+    console.error('系统设置更新错误:', error);
     res.status(500).json({ error: error.message });
   }
 });
