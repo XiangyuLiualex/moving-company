@@ -124,9 +124,9 @@ function LocalMovingPage() {
                       </h4>
                       <p>
                         {currentLanguage === 'zh'
-                          ? cityChineseDescriptions[city.name as keyof typeof cityChineseDescriptions]
-                          : cityDescriptions[city.name as keyof typeof cityDescriptions]
-                        } || 'Metropolitan Area'
+                          ? (cityChineseDescriptions[city.name as keyof typeof cityChineseDescriptions] || '都会区')
+                          : (cityDescriptions[city.name as keyof typeof cityDescriptions] || 'Metropolitan Area')
+                        }
                       </p>
                     </div>
                   </div>
