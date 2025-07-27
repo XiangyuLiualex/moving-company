@@ -308,9 +308,6 @@ function StoragePage(){
 
   const itemTypes = getItemTypes();
   
-  // 城市选项
-  const systemSettings = getSystemSettings();
-  
   // 存储时间选项（1-12个月）
   const months = Array.from({length: 12}, (_, i) => i + 1);
 
