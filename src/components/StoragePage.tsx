@@ -58,6 +58,10 @@ function StoragePage(){
         
         if (settingsResponse.ok) {
           const settingsData = await settingsResponse.json();
+          console.log('系统设置数据:', settingsData);
+          console.log('包装费设置:', settingsData.taxAndFees?.packagingFee);
+          console.log('燃油附加费设置:', settingsData.taxAndFees?.fuelSurcharge);
+          console.log('保险费设置:', settingsData.taxAndFees?.insuranceRate);
           setSystemSettings(settingsData);
         } else {
           console.error('Failed to fetch system settings');
