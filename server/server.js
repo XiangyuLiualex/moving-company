@@ -361,26 +361,18 @@ app.delete('/api/cities/:id', (req, res) => {
   }
 });
 
-// 重置城市数据到默认值
-app.post('/api/cities/reset', (req, res) => {
+// 批量更新城市状态
+app.put('/api/cities', (req, res) => {
   try {
-    // 清空现有数据
-    const deleteStmt = db.prepare('DELETE FROM cities_config');
-    deleteStmt.run();
-    
-    // 重新插入默认数据
-    const defaultCities = [
-      { name: 'Vancouver', icon: '🏙️', active: 1 },
-      { name: 'Calgary', icon: '🏔️', active: 1 },
-      { name: 'Winnipeg', icon: '🏞️', active: 1 }
-    ];
-    
-    const insertCity = db.prepare('INSERT INTO cities_config (city_name, city_icon, is_active) VALUES (?, ?, ?)');
-    defaultCities.forEach(city => {
-      insertCity.run(city.name, city.icon, city.active);
+    const { cities } = req.body;
+    if (!Array.isArray(cities)) {
+      return res.status(400).json({ error: 'Invalid cities data' });
+    }
+    const updateStmt = db.prepare('UPDATE cities_config SET is_active = ?, city_icon = ? WHERE city_name = ?');
+    cities.forEach(city => {
+      updateStmt.run(city.isActive ? 1 : 0, city.icon || '🏙️', city.name);
     });
-    
-    res.json({ success: true, message: '城市数据已重置为默认值' });
+    res.json({ success: true, message: '城市状态已批量更新' });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

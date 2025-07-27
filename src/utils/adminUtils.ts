@@ -107,63 +107,23 @@ export const loadCitiesData = async (): Promise<any[]> => {
   }
 };
 
-// 保存城市数据到后端API
+// 保存城市数据到后端API（批量）
 export const saveCitiesData = async (cities: any[]): Promise<boolean> => {
   try {
-    console.log('saveCitiesData 开始调用API，数据:', cities);
-    
-    // 逐个更新城市数据
-    for (const city of cities) {
-      const response = await fetch(`${API_BASE_URL}/api/cities/${city.name}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: city.name,
-          icon: city.icon || '🏙️',
-          isActive: city.isActive
-        }),
-      });
-      
-      console.log(`城市 ${city.name} 更新响应:`, response.status, response.ok);
-      
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error(`城市 ${city.name} 更新失败:`, errorText);
-        throw new Error(`Failed to save city ${city.name}`);
-      }
+    const response = await fetch(`${API_BASE_URL}/api/cities`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ cities }),
+    });
+    if (!response.ok) {
+      throw new Error('Failed to save cities data');
     }
-    
-    console.log('所有城市数据保存成功');
     return true;
   } catch (error) {
     console.error('Failed to save cities data to API:', error);
     return false;
-  }
-};
-
-// 重置城市数据到默认值
-export const resetCitiesData = async (): Promise<any[]> => {
-  try {
-    console.log('resetCitiesData 开始调用API');
-    
-    const response = await fetch(`${API_BASE_URL}/api/cities/reset`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    
-    if (!response.ok) {
-      throw new Error('Failed to reset cities data');
-    }
-    
-    // 重新加载默认数据
-    return await loadCitiesData();
-  } catch (error) {
-    console.error('Failed to reset cities data:', error);
-    return [];
   }
 };
 

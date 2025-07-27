@@ -179,31 +179,110 @@
     "description": "Professional moving company dedicated to providing safe, efficient, and caring moving experiences. We have an experienced team and advanced equipment to ensure your belongings receive the best protection during transportation."
   },
   "admin": {
-    "title": "Admin Panel",
-    "subtitle": "Manage website configuration and pricing",
-    "logout": "Logout",
+    "title": "Admin Console",
+    "subtitle": "Manage website configuration and pricing settings",
     "nav": {
       "pricing": "Pricing Management",
-      "cities": "City Management",
+      "cities": "Cities Management",
+      "items": "Items Management", 
       "settings": "System Settings"
     },
     "pricing": {
       "title": "Pricing Management",
-      "saveSuccess": "Pricing settings saved successfully",
-      "resetConfirm": "Are you sure you want to reset all pricing settings?",
-      "resetSuccess": "Pricing settings reset to default values"
+      "intercity": "Intercity Moving Prices",
+      "intercityDesc": "Manage pricing table for intercity moving",
+      "localServices": "Local Services Prices",
+      "localServicesDesc": "Manage pickup and delivery service prices",
+      "localMoving": "Local Moving Prices",
+      "localMovingDesc": "Manage local moving pricing settings",
+      "storage": "Storage Furniture Prices",
+      "storageDesc": "Manage storage prices for different items",
+      "from": "From City",
+      "to": "To City",
+      "price": "Price",
+      "hourlyRate": "Per Person Hourly Rate",
+      "additionalPersonFee": "Additional Person Fee",
+      "deposit": "Deposit",
+      "save": "Save",
+      "reset": "Reset",
+      "saveSuccess": "Pricing settings saved successfully!",
+      "resetConfirm": "Are you sure you want to reset all prices to default values?",
+      "resetSuccess": "Prices have been reset to default values!"
     },
     "cities": {
-      "title": "City Management", 
-      "saveSuccess": "City settings saved successfully",
-      "resetConfirm": "Are you sure you want to reset all city settings?",
-      "resetSuccess": "City settings reset to default values"
+      "title": "Cities Management",
+      "description": "Manage service cities activation status",
+      "cityName": "City Name",
+      "status": "Status",
+      "active": "Active",
+      "inactive": "Inactive"
     },
-    "settings": {
+    "items": {
+      "title": "Items Management",
+      "description": "Manage furniture types and volume multipliers"
+    },
+        "settings": {
       "title": "System Settings",
-      "saveSuccess": "System settings saved successfully", 
-      "resetConfirm": "Are you sure you want to reset all system settings?",
-      "resetSuccess": "System settings reset to default values"
+      "description": "Manage website basic configuration and tax rate settings",
+      "basicConfig": {
+        "title": "Basic Configuration",
+        "websiteInfo": "Website Information",
+        "titleZh": "Chinese Title",
+        "titleEn": "English Title",
+        "descriptionZh": "Chinese Description",
+        "descriptionEn": "English Description",
+        "contactInfo": "Contact Information",
+        "companyName": "Company Name",
+        "phone": "Phone Number",
+        "email": "Email Address",
+        "address": "Company Address"
+      },
+      "pageTitles": {
+        "title": "Page Titles",
+        "home": "Home",
+        "movingService": "Moving Service",
+        "storage": "Storage Furniture"
+      },
+      "taxAndFees": {
+        "title": "Tax and Fees",
+        "taxRates": "Tax Rates",
+        "gstRate": "GST Rate",
+        "pstRate": "PST Rate",
+        "gstEnabled": "Enable GST",
+        "pstEnabled": "Enable PST",
+        "additionalFees": "Additional Fees",
+        "fuelSurcharge": "Fuel Surcharge",
+        "insuranceRate": "Insurance Rate",
+        "packagingFee": "Packaging Fee",
+        "percentage": "Percentage",
+        "fixedAmount": "Fixed Amount"
+      },
+      "save": "Save Settings",
+      "reset": "Reset Settings",
+      "saveSuccess": "System settings saved successfully!",
+      "resetConfirm": "Are you sure you want to reset all system settings to default values?",
+      "resetSuccess": "System settings have been reset to default values!"
+    },
+    "storageItems": {
+      "carryOnLuggage": "Carry-on Luggage",
+      "checkedLuggage": "Checked Luggage",
+      "bicycle": "Bicycle",
+      "tv": "TV",
+      "gamingChair": "Gaming Chair",
+      "twinBed": "Twin Mattress",
+      "fullBed": "Full Mattress",
+      "queenBed": "Queen Mattress",
+      "kingBed": "King Mattress",
+      "smallBox": "Home Depot Small Box",
+      "mediumBox": "Home Depot Medium Box",
+      "largeBox": "Home Depot Large Box",
+      "extraLargeBox": "Home Depot Extra Large Box",
+      "superLargeBox": "Home Depot Super Large Box",
+      "volumeStorage": "Volume Storage",
+      "onlyBoxPickupNoStairs": "Only Box Pickup Service (No Stairs)",
+      "onlyBoxPickupWithStairs": "Only Box Pickup Service (With Stairs)",
+      "furniturePickupNoStairs": "Furniture Pickup Service (No Stairs)",
+      "furniturePickupAssembly": "Furniture Pickup Service (With Assembly)"
     }
   },
   "login": {
