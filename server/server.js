@@ -6,8 +6,18 @@ const path = require('path');
 const app = express();
 const PORT = 3001;
 
-// 中间件
-app.use(cors());
+// CORS配置 - 明确允许前端域名
+app.use(cors({
+  origin: [
+    'https://moving-company-8j81.vercel.app',
+    'http://localhost:3000',
+    'http://localhost:3001'
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(express.json());
 
 // 数据库初始化
