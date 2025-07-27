@@ -77,20 +77,6 @@ function LocalMovingPage() {
       <div className="title">
         <h1>{t('localMoving.title')}</h1>
         <p>{t('localMoving.subtitle')}</p>
-        <button 
-          onClick={() => window.location.reload()} 
-          style={{ 
-            marginTop: '10px', 
-            padding: '5px 10px', 
-            fontSize: '12px',
-            backgroundColor: '#f0f0f0',
-            border: '1px solid #ccc',
-            borderRadius: '4px',
-            cursor: 'pointer'
-          }}
-        >
-          刷新数据
-        </button>
       </div>
       
       <div className="content-section">

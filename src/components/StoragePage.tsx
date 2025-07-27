@@ -403,20 +403,6 @@ function StoragePage(){
       <div className="title">
         <h1>{t('storage.title')}</h1>
         <p>{t('storage.subtitle')}</p>
-        <button 
-          onClick={() => window.location.reload()} 
-          style={{ 
-            marginTop: '10px', 
-            padding: '5px 10px', 
-            fontSize: '12px',
-            backgroundColor: '#f0f0f0',
-            border: '1px solid #ccc',
-            borderRadius: '4px',
-            cursor: 'pointer'
-          }}
-        >
-          刷新数据
-        </button>
       </div>
       
       {/* 位置和存储时间选择区域 */}
