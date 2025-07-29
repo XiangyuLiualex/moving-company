@@ -20,10 +20,34 @@ export interface AdminPricingData {
   intercityPricing: PricingTable;
   intercityLocalServiceRate: number; // 跨省搬家的本地服务费率
   
-  // 同城搬家价格
-  localMovingHourlyRate: number; // 每人每小时$45
-  localMovingAdditionalPersonFee: number; // 每增加一人额外$40
-  localMovingDeposit: number; // 押金$60加元或¥300人民币
+  // 同城搬家价格 - 标准区域（大温哥华地区、卡尔加里、温尼伯）
+  localMovingStandardArea: {
+    withVehicle: {
+      baseRate: number; // 80加币/小时（1人+车）
+      additionalPersonFee: number; // 每增加一人40加币
+    };
+    withoutVehicle: {
+      baseRate: number; // 45加币/人/小时
+    };
+  };
+  
+  // 同城搬家价格 - 加价区域（北温、西温、白石、兰里、枫树岭）
+  localMovingPremiumArea: {
+    withVehicle: {
+      baseRate: number; // 90加币/小时（1人+车）
+      additionalPersonFee: number; // 每增加一人40加币
+    };
+    withoutVehicle: {
+      baseRate: number; // 55加币/人/小时
+    };
+  };
+  
+  // 同城搬家通用设置
+  localMovingSettings: {
+    minimumHours: number; // 最少2小时
+    depositRequired: number; // 3人及以上需要押金60加币
+    depositRMB: number; // 押金300人民币
+  };
   
   // 存储家具价格
   storageItems: { [key: string]: ItemType };
@@ -212,10 +236,34 @@ export const defaultPricingData: AdminPricingData = {
   },
   intercityLocalServiceRate: 120, // 跨省搬家的本地服务费率
   
-  // 同城搬家价格
-  localMovingHourlyRate: 45, // 每人每小时$45
-  localMovingAdditionalPersonFee: 40, // 每增加一人额外$40
-  localMovingDeposit: 60, // 押金$60加元或¥300人民币
+  // 同城搬家价格 - 标准区域（大温哥华地区、卡尔加里、温尼伯）
+  localMovingStandardArea: {
+    withVehicle: {
+      baseRate: 80, // 80加币/小时（1人+车）
+      additionalPersonFee: 40, // 每增加一人40加币
+    },
+    withoutVehicle: {
+      baseRate: 45, // 45加币/人/小时
+    },
+  },
+  
+  // 同城搬家价格 - 加价区域（北温、西温、白石、兰里、枫树岭）
+  localMovingPremiumArea: {
+    withVehicle: {
+      baseRate: 90, // 90加币/小时（1人+车）
+      additionalPersonFee: 40, // 每增加一人40加币
+    },
+    withoutVehicle: {
+      baseRate: 55, // 55加币/人/小时
+    },
+  },
+  
+  // 同城搬家通用设置
+  localMovingSettings: {
+    minimumHours: 2, // 最少2小时
+    depositRequired: 3, // 3人及以上需要押金60加币
+    depositRMB: 300, // 押金300人民币
+  },
   
   // 存储家具价格
   storageItems: {

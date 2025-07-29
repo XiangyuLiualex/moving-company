@@ -205,12 +205,39 @@ function AdminPage() {
   };
 
   // 更新同城搬家价格
-  const updateLocalMovingPrice = (field: 'hourlyRate' | 'additionalPersonFee' | 'deposit', value: number) => {
+  const updateLocalMovingPrice = (
+    area: 'standard' | 'premium',
+    service: 'withVehicle' | 'withoutVehicle',
+    field: 'baseRate' | 'additionalPersonFee',
+    value: number
+  ) => {
+    setPricingData(prev => {
+      if (!prev) return prev;
+      const areaKey = area === 'standard' ? 'localMovingStandardArea' : 'localMovingPremiumArea';
+      return {
+        ...prev,
+        [areaKey]: {
+          ...prev[areaKey],
+          [service]: {
+            ...prev[areaKey][service],
+            [field]: value
+          }
+        }
+      };
+    });
+    setHasChanges(true);
+  };
+
+  // 更新同城搬家设置
+  const updateLocalMovingSettings = (field: 'minimumHours' | 'depositRequired' | 'depositRMB', value: number) => {
     setPricingData(prev => {
       if (!prev) return prev;
       return {
         ...prev,
-        [`localMoving${field.charAt(0).toUpperCase() + field.slice(1)}`]: value
+        localMovingSettings: {
+          ...prev.localMovingSettings,
+          [field]: value
+        }
       };
     });
     setHasChanges(true);
@@ -275,6 +302,7 @@ function AdminPage() {
             onUpdateIntercityPrice={updateIntercityPrice}
             onUpdateLocalServiceRate={updateIntercityLocalServiceRate}
             onUpdateLocalMovingPrice={updateLocalMovingPrice}
+            onUpdateLocalMovingSettings={updateLocalMovingSettings}
             onUpdateStorageItemPrice={updateStorageItemPrice}
             onSave={handleSave}
             onReset={handleReset}
@@ -306,6 +334,7 @@ function AdminPage() {
           onUpdateIntercityPrice={updateIntercityPrice}
           onUpdateLocalServiceRate={updateIntercityLocalServiceRate}
           onUpdateLocalMovingPrice={updateLocalMovingPrice}
+          onUpdateLocalMovingSettings={updateLocalMovingSettings}
           onUpdateStorageItemPrice={updateStorageItemPrice}
           onSave={handleSave}
           onReset={handleReset}
@@ -382,7 +411,13 @@ interface PricingManagementProps {
   pricingData: AdminPricingData;
   onUpdateIntercityPrice: (fromCity: City, toCity: City, price: number) => void;
   onUpdateLocalServiceRate: (rate: number) => void;
-  onUpdateLocalMovingPrice: (field: 'hourlyRate' | 'additionalPersonFee' | 'deposit', value: number) => void;
+  onUpdateLocalMovingPrice: (
+    area: 'standard' | 'premium',
+    service: 'withVehicle' | 'withoutVehicle',
+    field: 'baseRate' | 'additionalPersonFee',
+    value: number
+  ) => void;
+  onUpdateLocalMovingSettings: (field: 'minimumHours' | 'depositRequired' | 'depositRMB', value: number) => void;
   onUpdateStorageItemPrice: (itemKey: string, price: number) => void;
   onSave: () => void;
   onReset: () => void;
@@ -402,6 +437,7 @@ function PricingManagement({
   onUpdateIntercityPrice, 
   onUpdateLocalServiceRate, 
   onUpdateLocalMovingPrice,
+  onUpdateLocalMovingSettings,
   onUpdateStorageItemPrice,
   onSave,
   onReset,
@@ -493,36 +529,115 @@ function PricingManagement({
         <div className="pricing-section">
           <h3>{t('admin.pricing.localMoving')}</h3>
           <p>{t('admin.pricing.localMovingDesc')}</p>
-          <div className="local-moving-prices">
-            <div className="price-field">
-              <label>{t('admin.pricing.hourlyRate')}:</label>
-              <input
-                type="number"
-                value={pricingData.localMovingHourlyRate}
-                onChange={(e) => onUpdateLocalMovingPrice('hourlyRate', parseInt(e.target.value) || 0)}
-                min="0"
-              />
-              <span>$/person/hour</span>
+          
+          {/* 标准区域价格 */}
+          <div className="sub-section">
+            <h4>标准区域价格（大温哥华地区、卡尔加里、温尼伯）</h4>
+            <div className="local-moving-prices">
+              <div className="price-field">
+                <label>需要车（1人+车）:</label>
+                <input
+                  type="number"
+                  value={pricingData.localMovingStandardArea.withVehicle.baseRate}
+                  onChange={(e) => onUpdateLocalMovingPrice('standard', 'withVehicle', 'baseRate', parseInt(e.target.value) || 0)}
+                  min="0"
+                />
+                <span>$/hour</span>
+              </div>
+              <div className="price-field">
+                <label>额外人员费用:</label>
+                <input
+                  type="number"
+                  value={pricingData.localMovingStandardArea.withVehicle.additionalPersonFee}
+                  onChange={(e) => onUpdateLocalMovingPrice('standard', 'withVehicle', 'additionalPersonFee', parseInt(e.target.value) || 0)}
+                  min="0"
+                />
+                <span>$/person</span>
+              </div>
+              <div className="price-field">
+                <label>仅工人（不需要车）:</label>
+                <input
+                  type="number"
+                  value={pricingData.localMovingStandardArea.withoutVehicle.baseRate}
+                  onChange={(e) => onUpdateLocalMovingPrice('standard', 'withoutVehicle', 'baseRate', parseInt(e.target.value) || 0)}
+                  min="0"
+                />
+                <span>$/person/hour</span>
+              </div>
             </div>
-            <div className="price-field">
-              <label>{t('admin.pricing.additionalPersonFee')}:</label>
-              <input
-                type="number"
-                value={pricingData.localMovingAdditionalPersonFee}
-                onChange={(e) => onUpdateLocalMovingPrice('additionalPersonFee', parseInt(e.target.value) || 0)}
-                min="0"
-              />
-              <span>$/person</span>
+          </div>
+          
+          {/* 加价区域价格 */}
+          <div className="sub-section">
+            <h4>加价区域价格（北温、西温、白石、兰里、枫树岭）</h4>
+            <div className="local-moving-prices">
+              <div className="price-field">
+                <label>需要车（1人+车）:</label>
+                <input
+                  type="number"
+                  value={pricingData.localMovingPremiumArea.withVehicle.baseRate}
+                  onChange={(e) => onUpdateLocalMovingPrice('premium', 'withVehicle', 'baseRate', parseInt(e.target.value) || 0)}
+                  min="0"
+                />
+                <span>$/hour</span>
+              </div>
+              <div className="price-field">
+                <label>额外人员费用:</label>
+                <input
+                  type="number"
+                  value={pricingData.localMovingPremiumArea.withVehicle.additionalPersonFee}
+                  onChange={(e) => onUpdateLocalMovingPrice('premium', 'withVehicle', 'additionalPersonFee', parseInt(e.target.value) || 0)}
+                  min="0"
+                />
+                <span>$/person</span>
+              </div>
+              <div className="price-field">
+                <label>仅工人（不需要车）:</label>
+                <input
+                  type="number"
+                  value={pricingData.localMovingPremiumArea.withoutVehicle.baseRate}
+                  onChange={(e) => onUpdateLocalMovingPrice('premium', 'withoutVehicle', 'baseRate', parseInt(e.target.value) || 0)}
+                  min="0"
+                />
+                <span>$/person/hour</span>
+              </div>
             </div>
-            <div className="price-field">
-              <label>{t('admin.pricing.deposit')}:</label>
-              <input
-                type="number"
-                value={pricingData.localMovingDeposit}
-                onChange={(e) => onUpdateLocalMovingPrice('deposit', parseInt(e.target.value) || 0)}
-                min="0"
-              />
-              <span>$ CAD</span>
+          </div>
+          
+          {/* 通用设置 */}
+          <div className="sub-section">
+            <h4>通用设置</h4>
+            <div className="local-moving-prices">
+              <div className="price-field">
+                <label>最少小时数:</label>
+                <input
+                  type="number"
+                  value={pricingData.localMovingSettings.minimumHours}
+                  onChange={(e) => onUpdateLocalMovingSettings('minimumHours', parseInt(e.target.value) || 0)}
+                  min="0"
+                />
+                <span>小时</span>
+              </div>
+              <div className="price-field">
+                <label>需要押金的人数:</label>
+                <input
+                  type="number"
+                  value={pricingData.localMovingSettings.depositRequired}
+                  onChange={(e) => onUpdateLocalMovingSettings('depositRequired', parseInt(e.target.value) || 0)}
+                  min="0"
+                />
+                <span>人</span>
+              </div>
+              <div className="price-field">
+                <label>押金（人民币）:</label>
+                <input
+                  type="number"
+                  value={pricingData.localMovingSettings.depositRMB}
+                  onChange={(e) => onUpdateLocalMovingSettings('depositRMB', parseInt(e.target.value) || 0)}
+                  min="0"
+                />
+                <span>¥ RMB</span>
+              </div>
             </div>
           </div>
         </div>

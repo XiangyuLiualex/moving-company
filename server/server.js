@@ -76,9 +76,29 @@ const initDatabase = () => {
       }
     }),
     intercityLocalServiceRate: '120',
-    localMovingHourlyRate: '45',
-    localMovingAdditionalPersonFee: '40',
-    localMovingDeposit: '60',
+    localMovingStandardArea: JSON.stringify({
+      withVehicle: {
+        baseRate: 80,
+        additionalPersonFee: 40
+      },
+      withoutVehicle: {
+        baseRate: 45
+      }
+    }),
+    localMovingPremiumArea: JSON.stringify({
+      withVehicle: {
+        baseRate: 90,
+        additionalPersonFee: 40
+      },
+      withoutVehicle: {
+        baseRate: 55
+      }
+    }),
+    localMovingSettings: JSON.stringify({
+      minimumHours: 2,
+      depositRequired: 3,
+      depositRMB: 300
+    }),
     storageItems: JSON.stringify({
       carryOnLuggage: {
         name: "Carry-on Luggage (≤115cm)",
