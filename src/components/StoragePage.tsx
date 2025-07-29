@@ -318,8 +318,9 @@ function StoragePage(){
   function resetItems(): void {
     setReset(true);
     setItemQuantities({});
-    setSelectedCity('');
-    setStorageMonths('');
+    // 保留城市选择和存储时长选择
+    // setSelectedCity('');
+    // setStorageMonths('');
     setTimeout(() => {
       setReset(false);
     }, 0);

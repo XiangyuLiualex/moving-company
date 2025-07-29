@@ -65,7 +65,7 @@
       "noVolumeCalculation": "无体积计算：价格基于物品类型，而非体积"
     },
     "buttons": {
-      "clear": "清空",
+      "clear": "清空物品",
       "calculate": "计算"
     },
     "volumeStorage": {
@@ -126,7 +126,7 @@
       "palletizingFee": "打板费：已包含在跨省价格中"
     },
     "buttons": {
-      "clear": "清空",
+      "clear": "清空物品",
       "calculate": "计算"
     }
   },

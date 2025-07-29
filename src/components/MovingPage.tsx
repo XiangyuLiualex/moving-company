@@ -169,16 +169,15 @@ function MovingPage(){
     setReset(true);
     setTotalItems(0);
     setTotalm2(0);
-    // 重置位置信息
-    setDepartureLocation({ city: '', postalCode: '' });
-    setArriveLocation({ city: '', postalCode: '' });
-    // 重置本地服务选择
-    setLocalServices({
-      pickup: false,
-      delivery: false,
-      pickupHours: 2,
-      deliveryHours: 2
-    });
+    // 保留位置信息和本地服务选择
+    // setDepartureLocation({ city: '', postalCode: '' });
+    // setArriveLocation({ city: '', postalCode: '' });
+    // setLocalServices({
+    //   pickup: false,
+    //   delivery: false,
+    //   pickupHours: 2,
+    //   deliveryHours: 2
+    // });
     setTimeout(() => {
       setReset(false);
     }, 0);

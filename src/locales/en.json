@@ -65,7 +65,7 @@
       "noVolumeCalculation": "No Volume Calculation: Prices based on item type, not volume"
     },
     "buttons": {
-      "clear": "Clear",
+      "clear": "Clear Items",
       "calculate": "Calculate"
     },
     "volumeStorage": {
@@ -126,7 +126,7 @@
       "palletizingFee": "Palletizing Fee: Included in intercity pricing"
     },
     "buttons": {
-      "clear": "Clear",
+      "clear": "Clear Items",
       "calculate": "Calculate"
     }
   },
