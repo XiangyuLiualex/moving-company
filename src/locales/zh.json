@@ -105,7 +105,7 @@
     "summary": {
       "title": "费用摘要",
       "totalItems": "总物品数",
-      "totalM2": "总平方米",
+      "totalM2": "总立方米",
       "totalPallets": "总板数",
       "pricePerPallet": "每板价格",
       "intercityFee": "跨省费用",
@@ -121,7 +121,7 @@
     },
     "pricingInfo": {
       "title": "价格说明",
-      "intercityMoving": "跨省搬家：按板收费（1板 = 2平方米）",
+      "intercityMoving": "跨省搬家：按板收费（1板 = 2立方米）",
       "localServices": "本地服务：${rate}/小时（含2人，最少2小时）",
       "palletizingFee": "打板费：已包含在跨省价格中"
     },

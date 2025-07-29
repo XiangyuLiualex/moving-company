@@ -105,7 +105,7 @@
     "summary": {
       "title": "Summary",
       "totalItems": "Total Items",
-      "totalM2": "Total M²",
+      "totalM2": "Total M³",
       "totalPallets": "Total Pallets",
       "pricePerPallet": "Price per Pallet",
       "intercityFee": "Intercity Fee",
@@ -121,7 +121,7 @@
     },
     "pricingInfo": {
       "title": "Pricing Information",
-      "intercityMoving": "Intercity Moving: Charged per pallet (1 pallet = 2 m²)",
+      "intercityMoving": "Intercity Moving: Charged per pallet (1 pallet = 2 m³)",
       "localServices": "Local Services: ${rate}/hour (2 people included, minimum 2 hours)",
       "palletizingFee": "Palletizing Fee: Included in intercity pricing"
     },
