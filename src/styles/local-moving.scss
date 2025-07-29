@@ -380,17 +380,39 @@
 }
 
 // 响应式设计
-@media (max-width: 768px) {
+@media (max-width: 1200px) {
   .local-moving-page {
-    padding: 20px;
+    .content-section {
+      max-width: 900px;
+      
+      .cities-section {
+        .cities-container {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 20px;
+        }
+      }
+      
+      .rules-section {
+        .rules-container {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 20px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .local-moving-page {
+    padding: 30px 20px;
     gap: 30px;
     
     .title h1 {
-      font-size: 2rem;
+      font-size: 2.2rem;
     }
     
     .content-section {
-      gap: 25px;
+      gap: 30px;
       
       .cities-section {
         .cities-container {
@@ -398,11 +420,13 @@
           gap: 15px;
           
           .city-item {
-            padding: 15px;
+            padding: 20px;
+            max-width: 400px;
+            margin: 0 auto;
             
             .city-icon {
-              font-size: 2rem;
-              min-width: 40px;
+              font-size: 2.2rem;
+              min-width: 45px;
             }
             
             .city-content h4 {
@@ -418,13 +442,13 @@
           gap: 20px;
           
           .rule-item {
-            flex-direction: column;
-            text-align: center;
-            gap: 15px;
+            max-width: 450px;
+            margin: 0 auto;
+            padding: 20px;
             
             .rule-icon {
-              font-size: 2rem;
-              min-width: auto;
+              font-size: 2.2rem;
+              min-width: 45px;
             }
             
             .rule-content h3 {
@@ -436,10 +460,13 @@
       
       .calculator-section {
         .calculator-form {
+          max-width: 500px;
+          
           .form-group {
             .radio-group {
               label {
-                padding: 8px;
+                padding: 12px;
+                font-size: 0.95rem;
               }
             }
           }
@@ -447,7 +474,219 @@
       }
     }
   }
-} 
+}
+
+@media (max-width: 600px) {
+  .local-moving-page {
+    padding: 20px 15px;
+    gap: 25px;
+    
+    .title {
+      h1 {
+        font-size: 1.8rem;
+        margin-bottom: 20px;
+      }
+      
+      p {
+        font-size: 0.85rem;
+      }
+    }
+    
+    .content-section {
+      gap: 25px;
+      
+      .cities-section,
+      .rules-section,
+      .calculator-section,
+      .contact-section {
+        padding: 20px;
+        
+        h2 {
+          font-size: 1.5rem;
+          margin-bottom: 20px;
+        }
+      }
+      
+      .cities-section {
+        .cities-container {
+          .city-item {
+            padding: 15px;
+            flex-direction: column;
+            text-align: center;
+            gap: 10px;
+            
+            .city-icon {
+              font-size: 2rem;
+              min-width: auto;
+            }
+            
+            .city-content {
+              text-align: center;
+              
+              h4 {
+                font-size: 1rem;
+              }
+              
+              p {
+                font-size: 0.85rem;
+              }
+            }
+          }
+        }
+      }
+      
+      .rules-section {
+        .rules-container {
+          .rule-item {
+            padding: 15px;
+            flex-direction: column;
+            text-align: center;
+            gap: 10px;
+            
+            .rule-icon {
+              font-size: 2rem;
+              min-width: auto;
+            }
+            
+            .rule-content {
+              text-align: center;
+              
+              h3 {
+                font-size: 1.1rem;
+              }
+              
+              p {
+                font-size: 0.9rem;
+              }
+              
+              ul li {
+                font-size: 0.9rem;
+                padding-left: 15px;
+              }
+            }
+          }
+        }
+      }
+      
+      .calculator-section {
+        .calculator-form {
+          .form-group {
+            margin-bottom: 15px;
+            
+            label {
+              font-size: 1rem;
+              margin-bottom: 6px;
+            }
+            
+            .radio-group {
+              label {
+                padding: 10px;
+                font-size: 0.9rem;
+              }
+            }
+            
+            select {
+              padding: 10px;
+              font-size: 0.95rem;
+            }
+          }
+          
+          .price-display {
+            padding: 20px;
+            margin-top: 20px;
+            
+            h3 {
+              font-size: 1.2rem;
+              margin-bottom: 15px;
+            }
+            
+            .price-breakdown {
+              .price-item {
+                padding: 6px 0;
+                font-size: 0.9rem;
+                
+                span:last-child {
+                  min-width: 70px;
+                }
+              }
+              
+              .price-total {
+                font-size: 1.1rem;
+                margin-top: 12px;
+                padding-top: 12px;
+              }
+              
+              .deposit-notice {
+                padding: 12px;
+                margin-top: 12px;
+                
+                p {
+                  font-size: 0.9rem;
+                }
+              }
+            }
+          }
+        }
+      }
+      
+      .contact-section {
+        h3 {
+          font-size: 1.3rem;
+        }
+        
+        p {
+          font-size: 0.9rem;
+        }
+        
+        .contact-button {
+          padding: 12px 25px;
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .local-moving-page {
+    padding: 15px 10px;
+    
+    .title h1 {
+      font-size: 1.6rem;
+    }
+    
+    .content-section {
+      .cities-section,
+      .rules-section,
+      .calculator-section,
+      .contact-section {
+        padding: 15px;
+        
+        h2 {
+          font-size: 1.3rem;
+        }
+      }
+      
+      .calculator-section {
+        .calculator-form {
+          .price-display {
+            padding: 15px;
+            
+            .price-breakdown {
+              .price-item {
+                font-size: 0.85rem;
+                
+                span:last-child {
+                  min-width: 60px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
 
 // 联系信息弹窗样式
 .contact-info-modal {
