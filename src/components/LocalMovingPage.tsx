@@ -124,12 +124,12 @@ function LocalMovingPage() {
       <div className="content-section">
         {/* 价格计算器 */}
         <div className="calculator-section">
-          <h2>价格计算器</h2>
+          <h2>{t('localMoving.calculator.title')}</h2>
           
           <div className="calculator-form">
             {/* 区域选择 */}
             <div className="form-group">
-              <label>服务区域:</label>
+              <label>{t('localMoving.calculator.area')}:</label>
               <div className="radio-group">
                 <label>
                   <input
@@ -138,7 +138,7 @@ function LocalMovingPage() {
                     checked={selectedArea === 'standard'}
                     onChange={(e) => setSelectedArea(e.target.value as 'standard' | 'premium')}
                   />
-                  标准区域（大温哥华地区、卡尔加里、温尼伯）
+                  {t('localMoving.calculator.standardArea')}
                 </label>
                 <label>
                   <input
@@ -147,14 +147,14 @@ function LocalMovingPage() {
                     checked={selectedArea === 'premium'}
                     onChange={(e) => setSelectedArea(e.target.value as 'standard' | 'premium')}
                   />
-                  加价区域（北温、西温、白石、兰里、枫树岭）
+                  {t('localMoving.calculator.premiumArea')}
                 </label>
               </div>
             </div>
 
             {/* 服务类型选择 */}
             <div className="form-group">
-              <label>服务类型:</label>
+              <label>{t('localMoving.calculator.serviceType')}:</label>
               <div className="radio-group">
                 <label>
                   <input
@@ -163,7 +163,7 @@ function LocalMovingPage() {
                     checked={selectedService === 'withVehicle'}
                     onChange={(e) => setSelectedService(e.target.value as 'withVehicle' | 'withoutVehicle')}
                   />
-                  需要搬家公司的车（1人+车）
+                  {t('localMoving.calculator.withVehicle')}
                 </label>
                 <label>
                   <input
@@ -172,14 +172,14 @@ function LocalMovingPage() {
                     checked={selectedService === 'withoutVehicle'}
                     onChange={(e) => setSelectedService(e.target.value as 'withVehicle' | 'withoutVehicle')}
                   />
-                  仅需要工人（不需要车）
+                  {t('localMoving.calculator.withoutVehicle')}
                 </label>
               </div>
             </div>
 
             {/* 人员数量 */}
             <div className="form-group">
-              <label>人员数量:</label>
+              <label>{t('localMoving.calculator.personCount')}:</label>
               <select
                 value={personCount}
                 onChange={(e) => setPersonCount(parseInt(e.target.value))}
@@ -192,7 +192,7 @@ function LocalMovingPage() {
 
             {/* 小时数 */}
             <div className="form-group">
-              <label>服务小时数:</label>
+              <label>{t('localMoving.calculator.hours')}:</label>
               <select
                 value={hours}
                 onChange={(e) => setHours(parseInt(e.target.value))}
@@ -205,33 +205,33 @@ function LocalMovingPage() {
 
             {/* 价格显示 */}
             <div className="price-display">
-              <h3>预估价格</h3>
+              <h3>{t('localMoving.calculator.estimatedPrice')}</h3>
               <div className="price-breakdown">
                 {selectedService === 'withVehicle' ? (
                   <>
                     <div className="price-item">
-                      <span>基础价格（{hours}小时 × ${currentPricing.withVehicle.baseRate}/小时）:</span>
+                      <span>{t('localMoving.calculator.basePrice')}（{hours}小时 × ${currentPricing.withVehicle.baseRate}/小时）:</span>
                       <span>${currentPricing.withVehicle.baseRate * hours}</span>
                     </div>
                     {personCount > 1 && (
                       <div className="price-item">
-                        <span>额外人员费用（{personCount - 1}人 × ${currentPricing.withVehicle.additionalPersonFee}/人/小时 × {hours}小时）:</span>
+                        <span>{t('localMoving.calculator.additionalPersonFee')}（{personCount - 1}人 × ${currentPricing.withVehicle.additionalPersonFee}/人/小时 × {hours}小时）:</span>
                         <span>${(personCount - 1) * currentPricing.withVehicle.additionalPersonFee * hours}</span>
                       </div>
                     )}
                   </>
                 ) : (
                   <div className="price-item">
-                    <span>工人费用（{personCount}人 × ${currentPricing.withoutVehicle.baseRate}/人/小时 × {hours}小时）:</span>
+                    <span>{t('localMoving.calculator.workerFee')}（{personCount}人 × ${currentPricing.withoutVehicle.baseRate}/人/小时 × {hours}小时）:</span>
                     <span>${currentPricing.withoutVehicle.baseRate * personCount * hours}</span>
                   </div>
                 )}
                 <div className="price-total">
-                  <strong>总计: ${totalPrice}</strong>
+                  <strong>{t('localMoving.calculator.total')}: ${totalPrice}</strong>
                 </div>
                 {needsDeposit && (
                   <div className="deposit-notice">
-                    <p>⚠️ {personCount}人及以上需要预付定金：${pricing.settings.depositRMB / 5}加币 或 ¥{pricing.settings.depositRMB}人民币</p>
+                    <p>⚠️ {personCount}{t('localMoving.calculator.depositNotice')}：${pricing.settings.depositRMB / 5}加币 或 ¥{pricing.settings.depositRMB}人民币</p>
                   </div>
                 )}
               </div>
@@ -348,18 +348,18 @@ function LocalMovingPage() {
                       <strong>{t('localMoving.companyName')}:</strong>
                       <span>{systemSettings.websiteInfo.companyName}</span>
                     </div>
-                    <div className="contact-item">
-                      <strong>{t('localMoving.phone')}:</strong>
-                      <span>{systemSettings.contactInfo.phone}</span>
-                    </div>
-                    <div className="contact-item">
-                      <strong>{t('localMoving.email')}:</strong>
-                      <span>{systemSettings.contactInfo.email}</span>
-                    </div>
-                    <div className="contact-item">
-                      <strong>{t('localMoving.address')}:</strong>
-                      <span>{systemSettings.contactInfo.address}</span>
-                    </div>
+                                          <div className="contact-item">
+                        <strong>{t('localMoving.phone')}:</strong>
+                        <span>{systemSettings.websiteInfo.phone}</span>
+                      </div>
+                      <div className="contact-item">
+                        <strong>{t('localMoving.email')}:</strong>
+                        <span>{systemSettings.websiteInfo.email}</span>
+                      </div>
+                      <div className="contact-item">
+                        <strong>{t('localMoving.address')}:</strong>
+                        <span>{systemSettings.websiteInfo.address}</span>
+                      </div>
                   </div>
                   <button 
                     className="close-button"
