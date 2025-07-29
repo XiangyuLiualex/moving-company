@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import Item from './Item';
 import { Inventory2 } from '@mui/icons-material';
 import { AdminPricingData } from '../utils/adminUtils';
-import { getActiveCities, SimpleCityData } from '../utils/cityUtils';
+import { getActiveCitiesByService, SimpleCityData } from '../utils/cityUtils';
 import { defaultSystemSettings, SystemSettings, calculateTax, calculateAdditionalFees } from '../utils/systemUtils';
 import '../styles/main.scss';
 
@@ -66,7 +66,7 @@ function MovingPage(){
         console.log('开始加载数据...');
         const [pricingResponse, citiesData, settingsResponse] = await Promise.all([
           fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001'}/api/pricing`),
-          getActiveCities(),
+          getActiveCitiesByService('intercityMoving'), // 获取所有可用的跨省搬家城市
           fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001'}/api/settings`)
         ]);
         

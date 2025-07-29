@@ -238,6 +238,9 @@
       "status": "Status",
       "active": "Active",
       "inactive": "Inactive",
+      "localMoving": "Local Moving",
+      "intercityMoving": "Intercity Moving",
+      "storage": "Storage",
       "save": "Save",
       "reset": "Reset"
     },

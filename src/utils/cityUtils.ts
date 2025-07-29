@@ -3,6 +3,11 @@ export interface SimpleCityData {
   name: string;
   displayName: string;
   isActive: boolean;
+  services?: {
+    localMoving: boolean;
+    intercityMoving: boolean;
+    storage: boolean;
+  };
 }
 
 // 默认城市数据
@@ -35,6 +40,25 @@ export const getActiveCities = async (): Promise<SimpleCityData[]> => {
     if (response.ok) {
       const cities = await response.json();
       return cities.filter((city: any) => city.isActive);
+    }
+  } catch (error) {
+    console.error('Failed to fetch cities from API:', error);
+  }
+  
+  // 如果API失败，返回默认数据
+  return defaultCities.filter(city => city.isActive);
+};
+
+// 按服务类型获取启用的城市列表
+export const getActiveCitiesByService = async (serviceType: 'localMoving' | 'intercityMoving' | 'storage'): Promise<SimpleCityData[]> => {
+  try {
+    const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+    const response = await fetch(`${API_BASE_URL}/api/cities`);
+    if (response.ok) {
+      const cities = await response.json();
+      return cities.filter((city: any) => 
+        city.isActive && city.services && city.services[serviceType]
+      );
     }
   } catch (error) {
     console.error('Failed to fetch cities from API:', error);

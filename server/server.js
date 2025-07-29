@@ -43,6 +43,9 @@ const initDatabase = () => {
       city_name TEXT UNIQUE NOT NULL,
       city_icon TEXT,
       is_active BOOLEAN DEFAULT 1,
+      local_moving_enabled BOOLEAN DEFAULT 1,
+      intercity_moving_enabled BOOLEAN DEFAULT 1,
+      storage_enabled BOOLEAN DEFAULT 1,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
       updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )
@@ -219,9 +222,9 @@ const initDatabase = () => {
 
   // 插入默认城市数据
   const defaultCities = [
-    { name: 'Vancouver', icon: '🏙️', active: 1 },
-    { name: 'Calgary', icon: '🏔️', active: 1 },
-    { name: 'Winnipeg', icon: '🏞️', active: 1 }
+    { name: 'Vancouver', icon: '🏙️', active: 1, localMoving: 1, intercityMoving: 1, storage: 1 },
+    { name: 'Calgary', icon: '🏔️', active: 1, localMoving: 1, intercityMoving: 1, storage: 1 },
+    { name: 'Winnipeg', icon: '🏞️', active: 1, localMoving: 1, intercityMoving: 1, storage: 1 }
   ];
 
   // 插入默认系统设置数据
@@ -257,9 +260,9 @@ const initDatabase = () => {
 
   const existingCities = db.prepare('SELECT COUNT(*) as count FROM cities_config').get();
   if (existingCities.count === 0) {
-    const insertCity = db.prepare('INSERT OR IGNORE INTO cities_config (city_name, city_icon, is_active) VALUES (?, ?, ?)');
+    const insertCity = db.prepare('INSERT OR IGNORE INTO cities_config (city_name, city_icon, is_active, local_moving_enabled, intercity_moving_enabled, storage_enabled) VALUES (?, ?, ?, ?, ?, ?)');
     defaultCities.forEach(city => {
-      insertCity.run(city.name, city.icon, city.active);
+      insertCity.run(city.name, city.icon, city.active, city.localMoving, city.intercityMoving, city.storage);
     });
   }
 
@@ -329,7 +332,12 @@ app.get('/api/cities', (req, res) => {
       name: city.city_name,
       displayName: city.city_name, // 可以根据需要添加中文显示名
       isActive: Boolean(city.is_active),
-      icon: city.city_icon || '🏙️'
+      icon: city.city_icon || '🏙️',
+      services: {
+        localMoving: Boolean(city.local_moving_enabled),
+        intercityMoving: Boolean(city.intercity_moving_enabled),
+        storage: Boolean(city.storage_enabled)
+      }
     }));
     
     res.json(formattedCities);
@@ -388,9 +396,16 @@ app.put('/api/cities', (req, res) => {
     if (!Array.isArray(cities)) {
       return res.status(400).json({ error: 'Invalid cities data' });
     }
-    const updateStmt = db.prepare('UPDATE cities_config SET is_active = ?, city_icon = ? WHERE city_name = ?');
+    const updateStmt = db.prepare('UPDATE cities_config SET is_active = ?, city_icon = ?, local_moving_enabled = ?, intercity_moving_enabled = ?, storage_enabled = ? WHERE city_name = ?');
     cities.forEach(city => {
-      updateStmt.run(city.isActive ? 1 : 0, city.icon || '🏙️', city.name);
+      updateStmt.run(
+        city.isActive ? 1 : 0, 
+        city.icon || '🏙️', 
+        city.services?.localMoving ? 1 : 0,
+        city.services?.intercityMoving ? 1 : 0,
+        city.services?.storage ? 1 : 0,
+        city.name
+      );
     });
     res.json({ success: true, message: '城市状态已批量更新' });
   } catch (error) {

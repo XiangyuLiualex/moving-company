@@ -587,13 +587,13 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       overflow: hidden;
       
-              .table-header {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          background: #007bff;
-          color: white;
-          font-weight: 600;
-        
+      .table-header {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        background: #007bff;
+        color: white;
+        font-weight: 600;
+      
         .header-cell {
           padding: 15px 20px;
           text-align: left;
@@ -605,12 +605,12 @@
         }
       }
       
-              .table-body {
-          .table-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            border-bottom: 1px solid #e9ecef;
-            transition: background-color 0.3s ease;
+      .table-body {
+        .table-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+          border-bottom: 1px solid #e9ecef;
+          transition: background-color 0.3s ease;
           
           &:hover {
             background-color: #f8f9fa;

@@ -13,7 +13,7 @@ import {
   LocalShipping 
 } from '@mui/icons-material';
 import { AdminPricingData } from '../utils/adminUtils';
-import { getActiveCities, SimpleCityData } from '../utils/cityUtils';
+import { getActiveCitiesByService, SimpleCityData } from '../utils/cityUtils';
 import { defaultSystemSettings, SystemSettings, calculateTax, calculateAdditionalFees } from '../utils/systemUtils';
 import '../styles/storage.scss';
 
@@ -45,7 +45,7 @@ function StoragePage(){
       try {
         const [pricingResponse, citiesData, settingsResponse] = await Promise.all([
           fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001'}/api/pricing`),
-          getActiveCities(),
+          getActiveCitiesByService('storage'),
           fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001'}/api/settings`)
         ]);
         

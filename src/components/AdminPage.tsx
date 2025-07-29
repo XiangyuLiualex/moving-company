@@ -740,6 +740,11 @@ interface CityData {
   displayName: string;
   icon: string;
   isActive: boolean;
+  services: {
+    localMoving: boolean;
+    intercityMoving: boolean;
+    storage: boolean;
+  };
   description: string;
 }
 
@@ -756,6 +761,19 @@ function CitiesManagement({ cities, onUpdateCities, onSave, hasChanges }: Cities
   const handleToggleCityStatus = (cityId: string) => {
     const updatedCities = cities.map(city => 
       city.id === cityId ? { ...city, isActive: !city.isActive } : city
+    );
+    onUpdateCities(updatedCities);
+  };
+
+  const handleToggleService = (cityId: string, serviceType: 'localMoving' | 'intercityMoving' | 'storage') => {
+    const updatedCities = cities.map(city => 
+      city.id === cityId ? { 
+        ...city, 
+        services: {
+          ...city.services,
+          [serviceType]: !city.services[serviceType]
+        }
+      } : city
     );
     onUpdateCities(updatedCities);
   };
@@ -781,6 +799,9 @@ function CitiesManagement({ cities, onUpdateCities, onSave, hasChanges }: Cities
           <div className="table-header">
             <div className="header-cell">{t('admin.cities.cityName')}</div>
             <div className="header-cell">{t('admin.cities.status')}</div>
+            <div className="header-cell">{t('admin.cities.localMoving')}</div>
+            <div className="header-cell">{t('admin.cities.intercityMoving')}</div>
+            <div className="header-cell">{t('admin.cities.storage')}</div>
           </div>
           <div className="table-body">
             {cities.map(city => (
@@ -798,6 +819,39 @@ function CitiesManagement({ cities, onUpdateCities, onSave, hasChanges }: Cities
                   <span className="status-text">
                     {city.isActive ? t('admin.cities.active') : t('admin.cities.inactive')}
                   </span>
+                </div>
+                <div className="table-cell">
+                  <label className="switch">
+                    <input
+                      type="checkbox"
+                      checked={city.services?.localMoving}
+                      onChange={() => handleToggleService(city.id, 'localMoving')}
+                      disabled={!city.isActive}
+                    />
+                    <span className="slider"></span>
+                  </label>
+                </div>
+                <div className="table-cell">
+                  <label className="switch">
+                    <input
+                      type="checkbox"
+                      checked={city.services?.intercityMoving}
+                      onChange={() => handleToggleService(city.id, 'intercityMoving')}
+                      disabled={!city.isActive}
+                    />
+                    <span className="slider"></span>
+                  </label>
+                </div>
+                <div className="table-cell">
+                  <label className="switch">
+                    <input
+                      type="checkbox"
+                      checked={city.services?.storage}
+                      onChange={() => handleToggleService(city.id, 'storage')}
+                      disabled={!city.isActive}
+                    />
+                    <span className="slider"></span>
+                  </label>
                 </div>
               </div>
             ))}

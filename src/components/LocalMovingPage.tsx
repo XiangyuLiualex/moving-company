@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { getActiveCities, SimpleCityData } from '../utils/cityUtils';
+import { getActiveCitiesByService, SimpleCityData } from '../utils/cityUtils';
 import { AdminPricingData } from '../utils/adminUtils';
 import { SystemSettings, defaultSystemSettings, calculateTax, calculateAdditionalFees } from '../utils/systemUtils';
 import '../styles/local-moving.scss';
@@ -27,7 +27,7 @@ function LocalMovingPage() {
       try {
         const [pricingResponse, citiesData, settingsResponse] = await Promise.all([
           fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001'}/api/pricing`),
-          getActiveCities(),
+          getActiveCitiesByService('localMoving'),
           fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001'}/api/settings`)
         ]);
         
@@ -61,7 +61,7 @@ function LocalMovingPage() {
 
     // 清理定时器
     return () => clearInterval(interval);
-  }, []);
+  }, []); // 移除 selectedService 依赖项
 
   if (isLoading) {
     return (
