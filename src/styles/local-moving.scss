@@ -1,76 +1,76 @@
 @use 'variables';
 
-// 同城搬家页面样式 - 蓝色主题
+// 同城搬家页面样式 - 使用现代CSS Grid布局
 .local-moving-page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 50px;
-  padding: min(10vw, 100px);
-  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto auto auto auto;
+  gap: clamp(1rem, 5vw, 3rem);
+  padding: clamp(1rem, 5vw, 3rem);
+  max-width: 1200px;
+  margin: 0 auto;
   min-height: 100vh;
+  background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
   
   .title {
+    display: grid;
+    place-items: center;
     text-align: center;
-    width: min(60vw, 500px);
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
     
     h1 {
-      font-size: 2.5rem;
-      margin-bottom: 30px;
+      font-size: clamp(2rem, 5vw, 2.5rem);
+      margin-bottom: 1rem;
       color: #1565c0;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     }
     
     p {
-      line-height: 1.3rem;
+      line-height: 1.6;
       color: #1976d2;
-      font-size: 0.9rem;
+      font-size: clamp(0.9rem, 2vw, 1rem);
     }
   }
   
   .content-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    display: grid;
+    gap: clamp(1.5rem, 4vw, 2.5rem);
     width: 100%;
-    max-width: 800px;
-    flex-direction: column;
-    gap: 40px;
     
     .cities-section {
-      width: 100%;
+      display: grid;
+      place-items: center;
       background: rgba(255, 255, 255, 0.95);
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 5px 15px rgba(21, 101, 192, 0.1);
+      border-radius: 1rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: clamp(1.5rem, 4vw, 2.5rem);
       border: 2px solid #e3f2fd;
-      text-align: center;
       
       h2 {
-        font-size: 1.8rem;
+        font-size: clamp(1.5rem, 4vw, 1.8rem);
         color: #1565c0;
-        margin-bottom: 25px;
+        margin-bottom: 1.5rem;
         text-align: center;
       }
       
       .cities-container {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
-        justify-items: center;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+        width: 100%;
+        max-width: 800px;
         
         .city-item {
           display: flex;
           align-items: center;
-          gap: 15px;
+          gap: 1rem;
           background: #f8f9fa;
-          padding: 20px;
-          border-radius: 12px;
+          padding: 1.5rem;
+          border-radius: 0.75rem;
           border: 2px solid #e3f2fd;
           transition: all 0.3s ease;
-          width: 100%;
-          max-width: 300px;
           
           &:hover {
             transform: translateY(-3px);
@@ -91,7 +91,7 @@
             h4 {
               font-size: 1.2rem;
               color: #1565c0;
-              margin-bottom: 5px;
+              margin-bottom: 0.5rem;
               font-weight: bold;
             }
             
@@ -106,38 +106,37 @@
     }
     
     .rules-section {
-      width: 100%;
+      display: grid;
+      place-items: center;
       background: rgba(255, 255, 255, 0.95);
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 5px 15px rgba(21, 101, 192, 0.1);
+      border-radius: 1rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: clamp(1.5rem, 4vw, 2.5rem);
       border: 2px solid #e3f2fd;
-      text-align: center;
       
       h2 {
-        font-size: 1.8rem;
+        font-size: clamp(1.5rem, 4vw, 1.8rem);
         color: #1565c0;
-        margin-bottom: 25px;
+        margin-bottom: 1.5rem;
         text-align: center;
       }
       
       .rules-container {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 25px;
-        justify-items: center;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        width: 100%;
+        max-width: 900px;
         
         .rule-item {
           display: flex;
           align-items: center;
-          gap: 20px;
+          gap: 1rem;
           background: #f8f9fa;
-          padding: 25px;
-          border-radius: 12px;
+          padding: 1.5rem;
+          border-radius: 0.75rem;
           border: 2px solid #e3f2fd;
           transition: all 0.3s ease;
-          width: 100%;
-          max-width: 350px;
           
           &:hover {
             transform: translateY(-3px);
@@ -158,13 +157,13 @@
             h3 {
               font-size: 1.3rem;
               color: #1565c0;
-              margin-bottom: 10px;
+              margin-bottom: 0.5rem;
               font-weight: bold;
             }
             
             p {
               color: #1976d2;
-              margin-bottom: 8px;
+              margin-bottom: 0.5rem;
               line-height: 1.4;
             }
             
@@ -175,9 +174,9 @@
               
               li {
                 color: #1976d2;
-                padding: 3px 0;
+                padding: 0.25rem 0;
                 position: relative;
-                padding-left: 20px;
+                padding-left: 1.25rem;
                 
                 &:before {
                   content: "✓";
@@ -194,50 +193,49 @@
     }
     
     .calculator-section {
-      width: 100%;
+      display: grid;
+      place-items: center;
       background: rgba(255, 255, 255, 0.95);
-      padding: 30px;
-      border-radius: 15px;
-      box-shadow: 0 5px 15px rgba(21, 101, 192, 0.1);
+      border-radius: 1rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: clamp(1.5rem, 4vw, 2.5rem);
       border: 2px solid #e3f2fd;
-      text-align: center;
       
       h2 {
-        font-size: 1.8rem;
+        font-size: clamp(1.5rem, 4vw, 1.8rem);
         color: #1565c0;
-        margin-bottom: 25px;
+        margin-bottom: 1.5rem;
         text-align: center;
       }
       
       .calculator-form {
+        display: grid;
+        gap: 1.5rem;
+        width: 100%;
         max-width: 600px;
-        margin: 0 auto;
         
         .form-group {
-          margin-bottom: 20px;
-          text-align: left;
+          display: grid;
+          gap: 0.5rem;
           
           label {
-            display: block;
             font-weight: bold;
             color: #1565c0;
-            margin-bottom: 8px;
-            font-size: 1.1rem;
+            font-size: 1rem;
           }
           
           .radio-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+            display: grid;
+            gap: 0.75rem;
             
             label {
               display: flex;
               align-items: center;
-              gap: 10px;
+              gap: 0.75rem;
               font-weight: normal;
               cursor: pointer;
-              padding: 10px;
-              border-radius: 8px;
+              padding: 0.75rem;
+              border-radius: 0.5rem;
               transition: background-color 0.3s ease;
               
               &:hover {
@@ -252,9 +250,9 @@
           
           select {
             width: 100%;
-            padding: 12px;
+            padding: 0.75rem;
             border: 2px solid #e3f2fd;
-            border-radius: 8px;
+            border-radius: 0.5rem;
             font-size: 1rem;
             background: white;
             color: #1565c0;
@@ -267,27 +265,29 @@
         }
         
         .price-display {
-          margin-top: 30px;
-          padding: 25px;
+          display: grid;
+          gap: 1rem;
+          padding: 1.5rem;
           background: #f8f9fa;
-          border-radius: 12px;
+          border-radius: 0.75rem;
           border: 2px solid #e3f2fd;
           
           h3 {
             color: #1565c0;
-            margin-bottom: 20px;
+            margin-bottom: 1rem;
             font-size: 1.4rem;
             text-align: center;
           }
           
           .price-breakdown {
-            text-align: left;
+            display: grid;
+            gap: 0.5rem;
             
             .price-item {
               display: flex;
               justify-content: space-between;
               align-items: center;
-              padding: 8px 0;
+              padding: 0.5rem 0;
               border-bottom: 1px solid #e3f2fd;
               
               &:last-of-type {
@@ -308,8 +308,8 @@
             }
             
             .price-total {
-              margin-top: 15px;
-              padding-top: 15px;
+              margin-top: 1rem;
+              padding-top: 1rem;
               border-top: 2px solid #2196f3;
               font-size: 1.2rem;
               
@@ -319,11 +319,11 @@
             }
             
             .deposit-notice {
-              margin-top: 15px;
-              padding: 15px;
+              margin-top: 1rem;
+              padding: 1rem;
               background: #fff3cd;
               border: 1px solid #ffeaa7;
-              border-radius: 8px;
+              border-radius: 0.5rem;
               text-align: center;
               
               p {
@@ -338,34 +338,34 @@
     }
     
     .contact-section {
-      width: 100%;
+      display: grid;
+      place-items: center;
       background: rgba(255, 255, 255, 0.95);
-      padding: 30px;
-      border-radius: 15px;
-      text-align: center;
-      box-shadow: 0 8px 25px rgba(21, 101, 192, 0.2);
+      border-radius: 1rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: clamp(1.5rem, 4vw, 2.5rem);
       border: 2px solid #2196f3;
+      text-align: center;
       
       h3 {
-        font-size: 1.5rem;
+        font-size: clamp(1.3rem, 3vw, 1.5rem);
         color: #1565c0;
-        margin-bottom: 10px;
-        text-align: center;
+        margin-bottom: 0.5rem;
       }
       
       p {
         color: #1976d2;
-        margin-bottom: 20px;
-        text-align: center;
+        margin-bottom: 1rem;
+        font-size: clamp(0.9rem, 2vw, 1rem);
       }
       
       .contact-button {
         background: #2196f3;
         color: white;
         border: none;
-        padding: 15px 30px;
-        border-radius: 10px;
-        font-size: 1.1rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        font-size: 1rem;
         font-weight: bold;
         cursor: pointer;
         transition: all 0.3s ease;
@@ -373,315 +373,6 @@
         &:hover {
           background: #1976d2;
           transform: translateY(-2px);
-        }
-      }
-    }
-  }
-}
-
-// 响应式设计
-@media (max-width: 1200px) {
-  .local-moving-page {
-    .content-section {
-      max-width: 900px;
-      
-      .cities-section {
-        .cities-container {
-          grid-template-columns: repeat(2, 1fr);
-          gap: 20px;
-        }
-      }
-      
-      .rules-section {
-        .rules-container {
-          grid-template-columns: repeat(2, 1fr);
-          gap: 20px;
-        }
-      }
-    }
-  }
-}
-
-@media (max-width: 900px) {
-  .local-moving-page {
-    padding: 30px 20px;
-    gap: 30px;
-    
-    .title h1 {
-      font-size: 2.2rem;
-    }
-    
-    .content-section {
-      gap: 30px;
-      
-      .cities-section {
-        .cities-container {
-          grid-template-columns: 1fr;
-          gap: 15px;
-          
-          .city-item {
-            padding: 20px;
-            max-width: 400px;
-            margin: 0 auto;
-            
-            .city-icon {
-              font-size: 2.2rem;
-              min-width: 45px;
-            }
-            
-            .city-content h4 {
-              font-size: 1.1rem;
-            }
-          }
-        }
-      }
-      
-      .rules-section {
-        .rules-container {
-          grid-template-columns: 1fr;
-          gap: 20px;
-          
-          .rule-item {
-            max-width: 450px;
-            margin: 0 auto;
-            padding: 20px;
-            
-            .rule-icon {
-              font-size: 2.2rem;
-              min-width: 45px;
-            }
-            
-            .rule-content h3 {
-              font-size: 1.2rem;
-            }
-          }
-        }
-      }
-      
-      .calculator-section {
-        .calculator-form {
-          max-width: 500px;
-          
-          .form-group {
-            .radio-group {
-              label {
-                padding: 12px;
-                font-size: 0.95rem;
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-@media (max-width: 600px) {
-  .local-moving-page {
-    padding: 20px 15px;
-    gap: 25px;
-    
-    .title {
-      h1 {
-        font-size: 1.8rem;
-        margin-bottom: 20px;
-      }
-      
-      p {
-        font-size: 0.85rem;
-      }
-    }
-    
-    .content-section {
-      gap: 25px;
-      
-      .cities-section,
-      .rules-section,
-      .calculator-section,
-      .contact-section {
-        padding: 20px;
-        
-        h2 {
-          font-size: 1.5rem;
-          margin-bottom: 20px;
-        }
-      }
-      
-      .cities-section {
-        .cities-container {
-          .city-item {
-            padding: 15px;
-            flex-direction: column;
-            text-align: center;
-            gap: 10px;
-            
-            .city-icon {
-              font-size: 2rem;
-              min-width: auto;
-            }
-            
-            .city-content {
-              text-align: center;
-              
-              h4 {
-                font-size: 1rem;
-              }
-              
-              p {
-                font-size: 0.85rem;
-              }
-            }
-          }
-        }
-      }
-      
-      .rules-section {
-        .rules-container {
-          .rule-item {
-            padding: 15px;
-            flex-direction: column;
-            text-align: center;
-            gap: 10px;
-            
-            .rule-icon {
-              font-size: 2rem;
-              min-width: auto;
-            }
-            
-            .rule-content {
-              text-align: center;
-              
-              h3 {
-                font-size: 1.1rem;
-              }
-              
-              p {
-                font-size: 0.9rem;
-              }
-              
-              ul li {
-                font-size: 0.9rem;
-                padding-left: 15px;
-              }
-            }
-          }
-        }
-      }
-      
-      .calculator-section {
-        .calculator-form {
-          .form-group {
-            margin-bottom: 15px;
-            
-            label {
-              font-size: 1rem;
-              margin-bottom: 6px;
-            }
-            
-            .radio-group {
-              label {
-                padding: 10px;
-                font-size: 0.9rem;
-              }
-            }
-            
-            select {
-              padding: 10px;
-              font-size: 0.95rem;
-            }
-          }
-          
-          .price-display {
-            padding: 20px;
-            margin-top: 20px;
-            
-            h3 {
-              font-size: 1.2rem;
-              margin-bottom: 15px;
-            }
-            
-            .price-breakdown {
-              .price-item {
-                padding: 6px 0;
-                font-size: 0.9rem;
-                
-                span:last-child {
-                  min-width: 70px;
-                }
-              }
-              
-              .price-total {
-                font-size: 1.1rem;
-                margin-top: 12px;
-                padding-top: 12px;
-              }
-              
-              .deposit-notice {
-                padding: 12px;
-                margin-top: 12px;
-                
-                p {
-                  font-size: 0.9rem;
-                }
-              }
-            }
-          }
-        }
-      }
-      
-      .contact-section {
-        h3 {
-          font-size: 1.3rem;
-        }
-        
-        p {
-          font-size: 0.9rem;
-        }
-        
-        .contact-button {
-          padding: 12px 25px;
-          font-size: 1rem;
-        }
-      }
-    }
-  }
-}
-
-@media (max-width: 400px) {
-  .local-moving-page {
-    padding: 15px 10px;
-    
-    .title h1 {
-      font-size: 1.6rem;
-    }
-    
-    .content-section {
-      .cities-section,
-      .rules-section,
-      .calculator-section,
-      .contact-section {
-        padding: 15px;
-        
-        h2 {
-          font-size: 1.3rem;
-        }
-      }
-      
-      .calculator-section {
-        .calculator-form {
-          .price-display {
-            padding: 15px;
-            
-            .price-breakdown {
-              .price-item {
-                font-size: 0.85rem;
-                
-                span:last-child {
-                  min-width: 60px;
-                }
-              }
-            }
-          }
         }
       }
     }
