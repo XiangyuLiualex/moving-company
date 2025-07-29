@@ -138,8 +138,8 @@
     "calculator": {
       "title": "价格计算器",
       "area": "服务区域",
-      "standardArea": "标准区域（大温哥华地区、卡尔加里、温尼伯）",
-      "premiumArea": "加价区域（北温、西温、白石、兰里、枫树岭）",
+      "standardArea": "大温哥华地区中心区（温哥华、列治文、本那比、高贵林、三角洲、素里）",
+      "premiumArea": "大温哥华地区外围区（北温、西温、白石、兰里、枫树岭）",
       "serviceType": "服务类型",
       "withVehicle": "需要搬家公司的车（1人+车）",
       "withoutVehicle": "仅需要工人（不需要车）",

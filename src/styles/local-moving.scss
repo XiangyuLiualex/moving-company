@@ -37,6 +37,68 @@
     flex-direction: column;
     gap: 40px;
     
+    .cities-section {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(21, 101, 192, 0.1);
+      border: 2px solid #e3f2fd;
+      
+      h2 {
+        font-size: 1.8rem;
+        color: #1565c0;
+        margin-bottom: 25px;
+        text-align: center;
+      }
+      
+      .cities-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        
+        .city-item {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+          background: #f8f9fa;
+          padding: 20px;
+          border-radius: 12px;
+          border: 2px solid #e3f2fd;
+          transition: all 0.3s ease;
+          
+          &:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(21, 101, 192, 0.2);
+            border-color: #2196f3;
+          }
+          
+          .city-icon {
+            font-size: 2.5rem;
+            min-width: 50px;
+            text-align: center;
+          }
+          
+          .city-content {
+            flex: 1;
+            
+            h4 {
+              font-size: 1.2rem;
+              color: #1565c0;
+              margin-bottom: 5px;
+              font-weight: bold;
+            }
+            
+            p {
+              color: #1976d2;
+              font-size: 0.9rem;
+              margin: 0;
+            }
+          }
+        }
+      }
+    }
+    
     .calculator-section {
       width: 100%;
       background: rgba(255, 255, 255, 0.95);
@@ -194,63 +256,7 @@
         text-align: center;
       }
       
-      .cities-section {
-        margin-bottom: 40px;
-        
-        h3 {
-          font-size: 1.5rem;
-          color: #1565c0;
-          margin-bottom: 20px;
-          text-align: center;
-        }
-        
-        .cities-container {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-          gap: 20px;
-          
-          .city-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(21, 101, 192, 0.1);
-            border: 2px solid #e3f2fd;
-            transition: all 0.3s ease;
-            
-            &:hover {
-              transform: translateY(-3px);
-              box-shadow: 0 8px 25px rgba(21, 101, 192, 0.2);
-              border-color: #2196f3;
-            }
-            
-            .city-icon {
-              font-size: 2.5rem;
-              min-width: 50px;
-              text-align: center;
-            }
-            
-            .city-content {
-              flex: 1;
-              
-              h4 {
-                font-size: 1.2rem;
-                color: #1565c0;
-                margin-bottom: 5px;
-                font-weight: bold;
-              }
-              
-              p {
-                color: #1976d2;
-                font-size: 0.9rem;
-                margin: 0;
-              }
-            }
-          }
-        }
-      }
+
       
       .rules-container {
         display: grid;

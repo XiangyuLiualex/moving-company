@@ -138,8 +138,8 @@
     "calculator": {
       "title": "Price Calculator",
       "area": "Service Area",
-      "standardArea": "Standard Area (Greater Vancouver, Calgary, Winnipeg)",
-      "premiumArea": "Premium Area (North Van, West Van, White Rock, Langley, Maple Ridge)",
+      "standardArea": "Greater Vancouver Central Area (Vancouver, Richmond, Burnaby, Coquitlam, Delta, Surrey)",
+      "premiumArea": "Greater Vancouver Outer Area (North Van, West Van, White Rock, Langley, Maple Ridge)",
       "serviceType": "Service Type",
       "withVehicle": "With Moving Company Vehicle (1 person + vehicle)",
       "withoutVehicle": "Workers Only (no vehicle needed)",

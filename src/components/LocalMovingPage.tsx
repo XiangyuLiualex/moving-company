@@ -122,6 +122,58 @@ function LocalMovingPage() {
       </div>
       
       <div className="content-section">
+        {/* 服务城市部分 */}
+        <div className="cities-section">
+          <h2>{t('localMoving.serviceCities')}</h2>
+          <div className="cities-container">
+            {(() => {
+              const cityIcons = {
+                'Vancouver': '🏙️',
+                'Calgary': '🏔️',
+                'Winnipeg': '🏞️'
+              };
+              const cityDescriptions = {
+                'Vancouver': 'Greater Vancouver Area',
+                'Calgary': 'Calgary Metropolitan Area',
+                'Winnipeg': 'Winnipeg Metropolitan Area'
+              };
+              const cityChineseNames = {
+                'Vancouver': '温哥华',
+                'Calgary': '卡尔加里',
+                'Winnipeg': '温尼伯'
+              };
+              const cityChineseDescriptions = {
+                'Vancouver': '大温哥华地区',
+                'Calgary': '卡尔加里都会区',
+                'Winnipeg': '温尼伯都会区'
+              };
+              
+              // 获取当前语言
+              const currentLanguage = i18n.language;
+              
+              return activeCities.map((city) => (
+                <div key={city.name} className="city-item">
+                  <div className="city-icon">{cityIcons[city.name as keyof typeof cityIcons] || '🏙️'}</div>
+                  <div className="city-content">
+                    <h4>
+                      {currentLanguage === 'zh' 
+                        ? cityChineseNames[city.name as keyof typeof cityChineseNames] 
+                        : city.displayName
+                      }
+                    </h4>
+                    <p>
+                      {currentLanguage === 'zh'
+                        ? (cityChineseDescriptions[city.name as keyof typeof cityChineseDescriptions] || '都会区')
+                        : (cityDescriptions[city.name as keyof typeof cityDescriptions] || 'Metropolitan Area')
+                      }
+                    </p>
+                  </div>
+                </div>
+              ));
+            })()}
+          </div>
+        </div>
+
         {/* 价格计算器 */}
         <div className="calculator-section">
           <h2>{t('localMoving.calculator.title')}</h2>
@@ -242,57 +294,6 @@ function LocalMovingPage() {
         <div className="rules-section">
           <h2>{t('localMoving.serviceRules')}</h2>
           
-          <div className="cities-section">
-            <h3>{t('localMoving.serviceCities')}</h3>
-            <div className="cities-container">
-              {(() => {
-                const cityIcons = {
-                  'Vancouver': '🏙️',
-                  'Calgary': '🏔️',
-                  'Winnipeg': '🏞️'
-                };
-                const cityDescriptions = {
-                  'Vancouver': 'Greater Vancouver Area',
-                  'Calgary': 'Calgary Metropolitan Area',
-                  'Winnipeg': 'Winnipeg Metropolitan Area'
-                };
-                const cityChineseNames = {
-                  'Vancouver': '温哥华',
-                  'Calgary': '卡尔加里',
-                  'Winnipeg': '温尼伯'
-                };
-                const cityChineseDescriptions = {
-                  'Vancouver': '大温哥华地区',
-                  'Calgary': '卡尔加里都会区',
-                  'Winnipeg': '温尼伯都会区'
-                };
-                
-                // 获取当前语言
-                const currentLanguage = i18n.language;
-                
-                return activeCities.map((city) => (
-                  <div key={city.name} className="city-item">
-                    <div className="city-icon">{cityIcons[city.name as keyof typeof cityIcons] || '🏙️'}</div>
-                    <div className="city-content">
-                      <h4>
-                        {currentLanguage === 'zh' 
-                          ? cityChineseNames[city.name as keyof typeof cityChineseNames] 
-                          : city.displayName
-                        }
-                      </h4>
-                      <p>
-                        {currentLanguage === 'zh'
-                          ? (cityChineseDescriptions[city.name as keyof typeof cityChineseDescriptions] || '都会区')
-                          : (cityDescriptions[city.name as keyof typeof cityDescriptions] || 'Metropolitan Area')
-                        }
-                      </p>
-                    </div>
-                  </div>
-                ));
-              })()}
-            </div>
-          </div>
-          
           <div className="rules-container">
             <div className="rule-item">
               <div className="rule-icon">⏰</div>
@@ -348,18 +349,18 @@ function LocalMovingPage() {
                       <strong>{t('localMoving.companyName')}:</strong>
                       <span>{systemSettings.websiteInfo.companyName}</span>
                     </div>
-                                          <div className="contact-item">
-                        <strong>{t('localMoving.phone')}:</strong>
-                        <span>{systemSettings.websiteInfo.phone}</span>
-                      </div>
-                      <div className="contact-item">
-                        <strong>{t('localMoving.email')}:</strong>
-                        <span>{systemSettings.websiteInfo.email}</span>
-                      </div>
-                      <div className="contact-item">
-                        <strong>{t('localMoving.address')}:</strong>
-                        <span>{systemSettings.websiteInfo.address}</span>
-                      </div>
+                    <div className="contact-item">
+                      <strong>{t('localMoving.phone')}:</strong>
+                      <span>{systemSettings.websiteInfo.phone}</span>
+                    </div>
+                    <div className="contact-item">
+                      <strong>{t('localMoving.email')}:</strong>
+                      <span>{systemSettings.websiteInfo.email}</span>
+                    </div>
+                    <div className="contact-item">
+                      <strong>{t('localMoving.address')}:</strong>
+                      <span>{systemSettings.websiteInfo.address}</span>
+                    </div>
                   </div>
                   <button 
                     className="close-button"
