@@ -117,6 +117,11 @@ function LocalMovingPage() {
   const totalPrice = subtotal + tax + additionalFees.total;
   const needsDeposit = personCount >= pricing.settings.depositRequired;
 
+  // 四舍五入到两位小数
+  function roundDecimals(num: number) {
+    return Math.round(num * 100) / 100;
+  }
+
   return (
     <main className="local-moving-page">
       <div className="title">
@@ -266,53 +271,53 @@ function LocalMovingPage() {
                   <>
                     <div className="price-item">
                       <span>{t('localMoving.calculator.basePrice')}（{hours}小时 × ${currentPricing.withVehicle.baseRate}/小时）:</span>
-                      <span>${currentPricing.withVehicle.baseRate * hours}</span>
+                      <span>${roundDecimals(currentPricing.withVehicle.baseRate * hours)}</span>
                     </div>
                     {personCount > 1 && (
                       <div className="price-item">
                         <span>{t('localMoving.calculator.additionalPersonFee')}（{personCount - 1}人 × ${currentPricing.withVehicle.additionalPersonFee}/人/小时 × {hours}小时）:</span>
-                        <span>${(personCount - 1) * currentPricing.withVehicle.additionalPersonFee * hours}</span>
+                        <span>${roundDecimals((personCount - 1) * currentPricing.withVehicle.additionalPersonFee * hours)}</span>
                       </div>
                     )}
                   </>
                 ) : (
                   <div className="price-item">
                     <span>{t('localMoving.calculator.workerFee')}（{personCount}人 × ${currentPricing.withoutVehicle.baseRate}/人/小时 × {hours}小时）:</span>
-                    <span>${currentPricing.withoutVehicle.baseRate * personCount * hours}</span>
+                    <span>${roundDecimals(currentPricing.withoutVehicle.baseRate * personCount * hours)}</span>
                   </div>
                 )}
                 <div className="price-item">
                   <span>{t('localMoving.calculator.subtotal')}:</span>
-                  <span>${subtotal}</span>
+                  <span>${roundDecimals(subtotal)}</span>
                 </div>
                 <div className="price-item">
                   <span>{t('localMoving.calculator.tax')}:</span>
-                  <span>${tax}</span>
+                  <span>${roundDecimals(tax)}</span>
                 </div>
                 {systemSettings.taxAndFees.fuelSurchargeEnabled && (
                   <div className="price-item">
                     <span>{t('localMoving.calculator.fuelSurcharge')} ({systemSettings.taxAndFees.fuelSurcharge}%):</span>
-                    <span>${additionalFees.fuelSurcharge}</span>
+                    <span>${roundDecimals(additionalFees.fuelSurcharge)}</span>
                   </div>
                 )}
                 {systemSettings.taxAndFees.insuranceEnabled && (
                   <div className="price-item">
                     <span>{t('localMoving.calculator.insurance')} ({systemSettings.taxAndFees.insuranceRate}%):</span>
-                    <span>${additionalFees.insurance}</span>
+                    <span>${roundDecimals(additionalFees.insurance)}</span>
                   </div>
                 )}
                 {systemSettings.taxAndFees.packagingEnabled && (
                   <div className="price-item">
                     <span>{t('localMoving.calculator.packaging')}:</span>
-                    <span>${additionalFees.packaging}</span>
+                    <span>${roundDecimals(additionalFees.packaging)}</span>
                   </div>
                 )}
                 <div className="price-total">
-                  <strong>{t('localMoving.calculator.total')}: ${totalPrice}</strong>
+                  <strong>{t('localMoving.calculator.total')}: ${roundDecimals(totalPrice)}</strong>
                 </div>
                 {needsDeposit && (
                   <div className="deposit-notice">
-                    <p>⚠️ {personCount}{t('localMoving.calculator.depositNotice')}：${pricing.settings.depositRMB / 5}加币 或 ¥{pricing.settings.depositRMB}人民币</p>
+                    <p>⚠️ {personCount}{t('localMoving.calculator.depositNotice')}：${roundDecimals(pricing.settings.depositRMB / 5)}加币 或 ¥{roundDecimals(pricing.settings.depositRMB)}人民币</p>
                   </div>
                 )}
               </div>
@@ -339,8 +344,8 @@ function LocalMovingPage() {
                 <h3>定金要求</h3>
                 <p><strong>{pricing.settings.depositRequired}人及以上需要预付定金</strong></p>
                 <ul>
-                  <li>${pricing.settings.depositRMB / 5} CAD</li>
-                  <li>¥{pricing.settings.depositRMB} RMB</li>
+                  <li>${roundDecimals(pricing.settings.depositRMB / 5)} CAD</li>
+                  <li>¥{roundDecimals(pricing.settings.depositRMB)} RMB</li>
                 </ul>
               </div>
             </div>
