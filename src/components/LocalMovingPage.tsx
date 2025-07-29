@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getActiveCities, SimpleCityData } from '../utils/cityUtils';
 import { AdminPricingData } from '../utils/adminUtils';
-import { SystemSettings, defaultSystemSettings } from '../utils/systemUtils';
+import { SystemSettings, defaultSystemSettings, calculateTax, calculateAdditionalFees } from '../utils/systemUtils';
 import '../styles/local-moving.scss';
 
 function LocalMovingPage() {
@@ -111,7 +111,10 @@ function LocalMovingPage() {
     }
   };
 
-  const totalPrice = calculatePrice();
+  const subtotal = calculatePrice();
+  const tax = calculateTax(subtotal, systemSettings);
+  const additionalFees = calculateAdditionalFees(subtotal, systemSettings);
+  const totalPrice = subtotal + tax + additionalFees.total;
   const needsDeposit = personCount >= pricing.settings.depositRequired;
 
   return (
@@ -276,6 +279,32 @@ function LocalMovingPage() {
                   <div className="price-item">
                     <span>{t('localMoving.calculator.workerFee')}（{personCount}人 × ${currentPricing.withoutVehicle.baseRate}/人/小时 × {hours}小时）:</span>
                     <span>${currentPricing.withoutVehicle.baseRate * personCount * hours}</span>
+                  </div>
+                )}
+                <div className="price-item">
+                  <span>{t('localMoving.calculator.subtotal')}:</span>
+                  <span>${subtotal}</span>
+                </div>
+                <div className="price-item">
+                  <span>{t('localMoving.calculator.tax')}:</span>
+                  <span>${tax}</span>
+                </div>
+                {systemSettings.taxAndFees.fuelSurchargeEnabled && (
+                  <div className="price-item">
+                    <span>{t('localMoving.calculator.fuelSurcharge')} ({systemSettings.taxAndFees.fuelSurcharge}%):</span>
+                    <span>${additionalFees.fuelSurcharge}</span>
+                  </div>
+                )}
+                {systemSettings.taxAndFees.insuranceEnabled && (
+                  <div className="price-item">
+                    <span>{t('localMoving.calculator.insurance')} ({systemSettings.taxAndFees.insuranceRate}%):</span>
+                    <span>${additionalFees.insurance}</span>
+                  </div>
+                )}
+                {systemSettings.taxAndFees.packagingEnabled && (
+                  <div className="price-item">
+                    <span>{t('localMoving.calculator.packaging')}:</span>
+                    <span>${additionalFees.packaging}</span>
                   </div>
                 )}
                 <div className="price-total">

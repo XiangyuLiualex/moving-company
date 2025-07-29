@@ -149,6 +149,11 @@
       "basePrice": "Base Price",
       "additionalPersonFee": "Additional Person Fee",
       "workerFee": "Worker Fee",
+      "subtotal": "Subtotal",
+      "tax": "Tax",
+      "fuelSurcharge": "Fuel Surcharge",
+      "insurance": "Insurance",
+      "packaging": "Packaging",
       "total": "Total",
       "depositNotice": "people or more require deposit"
     },

@@ -149,6 +149,11 @@
       "basePrice": "基础价格",
       "additionalPersonFee": "额外人员费用",
       "workerFee": "工人费用",
+      "subtotal": "小计",
+      "tax": "税费",
+      "fuelSurcharge": "燃油附加费",
+      "insurance": "保险费",
+      "packaging": "包装费",
       "total": "总计",
       "depositNotice": "人及以上需要预付定金"
     },
