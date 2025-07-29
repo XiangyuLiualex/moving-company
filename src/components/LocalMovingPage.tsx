@@ -182,6 +182,46 @@ function LocalMovingPage() {
           </div>
         </div>
 
+        <div className="rules-section">
+          <h2>{t('localMoving.serviceRules')}</h2>
+          
+          <div className="rules-container">
+            <div className="rule-item">
+              <div className="rule-icon">⏰</div>
+              <div className="rule-content">
+                <h3>最少服务时间</h3>
+                <p><strong>{pricing.settings.minimumHours}小时起</strong></p>
+                <p>所有服务最少需要{pricing.settings.minimumHours}小时</p>
+              </div>
+            </div>
+            
+            <div className="rule-item">
+              <div className="rule-icon">💰</div>
+              <div className="rule-content">
+                <h3>定金要求</h3>
+                <p><strong>{pricing.settings.depositRequired}人及以上需要预付定金</strong></p>
+                <ul>
+                  <li>${roundDecimals(pricing.settings.depositRMB / 5)} CAD</li>
+                  <li>¥{roundDecimals(pricing.settings.depositRMB)} RMB</li>
+                </ul>
+              </div>
+            </div>
+            
+            <div className="rule-item">
+              <div className="rule-icon">📋</div>
+              <div className="rule-content">
+                <h3>{t('localMoving.serviceIncludes')}</h3>
+                <ul>
+                  <li>{t('localMoving.professionalTeam')}</li>
+                  <li>{t('localMoving.furnitureProtection')}</li>
+                  <li>{t('localMoving.loadingUnloading')}</li>
+                  <li>{t('localMoving.basicAssembly')}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* 价格计算器 */}
         <div className="calculator-section">
           <h2>{t('localMoving.calculator.title')}</h2>
@@ -324,88 +364,48 @@ function LocalMovingPage() {
             </div>
           </div>
         </div>
-
-        <div className="rules-section">
-          <h2>{t('localMoving.serviceRules')}</h2>
           
-          <div className="rules-container">
-            <div className="rule-item">
-              <div className="rule-icon">⏰</div>
-              <div className="rule-content">
-                <h3>最少服务时间</h3>
-                <p><strong>{pricing.settings.minimumHours}小时起</strong></p>
-                <p>所有服务最少需要{pricing.settings.minimumHours}小时</p>
-              </div>
-            </div>
-            
-            <div className="rule-item">
-              <div className="rule-icon">💰</div>
-              <div className="rule-content">
-                <h3>定金要求</h3>
-                <p><strong>{pricing.settings.depositRequired}人及以上需要预付定金</strong></p>
-                <ul>
-                  <li>${roundDecimals(pricing.settings.depositRMB / 5)} CAD</li>
-                  <li>¥{roundDecimals(pricing.settings.depositRMB)} RMB</li>
-                </ul>
-              </div>
-            </div>
-            
-            <div className="rule-item">
-              <div className="rule-icon">📋</div>
-              <div className="rule-content">
-                <h3>{t('localMoving.serviceIncludes')}</h3>
-                <ul>
-                  <li>{t('localMoving.professionalTeam')}</li>
-                  <li>{t('localMoving.furnitureProtection')}</li>
-                  <li>{t('localMoving.loadingUnloading')}</li>
-                  <li>{t('localMoving.basicAssembly')}</li>
-                </ul>
-              </div>
-            </div>
-          </div>
+        <div className="contact-section">
+          <h3>{t('localMoving.readyToBook')}</h3>
+          <p>{t('localMoving.contactUs')}</p>
+          <button 
+            className="contact-button"
+            onClick={() => setShowContactInfo(!showContactInfo)}
+          >
+            {t('localMoving.contactButton')}
+          </button>
           
-          <div className="contact-section">
-            <h3>{t('localMoving.readyToBook')}</h3>
-            <p>{t('localMoving.contactUs')}</p>
-            <button 
-              className="contact-button"
-              onClick={() => setShowContactInfo(!showContactInfo)}
-            >
-              {t('localMoving.contactButton')}
-            </button>
-            
-            {showContactInfo && (
-              <div className="contact-info-modal">
-                <div className="contact-info-content">
-                  <h4>{t('localMoving.contactInfo')}</h4>
-                  <div className="contact-details">
-                    <div className="contact-item">
-                      <strong>{t('localMoving.companyName')}:</strong>
-                      <span>{systemSettings.websiteInfo.companyName}</span>
-                    </div>
-                    <div className="contact-item">
-                      <strong>{t('localMoving.phone')}:</strong>
-                      <span>{systemSettings.websiteInfo.phone}</span>
-                    </div>
-                    <div className="contact-item">
-                      <strong>{t('localMoving.email')}:</strong>
-                      <span>{systemSettings.websiteInfo.email}</span>
-                    </div>
-                    <div className="contact-item">
-                      <strong>{t('localMoving.address')}:</strong>
-                      <span>{systemSettings.websiteInfo.address}</span>
-                    </div>
+          {showContactInfo && (
+            <div className="contact-info-modal">
+              <div className="contact-info-content">
+                <h4>{t('localMoving.contactInfo')}</h4>
+                <div className="contact-details">
+                  <div className="contact-item">
+                    <strong>{t('localMoving.companyName')}:</strong>
+                    <span>{systemSettings.websiteInfo.companyName}</span>
                   </div>
-                  <button 
-                    className="close-button"
-                    onClick={() => setShowContactInfo(false)}
-                  >
-                    {t('localMoving.close')}
-                  </button>
+                  <div className="contact-item">
+                    <strong>{t('localMoving.phone')}:</strong>
+                    <span>{systemSettings.websiteInfo.phone}</span>
+                  </div>
+                  <div className="contact-item">
+                    <strong>{t('localMoving.email')}:</strong>
+                    <span>{systemSettings.websiteInfo.email}</span>
+                  </div>
+                  <div className="contact-item">
+                    <strong>{t('localMoving.address')}:</strong>
+                    <span>{systemSettings.websiteInfo.address}</span>
+                  </div>
                 </div>
+                <button 
+                  className="close-button"
+                  onClick={() => setShowContactInfo(false)}
+                >
+                  {t('localMoving.close')}
+                </button>
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </main>
