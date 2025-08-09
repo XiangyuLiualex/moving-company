@@ -113,7 +113,7 @@ function LocalMovingPage() {
 
   const subtotal = calculatePrice();
   const tax = calculateTax(subtotal, systemSettings);
-  const additionalFees = calculateAdditionalFees(subtotal, systemSettings);
+  const additionalFees = calculateAdditionalFees(subtotal, systemSettings, 'local');
   const totalPrice = subtotal + tax + additionalFees.total;
   const needsDeposit = personCount >= pricing.settings.depositRequired;
 
@@ -334,23 +334,34 @@ function LocalMovingPage() {
                   <span>{t('localMoving.calculator.tax')}:</span>
                   <span>${roundDecimals(tax)}</span>
                 </div>
-                {systemSettings.taxAndFees.fuelSurchargeEnabled && (
-                  <div className="price-item">
-                    <span>{t('localMoving.calculator.fuelSurcharge')} ({systemSettings.taxAndFees.fuelSurcharge}%):</span>
-                    <span>${roundDecimals(additionalFees.fuelSurcharge)}</span>
-                  </div>
-                )}
-                {systemSettings.taxAndFees.insuranceEnabled && (
-                  <div className="price-item">
-                    <span>{t('localMoving.calculator.insurance')} ({systemSettings.taxAndFees.insuranceRate}%):</span>
-                    <span>${roundDecimals(additionalFees.insurance)}</span>
-                  </div>
-                )}
-                {systemSettings.taxAndFees.packagingEnabled && (
-                  <div className="price-item">
-                    <span>{t('localMoving.calculator.packaging')}:</span>
-                    <span>${roundDecimals(additionalFees.packaging)}</span>
-                  </div>
+                {additionalFees.items && additionalFees.items.length > 0 ? (
+                  additionalFees.items.map((fee) => (
+                    <div key={fee.id} className="price-item">
+                      <span>{fee.name}:</span>
+                      <span>${roundDecimals(fee.amount)}</span>
+                    </div>
+                  ))
+                ) : (
+                  <>
+                    {systemSettings.taxAndFees.fuelSurchargeEnabled && (
+                      <div className="price-item">
+                        <span>{t('localMoving.calculator.fuelSurcharge')} ({systemSettings.taxAndFees.fuelSurcharge}%):</span>
+                        <span>${roundDecimals(additionalFees.fuelSurcharge)}</span>
+                      </div>
+                    )}
+                    {systemSettings.taxAndFees.insuranceEnabled && (
+                      <div className="price-item">
+                        <span>{t('localMoving.calculator.insurance')} ({systemSettings.taxAndFees.insuranceRate}%):</span>
+                        <span>${roundDecimals(additionalFees.insurance)}</span>
+                      </div>
+                    )}
+                    {systemSettings.taxAndFees.packagingEnabled && (
+                      <div className="price-item">
+                        <span>{t('localMoving.calculator.packaging')}:</span>
+                        <span>${roundDecimals(additionalFees.packaging)}</span>
+                      </div>
+                    )}
+                  </>
                 )}
                 <div className="price-total">
                   <strong>{t('localMoving.calculator.total')}: ${roundDecimals(totalPrice)}</strong>

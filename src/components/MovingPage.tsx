@@ -225,7 +225,7 @@ function MovingPage(){
   const localServiceFee = calculateLocalServiceFee();
   const subtotal = intercityFee + localServiceFee;
   const tax = calculateTax(subtotal, systemSettings);
-  const additionalFees = calculateAdditionalFees(subtotal, systemSettings);
+  const additionalFees = calculateAdditionalFees(subtotal, systemSettings, 'intercity');
   const total = subtotal + tax + additionalFees.total;
 
   // 获取每板价格显示
@@ -545,23 +545,34 @@ function MovingPage(){
               <td>{t('moving.summary.tax')}</td>
               <td>{`$${roundDecimals(tax)}`}</td>
             </tr>
-            {systemSettings.taxAndFees.fuelSurchargeEnabled && additionalFees.fuelSurcharge > 0 && (
-              <tr>
-                <td>{t('moving.summary.fuelSurcharge')}</td>
-                <td>{`$${roundDecimals(additionalFees.fuelSurcharge)}`}</td>
-              </tr>
-            )}
-            {systemSettings.taxAndFees.insuranceEnabled && additionalFees.insurance > 0 && (
-              <tr>
-                <td>{t('moving.summary.insurance')}</td>
-                <td>{`$${roundDecimals(additionalFees.insurance)}`}</td>
-              </tr>
-            )}
-            {systemSettings.taxAndFees.packagingEnabled && additionalFees.packaging > 0 && (
-              <tr>
-                <td>{t('moving.summary.packaging')}</td>
-                <td>{`$${roundDecimals(additionalFees.packaging)}`}</td>
-              </tr>
+            {additionalFees.items && additionalFees.items.length > 0 ? (
+              additionalFees.items.map((fee) => (
+                <tr key={fee.id}>
+                  <td>{fee.name}</td>
+                  <td>{`$${roundDecimals(fee.amount)}`}</td>
+                </tr>
+              ))
+            ) : (
+              <>
+                {systemSettings.taxAndFees.fuelSurchargeEnabled && additionalFees.fuelSurcharge > 0 && (
+                  <tr>
+                    <td>{t('moving.summary.fuelSurcharge')}</td>
+                    <td>{`$${roundDecimals(additionalFees.fuelSurcharge)}`}</td>
+                  </tr>
+                )}
+                {systemSettings.taxAndFees.insuranceEnabled && additionalFees.insurance > 0 && (
+                  <tr>
+                    <td>{t('moving.summary.insurance')}</td>
+                    <td>{`$${roundDecimals(additionalFees.insurance)}`}</td>
+                  </tr>
+                )}
+                {systemSettings.taxAndFees.packagingEnabled && additionalFees.packaging > 0 && (
+                  <tr>
+                    <td>{t('moving.summary.packaging')}</td>
+                    <td>{`$${roundDecimals(additionalFees.packaging)}`}</td>
+                  </tr>
+                )}
+              </>
             )}
             <tr>
               <td>{t('moving.summary.total')}</td>

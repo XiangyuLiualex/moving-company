@@ -383,7 +383,7 @@ function StoragePage(){
   const storageSubtotal = monthlyStorageFee * (storageMonths ? parseInt(storageMonths) : 0);
   const subtotal = storageSubtotal + pickupFee;
   const tax = calculateTax(subtotal, systemSettings);
-  const additionalFees = calculateAdditionalFees(subtotal, systemSettings);
+  const additionalFees = calculateAdditionalFees(subtotal, systemSettings, 'storage');
   const total = subtotal + tax + additionalFees.total;
 
   // 计算总物品数量
@@ -680,23 +680,34 @@ function StoragePage(){
               <td>{t('storage.summary.tax')}</td>
               <td>{`$${roundDecimals(tax)}`}</td>
             </tr>
-            {systemSettings.taxAndFees.fuelSurchargeEnabled && additionalFees.fuelSurcharge > 0 && (
-              <tr>
-                <td>{t('storage.summary.fuelSurcharge')}</td>
-                <td>{`$${roundDecimals(additionalFees.fuelSurcharge)}`}</td>
-              </tr>
-            )}
-            {systemSettings.taxAndFees.insuranceEnabled && additionalFees.insurance > 0 && (
-              <tr>
-                <td>{t('storage.summary.insurance')}</td>
-                <td>{`$${roundDecimals(additionalFees.insurance)}`}</td>
-              </tr>
-            )}
-            {systemSettings.taxAndFees.packagingEnabled && additionalFees.packaging > 0 && (
-              <tr>
-                <td>{t('storage.summary.packaging')}</td>
-                <td>{`$${roundDecimals(additionalFees.packaging)}`}</td>
-              </tr>
+            {additionalFees.items && additionalFees.items.length > 0 ? (
+              additionalFees.items.map((fee) => (
+                <tr key={fee.id}>
+                  <td>{fee.name}</td>
+                  <td>{`$${roundDecimals(fee.amount)}`}</td>
+                </tr>
+              ))
+            ) : (
+              <>
+                {systemSettings.taxAndFees.fuelSurchargeEnabled && additionalFees.fuelSurcharge > 0 && (
+                  <tr>
+                    <td>{t('storage.summary.fuelSurcharge')}</td>
+                    <td>{`$${roundDecimals(additionalFees.fuelSurcharge)}`}</td>
+                  </tr>
+                )}
+                {systemSettings.taxAndFees.insuranceEnabled && additionalFees.insurance > 0 && (
+                  <tr>
+                    <td>{t('storage.summary.insurance')}</td>
+                    <td>{`$${roundDecimals(additionalFees.insurance)}`}</td>
+                  </tr>
+                )}
+                {systemSettings.taxAndFees.packagingEnabled && additionalFees.packaging > 0 && (
+                  <tr>
+                    <td>{t('storage.summary.packaging')}</td>
+                    <td>{`$${roundDecimals(additionalFees.packaging)}`}</td>
+                  </tr>
+                )}
+              </>
             )}
             <tr>
               <td>{t('storage.summary.total')}</td>
