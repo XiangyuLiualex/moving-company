@@ -185,16 +185,16 @@ main.storage-page {
             background-color: white;
             
             button {
-              border: none;
-              background-color: #2196f3;
+              border: 1px solid #2196f3;
+              background-color: #e3f2fd; // 浅蓝，和背景区分更柔和
               font-size: 2rem;
-              color: white;
+              color: #1565c0; // 蓝色文字/图标
               cursor: pointer;
               transition: all 0.2s ease;
               
               &:hover {
-                background-color: #1976d2;
-                transform: scale(1.1);
+                background-color: #bbdefb; // 稍深一点的浅蓝
+                transform: scale(1.05);
               }
               
               &:active {
