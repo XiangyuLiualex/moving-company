@@ -171,6 +171,13 @@ main.intercity-page {
         gap: 30px; // 与仓储页面一致的间距
         width: 100%;
 
+        // 关键：与 storage 保持一致的卡片容器布局与间距
+        article {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
+        }
+
         article {
       .item-name {
         padding: 20px;
