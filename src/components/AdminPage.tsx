@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { defaultSystemSettings, type SystemSettings, type AdditionalFeeItem } from '../utils/systemUtils';
@@ -470,252 +469,266 @@ function PricingManagement({
       </div>
 
       <div className="pricing-sections">
-        {/* 跨省搬家价格表 - 折叠面板 */}
-        <Accordion disableGutters>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <div>
-              <h3 style={{ margin: 0 }}>{t('admin.pricing.intercity')}</h3>
-              <p style={{ margin: '4px 0 0 0', color: '#666', fontSize: 12 }}>{t('admin.pricing.intercityDesc')}</p>
-            </div>
-          </AccordionSummary>
-          <AccordionDetails>
-            <div className="pricing-table">
-              <table>
-                <thead>
-                  <tr>
-                    <th>{t('admin.pricing.from')}</th>
-                    <th>{t('admin.pricing.to')}</th>
-                    <th>{t('admin.pricing.price')} ($)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {cities.map(fromCity => 
-                    cities.map(toCity => 
-                      fromCity !== toCity && (
-                        <tr key={`${fromCity}-${toCity}`}>
-                          <td>{fromCity}</td>
-                          <td>{toCity}</td>
-                          <td>
-                            <input
-                              type="number"
-                              value={pricingData.intercityPricing[fromCity][toCity] || 0}
-                              onChange={(e) => onUpdateIntercityPrice(
-                                fromCity, 
-                                toCity, 
-                                parseInt(e.target.value) || 0
-                              )}
-                              min="0"
-                            />
-                          </td>
-                        </tr>
-                      )
+        {/* 跨省搬家价格表 */}
+        <div className="pricing-section">
+          <h3>{t('admin.pricing.intercity')}</h3>
+          <p>{t('admin.pricing.intercityDesc')}</p>
+          <div className="pricing-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>{t('admin.pricing.from')}</th>
+                  <th>{t('admin.pricing.to')}</th>
+                  <th>{t('admin.pricing.price')} ($)</th>
+                </tr>
+              </thead>
+              <tbody>
+                {cities.map(fromCity => 
+                  cities.map(toCity => 
+                    fromCity !== toCity && (
+                      <tr key={`${fromCity}-${toCity}`}>
+                        <td>{fromCity}</td>
+                        <td>{toCity}</td>
+                        <td>
+                          <input
+                            type="number"
+                            value={pricingData.intercityPricing[fromCity][toCity] || 0}
+                            onChange={(e) => onUpdateIntercityPrice(
+                              fromCity, 
+                              toCity, 
+                              parseInt(e.target.value) || 0
+                            )}
+                            min="0"
+                          />
+                        </td>
+                      </tr>
                     )
-                  )}
-                </tbody>
-              </table>
+                  )
+                )}
+              </tbody>
+            </table>
+          </div>
+          
+          {/* 本地服务价格 - 作为跨省搬家的子内容 */}
+          <div className="sub-section">
+            <h4>{t('admin.pricing.localServices')}</h4>
+            <p>{t('admin.pricing.localServicesDesc')}</p>
+            <div className="local-service-rate">
+              <label>{t('admin.pricing.hourlyRate')}:</label>
+              <input
+                type="number"
+                value={pricingData.intercityLocalServiceRate}
+                onChange={(e) => onUpdateLocalServiceRate(parseInt(e.target.value) || 0)}
+                min="0"
+              />
+              <span>$/hour</span>
             </div>
-            <div className="sub-section">
-              <h4>{t('admin.pricing.localServices')}</h4>
-              <p>{t('admin.pricing.localServicesDesc')}</p>
-              <div className="local-service-rate">
-                <label>{t('admin.pricing.hourlyRate')}:</label>
+          </div>
+        </div>
+        
+        {/* 同城搬家价格 */}
+        <div className="pricing-section">
+          <h3>{t('admin.pricing.localMoving')}</h3>
+          <p>{t('admin.pricing.localMovingDesc')}</p>
+          
+          {/* 标准区域价格 */}
+          <div className="sub-section">
+            <h4>标准区域价格（大温哥华地区、卡尔加里、温尼伯）</h4>
+            <div className="local-moving-prices">
+              <div className="price-field">
+                <label>需要车（1人+车）:</label>
                 <input
                   type="number"
-                  value={pricingData.intercityLocalServiceRate}
-                  onChange={(e) => onUpdateLocalServiceRate(parseInt(e.target.value) || 0)}
+                  value={pricingData.localMovingStandardArea.withVehicle.baseRate}
+                  onChange={(e) => onUpdateLocalMovingPrice('standard', 'withVehicle', 'baseRate', parseInt(e.target.value) || 0)}
                   min="0"
                 />
                 <span>$/hour</span>
               </div>
-            </div>
-          </AccordionDetails>
-        </Accordion>
-
-        {/* 同城搬家价格 - 折叠面板 */}
-        <Accordion disableGutters>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <div>
-              <h3 style={{ margin: 0 }}>{t('admin.pricing.localMoving')}</h3>
-              <p style={{ margin: '4px 0 0 0', color: '#666', fontSize: 12 }}>{t('admin.pricing.localMovingDesc')}</p>
-            </div>
-          </AccordionSummary>
-          <AccordionDetails>
-            <div className="sub-section">
-              <h4>标准区域价格（大温哥华地区、卡尔加里、温尼伯）</h4>
-              <div className="local-moving-prices">
-                <div className="price-field">
-                  <label>需要车（1人+车）:</label>
-                  <input
-                    type="number"
-                    value={pricingData.localMovingStandardArea.withVehicle.baseRate}
-                    onChange={(e) => onUpdateLocalMovingPrice('standard', 'withVehicle', 'baseRate', parseInt(e.target.value) || 0)}
-                    min="0"
-                  />
-                  <span>$/hour</span>
-                </div>
-                <div className="price-field">
-                  <label>额外人员费用:</label>
-                  <input
-                    type="number"
-                    value={pricingData.localMovingStandardArea.withVehicle.additionalPersonFee}
-                    onChange={(e) => onUpdateLocalMovingPrice('standard', 'withVehicle', 'additionalPersonFee', parseInt(e.target.value) || 0)}
-                    min="0"
-                  />
-                  <span>$/person</span>
-                </div>
-                <div className="price-field">
-                  <label>仅工人（不需要车）:</label>
-                  <input
-                    type="number"
-                    value={pricingData.localMovingStandardArea.withoutVehicle.baseRate}
-                    onChange={(e) => onUpdateLocalMovingPrice('standard', 'withoutVehicle', 'baseRate', parseInt(e.target.value) || 0)}
-                    min="0"
-                  />
-                  <span>$/person/hour</span>
-                </div>
+              <div className="price-field">
+                <label>额外人员费用:</label>
+                <input
+                  type="number"
+                  value={pricingData.localMovingStandardArea.withVehicle.additionalPersonFee}
+                  onChange={(e) => onUpdateLocalMovingPrice('standard', 'withVehicle', 'additionalPersonFee', parseInt(e.target.value) || 0)}
+                  min="0"
+                />
+                <span>$/person</span>
+              </div>
+              <div className="price-field">
+                <label>仅工人（不需要车）:</label>
+                <input
+                  type="number"
+                  value={pricingData.localMovingStandardArea.withoutVehicle.baseRate}
+                  onChange={(e) => onUpdateLocalMovingPrice('standard', 'withoutVehicle', 'baseRate', parseInt(e.target.value) || 0)}
+                  min="0"
+                />
+                <span>$/person/hour</span>
               </div>
             </div>
-            <div className="sub-section">
-              <h4>加价区域价格（北温、西温、白石、兰里、枫树岭）</h4>
-              <div className="local-moving-prices">
-                <div className="price-field">
-                  <label>需要车（1人+车）:</label>
-                  <input
-                    type="number"
-                    value={pricingData.localMovingPremiumArea.withVehicle.baseRate}
-                    onChange={(e) => onUpdateLocalMovingPrice('premium', 'withVehicle', 'baseRate', parseInt(e.target.value) || 0)}
-                    min="0"
-                  />
-                  <span>$/hour</span>
-                </div>
-                <div className="price-field">
-                  <label>额外人员费用:</label>
-                  <input
-                    type="number"
-                    value={pricingData.localMovingPremiumArea.withVehicle.additionalPersonFee}
-                    onChange={(e) => onUpdateLocalMovingPrice('premium', 'withVehicle', 'additionalPersonFee', parseInt(e.target.value) || 0)}
-                    min="0"
-                  />
-                  <span>$/person</span>
-                </div>
-                <div className="price-field">
-                  <label>仅工人（不需要车）:</label>
-                  <input
-                    type="number"
-                    value={pricingData.localMovingPremiumArea.withoutVehicle.baseRate}
-                    onChange={(e) => onUpdateLocalMovingPrice('premium', 'withoutVehicle', 'baseRate', parseInt(e.target.value) || 0)}
-                    min="0"
-                  />
-                  <span>$/person/hour</span>
-                </div>
+          </div>
+          
+          {/* 加价区域价格 */}
+          <div className="sub-section">
+            <h4>加价区域价格（北温、西温、白石、兰里、枫树岭）</h4>
+            <div className="local-moving-prices">
+              <div className="price-field">
+                <label>需要车（1人+车）:</label>
+                <input
+                  type="number"
+                  value={pricingData.localMovingPremiumArea.withVehicle.baseRate}
+                  onChange={(e) => onUpdateLocalMovingPrice('premium', 'withVehicle', 'baseRate', parseInt(e.target.value) || 0)}
+                  min="0"
+                />
+                <span>$/hour</span>
+              </div>
+              <div className="price-field">
+                <label>额外人员费用:</label>
+                <input
+                  type="number"
+                  value={pricingData.localMovingPremiumArea.withVehicle.additionalPersonFee}
+                  onChange={(e) => onUpdateLocalMovingPrice('premium', 'withVehicle', 'additionalPersonFee', parseInt(e.target.value) || 0)}
+                  min="0"
+                />
+                <span>$/person</span>
+              </div>
+              <div className="price-field">
+                <label>仅工人（不需要车）:</label>
+                <input
+                  type="number"
+                  value={pricingData.localMovingPremiumArea.withoutVehicle.baseRate}
+                  onChange={(e) => onUpdateLocalMovingPrice('premium', 'withoutVehicle', 'baseRate', parseInt(e.target.value) || 0)}
+                  min="0"
+                />
+                <span>$/person/hour</span>
               </div>
             </div>
-            <div className="sub-section">
-              <h4>通用设置</h4>
-              <div className="local-moving-prices">
-                <div className="price-field">
-                  <label>最少小时数:</label>
-                  <input
-                    type="number"
-                    value={pricingData.localMovingSettings.minimumHours}
-                    onChange={(e) => onUpdateLocalMovingSettings('minimumHours', parseInt(e.target.value) || 0)}
-                    min="0"
-                  />
-                  <span>小时</span>
-                </div>
-                <div className="price-field">
-                  <label>需要押金的人数:</label>
-                  <input
-                    type="number"
-                    value={pricingData.localMovingSettings.depositRequired}
-                    onChange={(e) => onUpdateLocalMovingSettings('depositRequired', parseInt(e.target.value) || 0)}
-                    min="0"
-                  />
-                  <span>人</span>
-                </div>
-                <div className="price-field">
-                  <label>押金（人民币）:</label>
-                  <input
-                    type="number"
-                    value={pricingData.localMovingSettings.depositRMB}
-                    onChange={(e) => onUpdateLocalMovingSettings('depositRMB', parseInt(e.target.value) || 0)}
-                    min="0"
-                  />
-                  <span>¥ RMB</span>
-                </div>
+          </div>
+          
+          {/* 通用设置 */}
+          <div className="sub-section">
+            <h4>通用设置</h4>
+            <div className="local-moving-prices">
+              <div className="price-field">
+                <label>最少小时数:</label>
+                <input
+                  type="number"
+                  value={pricingData.localMovingSettings.minimumHours}
+                  onChange={(e) => onUpdateLocalMovingSettings('minimumHours', parseInt(e.target.value) || 0)}
+                  min="0"
+                />
+                <span>小时</span>
+              </div>
+              <div className="price-field">
+                <label>需要押金的人数:</label>
+                <input
+                  type="number"
+                  value={pricingData.localMovingSettings.depositRequired}
+                  onChange={(e) => onUpdateLocalMovingSettings('depositRequired', parseInt(e.target.value) || 0)}
+                  min="0"
+                />
+                <span>人</span>
+              </div>
+              <div className="price-field">
+                <label>押金（人民币）:</label>
+                <input
+                  type="number"
+                  value={pricingData.localMovingSettings.depositRMB}
+                  onChange={(e) => onUpdateLocalMovingSettings('depositRMB', parseInt(e.target.value) || 0)}
+                  min="0"
+                />
+                <span>¥ RMB</span>
               </div>
             </div>
-          </AccordionDetails>
-        </Accordion>
-
-        {/* 存储家具价格 - 折叠面板 */}
-        <Accordion disableGutters>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-            <div>
-              <h3 style={{ margin: 0 }}>{t('admin.pricing.storage')}</h3>
-              <p style={{ margin: '4px 0 0 0', color: '#666', fontSize: 12 }}>{t('admin.pricing.storageDesc')}</p>
-            </div>
-          </AccordionSummary>
-          <AccordionDetails>
-            <div className="storage-items">
-              {Object.entries(pricingData.storageItems).map(([key, item]) => (
-                <div key={key} className="storage-item">
-                  <div className="item-info">
-                    <span className="item-name">{t(`admin.storageItems.${key}`)}</span>
-                    <span className="item-description">{item.description}</span>
-                  </div>
-                  <div className="item-price">
-                    <input
-                      type="number"
-                      value={item.price}
-                      onChange={(e) => onUpdateStorageItemPrice(key, parseInt(e.target.value) || 0)}
-                      min="0"
-                    />
-                    <span>$/month</span>
-                  </div>
+          </div>
+        </div>
+        
+        {/* 存储家具价格 */}
+        <div className="pricing-section">
+          <h3>{t('admin.pricing.storage')}</h3>
+          <p>{t('admin.pricing.storageDesc')}</p>
+          <div className="storage-items">
+            {Object.entries(pricingData.storageItems).map(([key, item]) => (
+              <div key={key} className="storage-item">
+                <div className="item-info">
+                  <span className="item-name">{t(`admin.storageItems.${key}`)}</span>
+                  <span className="item-description">{item.description}</span>
                 </div>
-              ))}
-              {(() => {
-                const pickupServices = [
-                  'onlyBoxPickupNoStairs',
-                  'onlyBoxPickupWithStairs', 
-                  'furniturePickupNoStairs',
-                  'furniturePickupAssembly'
-                ];
-                return pickupServices.map(serviceKey => {
-                  const item = pricingData.storageItems[serviceKey];
-                  if (!item) {
-                    const defaultPickupServices = {
-                      onlyBoxPickupNoStairs: { name: 'Only Box Pickup Service (Every 10 pieces) - No Stairs', price: 40, description: 'One-time fee for box pickup service without stairs' },
-                      onlyBoxPickupWithStairs: { name: 'Only Box Pickup Service (Every 10 pieces) - With Stairs', price: 80, description: 'One-time fee for box pickup service with stairs' },
-                      furniturePickupNoStairs: { name: 'Furniture Pickup Service - No Stairs', price: 160, description: 'One-time fee for furniture pickup service without stairs' },
-                      furniturePickupAssembly: { name: 'Furniture Pickup Service - With Assembly', price: 260, description: 'One-time fee for furniture pickup service with disassembly/assembly' }
-                    } as const;
-                    const defaultItem = defaultPickupServices[serviceKey as keyof typeof defaultPickupServices];
-                    return (
-                      <div key={serviceKey} className="storage-item">
-                        <div className="item-info">
-                          <span className="item-name">{t(`admin.storageItems.${serviceKey}`)}</span>
-                          <span className="item-description">{defaultItem.description}</span>
-                        </div>
-                        <div className="item-price">
-                          <input
-                            type="number"
-                            value={defaultItem.price}
-                            onChange={(e) => onUpdateStorageItemPrice(serviceKey, parseInt(e.target.value) || 0)}
-                            min="0"
-                          />
-                          <span>$/month</span>
-                        </div>
+                <div className="item-price">
+                  <input
+                    type="number"
+                    value={item.price}
+                    onChange={(e) => onUpdateStorageItemPrice(key, parseInt(e.target.value) || 0)}
+                    min="0"
+                  />
+                  <span>$/month</span>
+                </div>
+              </div>
+            ))}
+            
+            {/* 确保取货服务始终存在 */}
+            {(() => {
+              const pickupServices = [
+                'onlyBoxPickupNoStairs',
+                'onlyBoxPickupWithStairs', 
+                'furniturePickupNoStairs',
+                'furniturePickupAssembly'
+              ];
+              
+              return pickupServices.map(serviceKey => {
+                const item = pricingData.storageItems[serviceKey];
+                if (!item) {
+                  // 如果API数据中没有，使用默认数据
+                  const defaultPickupServices = {
+                    onlyBoxPickupNoStairs: {
+                      name: "Only Box Pickup Service (Every 10 pieces) - No Stairs",
+                      price: 40,
+                      description: "One-time fee for box pickup service without stairs"
+                    },
+                    onlyBoxPickupWithStairs: {
+                      name: "Only Box Pickup Service (Every 10 pieces) - With Stairs",
+                      price: 80,
+                      description: "One-time fee for box pickup service with stairs"
+                    },
+                    furniturePickupNoStairs: {
+                      name: "Furniture Pickup Service - No Stairs",
+                      price: 160,
+                      description: "One-time fee for furniture pickup service without stairs"
+                    },
+                    furniturePickupAssembly: {
+                      name: "Furniture Pickup Service - With Assembly",
+                      price: 260,
+                      description: "One-time fee for furniture pickup service with disassembly/assembly"
+                    }
+                  };
+                  
+                  const defaultItem = defaultPickupServices[serviceKey as keyof typeof defaultPickupServices];
+                  
+                  return (
+                    <div key={serviceKey} className="storage-item">
+                      <div className="item-info">
+                        <span className="item-name">{t(`admin.storageItems.${serviceKey}`)}</span>
+                        <span className="item-description">{defaultItem.description}</span>
                       </div>
-                    );
-                  }
-                  return null;
-                });
-              })()}
-            </div>
-          </AccordionDetails>
-        </Accordion>
+                      <div className="item-price">
+                        <input
+                          type="number"
+                          value={defaultItem.price}
+                          onChange={(e) => onUpdateStorageItemPrice(serviceKey, parseInt(e.target.value) || 0)}
+                          min="0"
+                        />
+                        <span>$/month</span>
+                      </div>
+                    </div>
+                  );
+                }
+                
+                // 如果数据库中已经存在，不重复渲染
+                return null;
+              });
+            })()}
+          </div>
+        </div>
       </div>
     </div>
   );
