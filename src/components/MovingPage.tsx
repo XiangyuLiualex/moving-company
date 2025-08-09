@@ -5,7 +5,7 @@ import { Inventory2 } from '@mui/icons-material';
 import { AdminPricingData } from '../utils/adminUtils';
 import { getActiveCitiesByService, SimpleCityData } from '../utils/cityUtils';
 import { defaultSystemSettings, SystemSettings, calculateTax, calculateAdditionalFees } from '../utils/systemUtils';
-import '../styles/main.scss';
+import '../styles/intercity-moving.scss';
 
 // 导入图片
 import bedsIcon from '../assets/bed.png';
@@ -252,7 +252,7 @@ function MovingPage(){
   }
 
   return (
-    <main>
+    <main className="intercity-page">
       <div className="title">
         <h1>{t('moving.title')}</h1>
         <p>{t('moving.subtitle')}</p>
