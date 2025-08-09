@@ -379,112 +379,116 @@ function MovingPage(){
         </div>
       )}
 
-      <div className="items">
-        <Item
+      <div className="items-section">
+        <div className="category-section">
+          <div className="items">
+            <Item
           name={t('moving.items.beds')}
           image={bedsIcon}
           multiplier={1.2}
           reset={reset}
           addItem={addItem}
         />
-        <Item
+            <Item
           name={t('moving.items.fridge')}
           image={fridgeIcon}
           multiplier={1}
           reset={reset}
           addItem={addItem}
         />
-        <Item
+            <Item
           name={t('moving.items.furniture')}
           image={furnitureIcon}
           multiplier={0.5}
           reset={reset}
           addItem={addItem}
         />
-        <Item
+            <Item
           name={t('moving.items.oven')}
           image={ovenIcon}
           multiplier={0.6}
           reset={reset}
           addItem={addItem}
         />
-        <Item
+            <Item
           name={t('moving.items.sofa')}
           image={sofaIcon}
           multiplier={1.5}
           reset={reset}
           addItem={addItem}
         />
-        <Item
+            <Item
           name={t('moving.items.tv')}
           image={tvIcon}
           multiplier={0.25}
           reset={reset}
           addItem={addItem}
         />
-        <Item
+            <Item
           name={t('moving.items.washerDryer')}
           image={washerIcon}
           multiplier={0.5}
           reset={reset}
           addItem={addItem}
         />
-        <Item
+            <Item
           name={t('moving.items.dining')}
           image={diningIcon}
           multiplier={2}
           reset={reset}
           addItem={addItem}
         />
-        <Item
+            <Item
           name={t('moving.items.desk')}
           image={deskIcon}
           multiplier={0.75}
           reset={reset}
           addItem={addItem}
         />
-        <Item
+            <Item
           name={t('moving.items.wardrobe')}
           image={wardrobeIcon}
           multiplier={3.2}
           reset={reset}
           addItem={addItem}
         />
-        <Item
+            <Item
           name={t('moving.items.smallBox')}
           image={<Inventory2 style={{ fontSize: 50, color: '#8B7355' }} />}
           multiplier={0.04}
           reset={reset}
           addItem={addItem}
         />
-        <Item
+            <Item
           name={t('moving.items.mediumBox')}
           image={<Inventory2 style={{ fontSize: 50, color: '#6B8E23' }} />}
           multiplier={0.074}
           reset={reset}
           addItem={addItem}
         />
-        <Item
+            <Item
           name={t('moving.items.largeBox')}
           image={<Inventory2 style={{ fontSize: 50, color: '#556B2F' }} />}
           multiplier={0.101}
           reset={reset}
           addItem={addItem}
         />
-        <Item
+            <Item
           name={t('moving.items.extraLargeBox')}
           image={<Inventory2 style={{ fontSize: 50, color: '#4A4A4A' }} />}
           multiplier={0.135}
           reset={reset}
           addItem={addItem}
         />
-        <Item
+            <Item
           name={t('moving.items.superLargeBox')}
           image={<Inventory2 style={{ fontSize: 50, color: '#2F4F4F' }} />}
           multiplier={0.24}
           reset={reset}
           addItem={addItem}
         />
+          </div>
+        </div>
       </div>
       <div className="buttons">
         <button id="clear" onClick={resetItems}>

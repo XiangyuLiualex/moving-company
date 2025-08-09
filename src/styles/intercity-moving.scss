@@ -155,15 +155,23 @@ main.intercity-page {
     }
   }
 
-  .items {
-    display: grid;
-    align-items: center;
-    justify-content: center;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 30px; // 与仓储页面一致的间距
+  .items-section {
     width: 100%;
-    
-    article {
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+
+    .category-section {
+      .items {
+        display: grid;
+        align-items: center;
+        justify-content: center;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 30px; // 与仓储页面一致的间距
+        width: 100%;
+
+        article {
       .item-name {
         padding: 20px;
         display: flex;
@@ -171,7 +179,7 @@ main.intercity-page {
         align-items: center;
         justify-content: center;
         gap: 20px;
-        min-height: 220px; // 与仓储页面保持统一的卡片高度观感
+            // 不设置固定高度，随内容自适应，保持与storage一致
         box-shadow: 0 6px 20px rgba(21, 101, 192, 0.15);
         border-radius: 0.2rem;
         background-color: rgba(255, 255, 255, 0.95);
@@ -227,7 +235,9 @@ main.intercity-page {
           color: #1565c0;
           font-weight: bold;
         }
+        }
       }
+    }
     }
   }
 
