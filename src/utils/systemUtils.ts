@@ -33,7 +33,21 @@ export interface SystemSettings {
     insuranceEnabled: boolean; // 保险费启用
     packagingFee: number; // 包装材料费
     packagingEnabled: boolean; // 包装费启用
+    // 新增：动态额外费用集合（可选，向后兼容）
+    dynamicFees?: { [id: string]: AdditionalFeeItem };
   };
+}
+
+// 新增：动态额外费用项类型
+export interface AdditionalFeeItem {
+  id: string;
+  nameZh: string;
+  nameEn: string;
+  mode: 'percentage' | 'fixed';
+  amount: number; // percentage: 0-100; fixed: >= 0
+  enabled: boolean;
+  scope?: 'all' | 'local' | 'intercity' | 'storage';
+  order?: number;
 }
 
 // 默认系统设置
@@ -148,23 +162,86 @@ export const calculateTax = (subtotal: number, settings: SystemSettings): number
 };
 
 // 计算额外费用
-export const calculateAdditionalFees = (subtotal: number, settings: SystemSettings): {
+export const calculateAdditionalFees = (
+  subtotal: number,
+  settings: SystemSettings,
+  context?: 'local' | 'intercity' | 'storage'
+): {
   fuelSurcharge: number;
   insurance: number;
   packaging: number;
   total: number;
+  // 为了向后兼容保留原签名，同时扩展额外字段
+  items?: Array<{ id: string; name: string; amount: number }>;
 } => {
-  const fuelSurcharge = settings.taxAndFees.fuelSurchargeEnabled ? 
-    subtotal * (settings.taxAndFees.fuelSurcharge / 100) : 0;
-  const insurance = settings.taxAndFees.insuranceEnabled ? 
-    subtotal * (settings.taxAndFees.insuranceRate / 100) : 0;
-  const packaging = settings.taxAndFees.packagingEnabled ? 
-    settings.taxAndFees.packagingFee : 0;
-  
-  return {
-    fuelSurcharge,
-    insurance,
-    packaging,
-    total: fuelSurcharge + insurance + packaging
-  };
-}; 
+  try {
+    const currentLang =
+      (typeof localStorage !== 'undefined' && (localStorage.getItem('language') || localStorage.getItem('i18nextLng'))) ||
+      'zh';
+
+    const dynamic = settings.taxAndFees.dynamicFees;
+    const hasDynamic = dynamic && Object.keys(dynamic).length > 0;
+
+    if (hasDynamic) {
+      const items: Array<{ id: string; name: string; amount: number }> = [];
+      let total = 0;
+
+      Object.values(dynamic as { [id: string]: AdditionalFeeItem }).forEach((item) => {
+        if (!item || !item.enabled) return;
+        // 若传入 context，则按 scope 过滤；否则视为全部生效
+        if (context && item.scope && item.scope !== 'all' && item.scope !== context) {
+          return;
+        }
+        const name = currentLang === 'zh' ? (item.nameZh || item.nameEn) : (item.nameEn || item.nameZh);
+        let amount = 0;
+        if (item.mode === 'percentage') {
+          amount = subtotal * (Math.max(0, item.amount) / 100);
+        } else {
+          amount = Math.max(0, item.amount);
+        }
+        total += amount;
+        items.push({ id: item.id, name, amount });
+      });
+
+      // 旧字段在使用动态费用时置零，避免页面重复展示
+      return {
+        fuelSurcharge: 0,
+        insurance: 0,
+        packaging: 0,
+        total,
+        items,
+      };
+    }
+
+    // 回退到旧逻辑（三个固定项）
+    const fuelSurcharge = settings.taxAndFees.fuelSurchargeEnabled
+      ? subtotal * (settings.taxAndFees.fuelSurcharge / 100)
+      : 0;
+    const insurance = settings.taxAndFees.insuranceEnabled
+      ? subtotal * (settings.taxAndFees.insuranceRate / 100)
+      : 0;
+    const packaging = settings.taxAndFees.packagingEnabled ? settings.taxAndFees.packagingFee : 0;
+
+    const items: Array<{ id: string; name: string; amount: number }> = [];
+    if (fuelSurcharge > 0) {
+      items.push({ id: 'legacy_fuel', name: currentLang === 'zh' ? '燃油附加费' : 'Fuel Surcharge', amount: fuelSurcharge });
+    }
+    if (insurance > 0) {
+      items.push({ id: 'legacy_insurance', name: currentLang === 'zh' ? '保险费' : 'Insurance', amount: insurance });
+    }
+    if (packaging > 0) {
+      items.push({ id: 'legacy_packaging', name: currentLang === 'zh' ? '包装费' : 'Packaging', amount: packaging });
+    }
+
+    return {
+      fuelSurcharge,
+      insurance,
+      packaging,
+      total: fuelSurcharge + insurance + packaging,
+      items,
+    };
+  } catch (e) {
+    // 兜底，任何异常都返回0，避免前端崩溃
+    return { fuelSurcharge: 0, insurance: 0, packaging: 0, total: 0, items: [] };
+  }
+};

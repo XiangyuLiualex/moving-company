@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { defaultSystemSettings, type SystemSettings } from '../utils/systemUtils';
+import { defaultSystemSettings, type SystemSettings, type AdditionalFeeItem } from '../utils/systemUtils';
 import { loadPricingData, savePricingData, resetPricingData, loadCitiesData, saveCitiesData, loadSystemSettings, saveSystemSettings, resetSystemSettings } from '../utils/adminUtils';
 import type { AdminPricingData, City } from '../utils/adminUtils';
 import { logout } from '../utils/authUtils';
@@ -1014,69 +1014,173 @@ function SystemSettingsManagement({
             </div>
           </div>
 
-          {/* 额外费用 */}
+          {/* 额外费用（动态列表） */}
           <div className="sub-section">
             <h4>{t('admin.settings.taxAndFees.additionalFees')}</h4>
+            {(!systemSettings.taxAndFees.dynamicFees || Object.keys(systemSettings.taxAndFees.dynamicFees).length === 0) && (
+              <div className="form-grid" style={{ marginBottom: '12px' }}>
+                <div className="form-field">
+                  <button
+                    className="save-btn"
+                    onClick={() => {
+                      const now = Date.now();
+                      const createId = (key: string) => `fee_${key}_${now}`;
+                      const dynamicFees: Record<string, AdditionalFeeItem> = {};
+                      if (systemSettings.taxAndFees.fuelSurchargeEnabled) {
+                        const id = createId('fuel');
+                        dynamicFees[id] = {
+                          id,
+                          nameZh: '燃油附加费',
+                          nameEn: 'Fuel Surcharge',
+                          mode: 'percentage',
+                          amount: systemSettings.taxAndFees.fuelSurcharge || 0,
+                          enabled: true,
+                          scope: 'all',
+                          order: now + 1,
+                        };
+                      }
+                      if (systemSettings.taxAndFees.insuranceEnabled) {
+                        const id = createId('insurance');
+                        dynamicFees[id] = {
+                          id,
+                          nameZh: '保险费',
+                          nameEn: 'Insurance',
+                          mode: 'percentage',
+                          amount: systemSettings.taxAndFees.insuranceRate || 0,
+                          enabled: true,
+                          scope: 'all',
+                          order: now + 2,
+                        };
+                      }
+                      if (systemSettings.taxAndFees.packagingEnabled) {
+                        const id = createId('packaging');
+                        dynamicFees[id] = {
+                          id,
+                          nameZh: '包装费',
+                          nameEn: 'Packaging',
+                          mode: 'fixed',
+                          amount: systemSettings.taxAndFees.packagingFee || 0,
+                          enabled: true,
+                          scope: 'all',
+                          order: now + 3,
+                        };
+                      }
+                      onUpdateSystemSettings('taxAndFees.dynamicFees', dynamicFees);
+                    }}
+                  >
+                    从默认值导入
+                  </button>
+                </div>
+              </div>
+            )}
+
             <div className="form-grid">
-              <div className="form-field">
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={systemSettings.taxAndFees.fuelSurchargeEnabled}
-                    onChange={(e) => onUpdateSystemSettings('taxAndFees.fuelSurchargeEnabled', e.target.checked)}
-                  />
-                  {t('admin.settings.taxAndFees.fuelSurcharge')}
-                </label>
-                <input
-                  type="number"
-                  value={systemSettings.taxAndFees.fuelSurcharge}
-                  onChange={(e) => onUpdateSystemSettings('taxAndFees.fuelSurcharge', parseFloat(e.target.value) || 0)}
-                  min="0"
-                  max="100"
-                  step="0.1"
-                  disabled={!systemSettings.taxAndFees.fuelSurchargeEnabled}
-                />
-                <span>%</span>
+              <div className="form-field" style={{ gridColumn: '1 / -1' }}>
+                <button
+                  className="reset-btn"
+                  onClick={() => {
+                    const id = `fee_${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
+                    const newItem: AdditionalFeeItem = {
+                      id,
+                      nameZh: '',
+                      nameEn: '',
+                      mode: 'percentage',
+                      amount: 0,
+                      enabled: true,
+                      scope: 'all',
+                      order: Date.now(),
+                    };
+                    const existing = systemSettings.taxAndFees.dynamicFees || {};
+                    const next = { ...existing, [id]: newItem } as Record<string, AdditionalFeeItem>;
+                    onUpdateSystemSettings('taxAndFees.dynamicFees', next);
+                  }}
+                >
+                  新增费用项
+                </button>
               </div>
-              <div className="form-field">
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={systemSettings.taxAndFees.insuranceEnabled}
-                    onChange={(e) => onUpdateSystemSettings('taxAndFees.insuranceEnabled', e.target.checked)}
-                  />
-                  {t('admin.settings.taxAndFees.insuranceRate')}
-                </label>
-                <input
-                  type="number"
-                  value={systemSettings.taxAndFees.insuranceRate}
-                  onChange={(e) => onUpdateSystemSettings('taxAndFees.insuranceRate', parseFloat(e.target.value) || 0)}
-                  min="0"
-                  max="100"
-                  step="0.1"
-                  disabled={!systemSettings.taxAndFees.insuranceEnabled}
-                />
-                <span>%</span>
-              </div>
-              <div className="form-field">
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={systemSettings.taxAndFees.packagingEnabled}
-                    onChange={(e) => onUpdateSystemSettings('taxAndFees.packagingEnabled', e.target.checked)}
-                  />
-                  {t('admin.settings.taxAndFees.packagingFee')}
-                </label>
-                <input
-                  type="number"
-                  value={systemSettings.taxAndFees.packagingFee}
-                  onChange={(e) => onUpdateSystemSettings('taxAndFees.packagingFee', parseFloat(e.target.value) || 0)}
-                  min="0"
-                  step="0.01"
-                  disabled={!systemSettings.taxAndFees.packagingEnabled}
-                />
-                <span>$</span>
-              </div>
+
+              {Object.values((systemSettings.taxAndFees.dynamicFees || {}) as Record<string, AdditionalFeeItem>)
+                .sort((a, b) => (a.order || 0) - (b.order || 0))
+                .map((fee) => (
+                  <div key={fee.id} className="form-field" style={{ gridColumn: '1 / -1' }}>
+                    <div className="form-grid" style={{ alignItems: 'end' }}>
+                      <div className="form-field">
+                        <label>
+                          <input
+                            type="checkbox"
+                            checked={!!fee.enabled}
+                            onChange={(e) => onUpdateSystemSettings(`taxAndFees.dynamicFees.${fee.id}.enabled`, e.target.checked)}
+                          />
+                          启用
+                        </label>
+                      </div>
+                      <div className="form-field">
+                        <label>中文名称:</label>
+                        <input
+                          type="text"
+                          value={fee.nameZh || ''}
+                          onChange={(e) => onUpdateSystemSettings(`taxAndFees.dynamicFees.${fee.id}.nameZh`, e.target.value)}
+                        />
+                      </div>
+                      <div className="form-field">
+                        <label>英文名称:</label>
+                        <input
+                          type="text"
+                          value={fee.nameEn || ''}
+                          onChange={(e) => onUpdateSystemSettings(`taxAndFees.dynamicFees.${fee.id}.nameEn`, e.target.value)}
+                        />
+                      </div>
+                      <div className="form-field">
+                        <label>计费方式:</label>
+                        <select
+                          value={fee.mode}
+                          onChange={(e) => onUpdateSystemSettings(`taxAndFees.dynamicFees.${fee.id}.mode`, e.target.value)}
+                        >
+                          <option value="percentage">百分比</option>
+                          <option value="fixed">固定金额</option>
+                        </select>
+                      </div>
+                      <div className="form-field">
+                        <label>数值{fee.mode === 'percentage' ? ' (%)' : ' ($)'}:</label>
+                        <input
+                          type="number"
+                          min={fee.mode === 'percentage' ? 0 : 0}
+                          max={fee.mode === 'percentage' ? 100 : undefined}
+                          step={fee.mode === 'percentage' ? 0.1 : 0.01}
+                          value={fee.amount}
+                          onChange={(e) => onUpdateSystemSettings(
+                            `taxAndFees.dynamicFees.${fee.id}.amount`,
+                            fee.mode === 'percentage' ? (parseFloat(e.target.value) || 0) : (parseFloat(e.target.value) || 0)
+                          )}
+                        />
+                      </div>
+                      <div className="form-field">
+                        <label>适用范围:</label>
+                        <select
+                          value={fee.scope || 'all'}
+                          onChange={(e) => onUpdateSystemSettings(`taxAndFees.dynamicFees.${fee.id}.scope`, e.target.value)}
+                        >
+                          <option value="all">全部</option>
+                          <option value="local">同城搬家</option>
+                          <option value="intercity">跨省搬家</option>
+                          <option value="storage">存储</option>
+                        </select>
+                      </div>
+                      <div className="form-field">
+                        <button
+                          className="reset-btn"
+                          onClick={() => {
+                            const map = { ...(systemSettings.taxAndFees.dynamicFees || {}) } as Record<string, AdditionalFeeItem>;
+                            delete map[fee.id];
+                            onUpdateSystemSettings('taxAndFees.dynamicFees', map);
+                          }}
+                        >
+                          删除
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
             </div>
           </div>
         </div>
