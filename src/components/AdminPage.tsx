@@ -54,6 +54,9 @@ function AdminPage() {
   const [hasChanges, setHasChanges] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   
+  // 缩放功能状态
+  const [zoomLevel, setZoomLevel] = useState(1);
+  
   // Toast状态
   const [toast, setToast] = useState<{
     message: string;
@@ -71,6 +74,19 @@ function AdminPage() {
 
   const hideToast = () => {
     setToast(prev => ({ ...prev, isVisible: false }));
+  };
+
+  // 缩放控制函数
+  const handleZoomIn = () => {
+    setZoomLevel(prev => Math.min(prev + 0.1, 1.5));
+  };
+
+  const handleZoomOut = () => {
+    setZoomLevel(prev => Math.max(prev - 0.1, 0.7));
+  };
+
+  const handleZoomReset = () => {
+    setZoomLevel(1);
   };
 
   // 加载数据
@@ -359,6 +375,30 @@ function AdminPage() {
             <p>{t('admin.subtitle')}</p>
           </div>
           <div className="header-right">
+            <div className="zoom-controls">
+              <button 
+                className="zoom-btn"
+                onClick={handleZoomOut}
+                title="缩小"
+              >
+                <span>−</span>
+              </button>
+              <span className="zoom-level">{Math.round(zoomLevel * 100)}%</span>
+              <button 
+                className="zoom-btn"
+                onClick={handleZoomIn}
+                title="放大"
+              >
+                <span>+</span>
+              </button>
+              <button 
+                className="zoom-reset-btn"
+                onClick={handleZoomReset}
+                title="重置缩放"
+              >
+                <span>↺</span>
+              </button>
+            </div>
             <button 
               className="logout-button"
               onClick={handleLogout}
@@ -369,7 +409,14 @@ function AdminPage() {
         </div>
       </div>
       
-      <div className="admin-container">
+      <div 
+        className="admin-container"
+        style={{
+          transform: `scale(${zoomLevel})`,
+          transformOrigin: 'top left',
+          transition: 'transform 0.3s ease'
+        }}
+      >
         <div className="admin-sidebar">
           <nav>
             <button 
