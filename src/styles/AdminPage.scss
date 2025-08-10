@@ -187,6 +187,60 @@
       border-radius: 10px;
       border-left: 4px solid #007bff;
       
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        
+        h3 {
+          color: #333;
+          margin: 0;
+          font-size: 1.3rem;
+        }
+        
+        .collapse-btn {
+          background: transparent;
+          border: 1px solid #dee2e6;
+          border-radius: 4px;
+          padding: 6px 12px;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          
+          &:hover {
+            background: #007bff;
+            color: white;
+            border-color: #007bff;
+          }
+          
+          .collapse-icon {
+            font-size: 12px;
+            transition: transform 0.3s ease;
+            
+            &.collapsed {
+              transform: rotate(-90deg);
+            }
+          }
+        }
+      }
+      
+      .section-content {
+        overflow: hidden;
+        transition: max-height 0.3s ease, opacity 0.3s ease;
+        max-height: 2000px;
+        opacity: 1;
+        
+        &.collapsed {
+          max-height: 0;
+          opacity: 0;
+          margin: 0;
+          padding: 0;
+        }
+      }
+      
       h3 {
         color: #333;
         margin-bottom: 10px;
@@ -304,16 +358,16 @@
         background: white;
         padding: 15px;
         border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         
         label {
           font-weight: 600;
-          color: #333;
-          min-width: 100px;
+          color: #495057;
+          min-width: 120px;
         }
         
         input {
-          width: 100px;
+          width: 80px;
           padding: 8px;
           border: 1px solid #ced4da;
           border-radius: 4px;
@@ -327,7 +381,7 @@
         }
         
         span {
-          color: #666;
+          color: #6c757d;
           font-weight: 500;
         }
       }
@@ -343,16 +397,16 @@
           background: white;
           padding: 15px;
           border-radius: 8px;
-          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+          box-shadow: 0 1px 3px rgba(0,0,0,0.1);
           
           label {
             font-weight: 600;
-            color: #333;
+            color: #495057;
             min-width: 150px;
           }
           
           input {
-            width: 100px;
+            width: 80px;
             padding: 8px;
             border: 1px solid #ced4da;
             border-radius: 4px;
@@ -366,9 +420,48 @@
           }
           
           span {
-            color: #666;
+            color: #6c757d;
             font-weight: 500;
-            white-space: nowrap;
+          }
+        }
+      }
+      
+      .local-moving-settings {
+        display: grid;
+        gap: 15px;
+        
+        .setting-field {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          background: white;
+          padding: 15px;
+          border-radius: 8px;
+          box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+          
+          label {
+            font-weight: 600;
+            color: #495057;
+            min-width: 150px;
+          }
+          
+          input {
+            width: 80px;
+            padding: 8px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            text-align: center;
+            
+            &:focus {
+              outline: none;
+              border-color: #007bff;
+              box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+            }
+          }
+          
+          span {
+            color: #6c757d;
+            font-weight: 500;
           }
         }
       }
@@ -384,23 +477,21 @@
           background: white;
           padding: 15px;
           border-radius: 8px;
-          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+          box-shadow: 0 1px 3px rgba(0,0,0,0.1);
           
           .item-info {
-            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
             
             .item-name {
-              display: block;
               font-weight: 600;
-              color: #333;
-              margin-bottom: 5px;
-              white-space: pre-line;
+              color: #495057;
             }
             
             .item-description {
-              display: block;
               font-size: 0.9rem;
-              color: #666;
+              color: #6c757d;
             }
           }
           
@@ -424,9 +515,8 @@
             }
             
             span {
-              color: #666;
+              color: #6c757d;
               font-weight: 500;
-              white-space: nowrap;
             }
           }
         }
