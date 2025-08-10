@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Button } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { defaultSystemSettings, type SystemSettings, type AdditionalFeeItem } from '../utils/systemUtils';
@@ -1018,10 +1019,12 @@ function SystemSettingsManagement({
           <div className="sub-section">
             <h4>{t('admin.settings.taxAndFees.additionalFees')}</h4>
             {(!systemSettings.taxAndFees.dynamicFees || Object.keys(systemSettings.taxAndFees.dynamicFees).length === 0) && (
-              <div className="form-grid" style={{ marginBottom: '12px' }}>
+              <div className="form-grid" style={{ marginBottom: 12 }}>
                 <div className="form-field">
-                  <button
-                    className="save-btn"
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    size="small"
                     onClick={() => {
                       const now = Date.now();
                       const createId = (key: string) => `fee_${key}_${now}`;
@@ -1069,36 +1072,12 @@ function SystemSettingsManagement({
                     }}
                   >
                     从默认值导入
-                  </button>
+                  </Button>
                 </div>
               </div>
             )}
 
             <div className="form-grid">
-              <div className="form-field" style={{ gridColumn: '1 / -1' }}>
-                <button
-                  className="reset-btn"
-                  onClick={() => {
-                    const id = `fee_${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
-                    const newItem: AdditionalFeeItem = {
-                      id,
-                      nameZh: '',
-                      nameEn: '',
-                      mode: 'percentage',
-                      amount: 0,
-                      enabled: true,
-                      scope: 'all',
-                      order: Date.now(),
-                    };
-                    const existing = systemSettings.taxAndFees.dynamicFees || {};
-                    const next = { ...existing, [id]: newItem } as Record<string, AdditionalFeeItem>;
-                    onUpdateSystemSettings('taxAndFees.dynamicFees', next);
-                  }}
-                >
-                  新增费用项
-                </button>
-              </div>
-
               {Object.values((systemSettings.taxAndFees.dynamicFees || {}) as Record<string, AdditionalFeeItem>)
                 .sort((a, b) => (a.order || 0) - (b.order || 0))
                 .map((fee) => (
@@ -1167,8 +1146,10 @@ function SystemSettingsManagement({
                         </select>
                       </div>
                       <div className="form-field">
-                        <button
-                          className="reset-btn"
+                        <Button
+                          variant="text"
+                          color="error"
+                          size="small"
                           onClick={() => {
                             const map = { ...(systemSettings.taxAndFees.dynamicFees || {}) } as Record<string, AdditionalFeeItem>;
                             delete map[fee.id];
@@ -1176,11 +1157,38 @@ function SystemSettingsManagement({
                           }}
                         >
                           删除
-                        </button>
+                        </Button>
                       </div>
                     </div>
                   </div>
                 ))}
+
+              {/* 新增费用按钮移动到底部，符合整体布局 */}
+              <div className="form-field" style={{ gridColumn: '1 / -1', display: 'flex', justifyContent: 'flex-end' }}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  size="small"
+                  onClick={() => {
+                    const id = `fee_${Date.now().toString(36)}${Math.random().toString(36).slice(2, 6)}`;
+                    const newItem: AdditionalFeeItem = {
+                      id,
+                      nameZh: '',
+                      nameEn: '',
+                      mode: 'percentage',
+                      amount: 0,
+                      enabled: true,
+                      scope: 'all',
+                      order: Date.now(),
+                    };
+                    const existing = systemSettings.taxAndFees.dynamicFees || {};
+                    const next = { ...existing, [id]: newItem } as Record<string, AdditionalFeeItem>;
+                    onUpdateSystemSettings('taxAndFees.dynamicFees', next);
+                  }}
+                >
+                  新增费用项
+                </Button>
+              </div>
             </div>
           </div>
         </div>
