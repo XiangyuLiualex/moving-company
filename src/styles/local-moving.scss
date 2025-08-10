@@ -64,14 +64,14 @@ html, body {
       
       .cities-container {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: 1rem;
         width: 100%;
         max-width: 800px;
         
         .city-item {
           display: flex;
-          align-items: flex-start;
+          align-items: center;
           gap: 1rem;
           background: #f8f9fa;
           padding: 1.5rem;
@@ -102,14 +102,12 @@ html, body {
               color: #1565c0;
               margin-bottom: 0.5rem;
               font-weight: bold;
-              line-height: 1.3;
             }
             
             p {
               color: #1976d2;
               font-size: 0.9rem;
               margin: 0;
-              line-height: 1.4;
             }
           }
         }
@@ -134,14 +132,14 @@ html, body {
       
       .rules-container {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 1.5rem;
         width: 100%;
         max-width: 900px;
         
         .rule-item {
           display: flex;
-          align-items: flex-start;
+          align-items: center;
           gap: 1rem;
           background: #f8f9fa;
           padding: 1.5rem;
@@ -172,15 +170,12 @@ html, body {
               color: #1565c0;
               margin-bottom: 0.5rem;
               font-weight: bold;
-              line-height: 1.3;
             }
             
             p {
               color: #1976d2;
               margin-bottom: 0.5rem;
               line-height: 1.4;
-              word-wrap: break-word;
-              overflow-wrap: break-word;
             }
             
             ul {
@@ -287,8 +282,6 @@ html, body {
           background: #f8f9fa;
           border-radius: 0.75rem;
           border: 2px solid #e3f2fd;
-          word-wrap: break-word;
-          overflow-wrap: break-word;
           
           h3 {
             color: #1565c0;
@@ -304,22 +297,9 @@ html, body {
             .price-item {
               display: flex;
               justify-content: space-between;
-              align-items: flex-start;
+              align-items: center;
               padding: 0.5rem 0;
               border-bottom: 1px solid #e3f2fd;
-              gap: 1rem;
-              
-              span:first-child {
-                flex: 1;
-                word-wrap: break-word;
-                overflow-wrap: break-word;
-                line-height: 1.4;
-              }
-              
-              span:last-child {
-                flex-shrink: 0;
-                font-weight: bold;
-              }
               
               &:last-of-type {
                 border-bottom: none;
@@ -363,7 +343,6 @@ html, body {
                 color: #856404;
                 margin: 0;
                 font-weight: bold;
-                line-height: 1.4;
               }
             }
           }
