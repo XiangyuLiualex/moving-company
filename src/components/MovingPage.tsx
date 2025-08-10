@@ -521,7 +521,7 @@ function MovingPage(){
             </tr>
             <tr>
               <td>{t('moving.summary.totalPallets')}</td>
-              <td>{totalPallets} (1 pallet = 2 m²)</td>
+              <td>{totalPallets} (1 pallet = 2 m³)</td>
             </tr>
             {departureLocation.city && arriveLocation.city && departureLocation.city !== arriveLocation.city && (
               <>
