@@ -312,30 +312,159 @@ main.intercity-page {
     }
   }
 
-  @media (max-width: 700px) {
+  @media (max-width: 768px) {
+    padding: 15px;
+    gap: 30px;
+    
+    .title {
+      width: 100%;
+      
+      h1 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+      }
+      
+      p {
+        font-size: 0.85rem;
+      }
+    }
+    
     .location-section {
       flex-direction: column;
       align-items: center;
+      gap: 20px;
 
       .location-box {
         width: 100%;
-        max-width: 400px;
+        max-width: 100%;
+        padding: 20px;
+        
+        h3 {
+          font-size: 1.1rem;
+          margin-bottom: 15px;
+        }
+        
+        .location-inputs {
+          gap: 12px;
+          
+          select, input {
+            padding: 10px;
+            font-size: 0.9rem;
+          }
+        }
       }
     }
 
     .local-services-section {
+      padding: 20px;
+      
+      h3 {
+        font-size: 1.1rem;
+        margin-bottom: 12px;
+      }
+      
+      .service-description {
+        font-size: 0.85rem;
+        margin-bottom: 15px;
+      }
+      
       .service-options {
         flex-direction: column;
-        gap: 20px;
+        gap: 15px;
 
         .service-option {
           flex-direction: row;
           justify-content: space-between;
           width: 100%;
+          
+          label {
+            font-size: 0.9rem;
+          }
 
           .hours-input {
             flex-direction: row;
+            
+            label {
+              font-size: 0.85rem;
+            }
+            
+            input[type='number'] {
+              width: 50px;
+              padding: 6px;
+              font-size: 0.85rem;
+            }
           }
+        }
+      }
+    }
+    
+    .items-section {
+      gap: 25px;
+      
+      .category-section {
+        .items {
+          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+          gap: 20px;
+          
+          article {
+            gap: 15px;
+            
+            .item-name {
+              padding: 15px;
+              gap: 15px;
+              
+              img {
+                height: 40px;
+              }
+              
+              h1 {
+                font-size: 1rem;
+              }
+            }
+            
+            .item-quantity {
+              grid-template-columns: 35px 1fr 35px;
+              
+              button {
+                font-size: 1.5rem;
+              }
+              
+              h1 {
+                font-size: 0.9rem;
+              }
+            }
+          }
+        }
+      }
+    }
+    
+    .buttons {
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      
+      button {
+        width: 200px;
+        padding: 12px;
+        font-size: 0.9rem;
+      }
+    }
+    
+    .summary {
+      padding: 20px;
+      gap: 20px;
+      
+      h1 {
+        font-size: 1.5rem;
+      }
+      
+      table {
+        min-width: auto;
+        width: 100%;
+        
+        th, td {
+          padding: 12px 8px;
+          font-size: 0.85rem;
         }
       }
     }

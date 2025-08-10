@@ -343,13 +343,88 @@ main.storage-page {
     padding: 15px;
     gap: 30px;
     
-    .title h1 {
-      font-size: 2rem;
+    .title {
+      width: 100%;
+      
+      h1 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+      }
+      
+      p {
+        font-size: 0.85rem;
+      }
     }
     
-    .items {
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    .location-section {
+      flex-direction: column;
+      align-items: center;
       gap: 20px;
+      
+      .location-box {
+        width: 100%;
+        max-width: 100%;
+        padding: 20px;
+        
+        h3 {
+          font-size: 1.1rem;
+          margin-bottom: 15px;
+        }
+        
+        .location-inputs {
+          gap: 12px;
+          
+          select {
+            padding: 10px;
+            font-size: 0.9rem;
+          }
+        }
+      }
+    }
+    
+    .items-section {
+      gap: 25px;
+      
+      .category-section {
+        h2 {
+          font-size: 1.3rem;
+          margin-bottom: 15px;
+        }
+        
+        .items {
+          grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+          gap: 20px;
+          
+          article {
+            gap: 15px;
+            
+            .item-name {
+              padding: 15px;
+              gap: 15px;
+              
+              img {
+                height: 40px;
+              }
+              
+              h1 {
+                font-size: 1rem;
+              }
+            }
+            
+            .item-quantity {
+              grid-template-columns: 35px 1fr 35px;
+              
+              button {
+                font-size: 1.5rem;
+              }
+              
+              h1 {
+                font-size: 0.9rem;
+              }
+            }
+          }
+        }
+      }
     }
     
     .buttons {
@@ -359,6 +434,41 @@ main.storage-page {
       
       button {
         width: 200px;
+        padding: 12px;
+        font-size: 0.9rem;
+      }
+    }
+    
+    .summary {
+      padding: 20px;
+      gap: 20px;
+      
+      h1 {
+        font-size: 1.5rem;
+      }
+      
+      table {
+        min-width: auto;
+        width: 100%;
+        
+        th, td {
+          padding: 12px 8px;
+          font-size: 0.85rem;
+        }
+      }
+    }
+    
+    .pricing-info {
+      padding: 20px;
+      
+      h3 {
+        font-size: 1.2rem;
+        margin-bottom: 12px;
+      }
+      
+      ul li {
+        font-size: 0.85rem;
+        padding: 4px 0;
       }
     }
   }
