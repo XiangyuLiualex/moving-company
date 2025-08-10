@@ -245,7 +245,7 @@ function MovingPage(){
     return (
       <main>
         <div className="loading">
-          <p>加载中...</p>
+          <p>{t('moving.loading')}</p>
         </div>
       </main>
     );

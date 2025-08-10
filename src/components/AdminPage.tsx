@@ -397,7 +397,7 @@ function AdminPage() {
         <div className="admin-content">
           {isLoading ? (
             <div className="loading">
-              <p>加载中...</p>
+              <p>{t('admin.loading')}</p>
             </div>
           ) : (
             renderSection()

@@ -5,6 +5,7 @@
   },
   "storage": {
     "title": "What items to store?",
+    "loading": "Loading...",
     "subtitle": "Select which items you wish to store. Each item has a fixed monthly price. We'll keep 'em safe!",
     "chooseCity": "Choose your city",
     "storageDuration": "Storage Duration",
@@ -75,6 +76,7 @@
   },
   "moving": {
     "title": "What items to move?",
+    "loading": "Loading...",
     "subtitle": "Select which items you wish to move to your new home. We'll handle everything for you!",
     "departureLocation": "Departure Location",
     "arriveLocation": "Arrive Location",
@@ -132,6 +134,7 @@
   },
   "localMoving": {
     "title": "Local Moving Service",
+    "loading": "Loading...",
     "subtitle": "Professional local moving service with flexible hourly rates. Perfect for same-city relocations.",
     "serviceCities": "Service Cities",
     "serviceRules": "Service Rules & Pricing",
@@ -180,7 +183,15 @@
     "phone": "Phone",
     "email": "Email",
     "address": "Address",
-    "close": "Close"
+    "close": "Close",
+    "minimumServiceTime": "Minimum Service Time",
+    "minimumServiceDescription": "All services require a minimum of {{hours}} hours",
+    "depositRequirement": "Deposit Requirement",
+    "depositRequirementDescription": "{{people}} or more people require advance deposit",
+    "person": " people",
+    "hours": " hours",
+    "cad": " CAD",
+    "rmb": " RMB"
   },
   "movingService": {
     "title": "Choose Moving Service",
@@ -203,6 +214,9 @@
   "admin": {
     "title": "Admin Console",
     "subtitle": "Manage website configuration and pricing settings",
+    "expand": "Expand",
+    "collapse": "Collapse",
+    "loading": "Loading...",
     "nav": {
       "pricing": "Pricing Management",
       "cities": "Cities Management",
@@ -217,12 +231,21 @@
       "localServicesDesc": "Manage pickup and delivery service prices",
       "localMoving": "Local Moving Prices",
       "localMovingDesc": "Manage local moving pricing settings",
+      "standardAreaTitle": "Standard Area Prices (Greater Vancouver Central Area, Calgary, Winnipeg)",
+      "premiumAreaTitle": "Premium Area Prices (North Van, West Van, White Rock, Langley, Maple Ridge)",
+      "localMovingSettings": "Local Moving Settings",
+      "minimumHours": "Minimum Hours",
+      "hours": "hours",
+      "depositRequired": "Deposit Required",
+      "depositAmount": "Deposit Amount (RMB)",
       "storage": "Storage Furniture Prices",
       "storageDesc": "Manage storage prices for different items",
       "from": "From City",
       "to": "To City",
       "price": "Price",
       "hourlyRate": "Per Person Hourly Rate",
+      "withVehicle": "With Vehicle (1 person + vehicle)",
+      "withoutVehicle": "Workers Only (no vehicle needed)",
       "additionalPersonFee": "Additional Person Fee",
       "deposit": "Deposit",
       "save": "Save",

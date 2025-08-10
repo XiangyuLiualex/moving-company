@@ -393,7 +393,7 @@ function StoragePage(){
     return (
       <main className="storage-page">
         <div className="loading">
-          <p>加载中...</p>
+          <p>{t('storage.loading')}</p>
         </div>
       </main>
     );

@@ -67,7 +67,7 @@ function LocalMovingPage() {
     return (
       <main className="local-moving-page">
         <div className="loading">
-          <p>加载中...</p>
+          <p>{t('localMoving.loading')}</p>
         </div>
       </main>
     );
@@ -189,17 +189,17 @@ function LocalMovingPage() {
             <div className="rule-item">
               <div className="rule-icon">⏰</div>
               <div className="rule-content">
-                <h3>最少服务时间</h3>
-                <p><strong>{pricing.settings.minimumHours}小时起</strong></p>
-                <p>所有服务最少需要{pricing.settings.minimumHours}小时</p>
+                <h3>{t('localMoving.minimumServiceTime')}</h3>
+                <p><strong>{pricing.settings.minimumHours}{t('localMoving.hours')}</strong></p>
+                <p>{t('localMoving.minimumServiceDescription', { hours: pricing.settings.minimumHours })}</p>
               </div>
             </div>
             
             <div className="rule-item">
               <div className="rule-icon">💰</div>
               <div className="rule-content">
-                <h3>定金要求</h3>
-                <p><strong>{pricing.settings.depositRequired}人及以上需要预付定金</strong></p>
+                <h3>{t('localMoving.depositRequirement')}</h3>
+                <p><strong>{t('localMoving.depositRequirementDescription', { people: pricing.settings.depositRequired })}</strong></p>
                 <ul>
                   <li>${roundDecimals(pricing.settings.depositRMB / 5)} CAD</li>
                   <li>¥{roundDecimals(pricing.settings.depositRMB)} RMB</li>
@@ -285,7 +285,7 @@ function LocalMovingPage() {
                 onChange={(e) => setPersonCount(parseInt(e.target.value))}
               >
                 {[1, 2, 3, 4, 5, 6].map(num => (
-                  <option key={num} value={num}>{num}人</option>
+                  <option key={num} value={num}>{num}{t('localMoving.person')}</option>
                 ))}
               </select>
             </div>
@@ -298,7 +298,7 @@ function LocalMovingPage() {
                 onChange={(e) => setHours(parseInt(e.target.value))}
               >
                 {[2, 3, 4, 5, 6, 7, 8].map(num => (
-                  <option key={num} value={num}>{num}小时</option>
+                  <option key={num} value={num}>{num}{t('localMoving.hours')}</option>
                 ))}
               </select>
             </div>
@@ -310,19 +310,19 @@ function LocalMovingPage() {
                 {selectedService === 'withVehicle' ? (
                   <>
                     <div className="price-item">
-                      <span>{t('localMoving.calculator.basePrice')}（{hours}小时 × ${currentPricing.withVehicle.baseRate}/小时）:</span>
+                      <span>{t('localMoving.calculator.basePrice')}（{hours}{t('localMoving.hours')} × ${currentPricing.withVehicle.baseRate}/{t('localMoving.hours')}）:</span>
                       <span>${roundDecimals(currentPricing.withVehicle.baseRate * hours)}</span>
                     </div>
                     {personCount > 1 && (
                       <div className="price-item">
-                        <span>{t('localMoving.calculator.additionalPersonFee')}（{personCount - 1}人 × ${currentPricing.withVehicle.additionalPersonFee}/人/小时 × {hours}小时）:</span>
+                        <span>{t('localMoving.calculator.additionalPersonFee')}（{personCount - 1}{t('localMoving.person')} × ${currentPricing.withVehicle.additionalPersonFee}/{t('localMoving.person')}/{t('localMoving.hours')} × {hours}{t('localMoving.hours')}）:</span>
                         <span>${roundDecimals((personCount - 1) * currentPricing.withVehicle.additionalPersonFee * hours)}</span>
                       </div>
                     )}
                   </>
                 ) : (
                   <div className="price-item">
-                    <span>{t('localMoving.calculator.workerFee')}（{personCount}人 × ${currentPricing.withoutVehicle.baseRate}/人/小时 × {hours}小时）:</span>
+                    <span>{t('localMoving.calculator.workerFee')}（{personCount}{t('localMoving.person')} × ${currentPricing.withoutVehicle.baseRate}/{t('localMoving.person')}/{t('localMoving.hours')} × {hours}{t('localMoving.hours')}）:</span>
                     <span>${roundDecimals(currentPricing.withoutVehicle.baseRate * personCount * hours)}</span>
                   </div>
                 )}
@@ -368,7 +368,7 @@ function LocalMovingPage() {
                 </div>
                 {needsDeposit && (
                   <div className="deposit-notice">
-                    <p>⚠️ {personCount}{t('localMoving.calculator.depositNotice')}：${roundDecimals(pricing.settings.depositRMB / 5)}加币 或 ¥{roundDecimals(pricing.settings.depositRMB)}人民币</p>
+                    <p>⚠️ {personCount}{t('localMoving.calculator.depositNotice')}：${roundDecimals(pricing.settings.depositRMB / 5)}{t('localMoving.cad')} 或 ¥{roundDecimals(pricing.settings.depositRMB)}{t('localMoving.rmb')}</p>
                   </div>
                 )}
               </div>

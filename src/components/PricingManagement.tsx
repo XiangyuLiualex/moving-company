@@ -76,7 +76,7 @@ function PricingManagement({
             <button 
               className="collapse-btn"
               onClick={() => toggleSection('intercity')}
-              title={collapsedSections.intercity ? '展开' : '收起'}
+              title={collapsedSections.intercity ? t('admin.expand') : t('admin.collapse')}
             >
               <span className={`collapse-icon ${collapsedSections.intercity ? 'collapsed' : ''}`}>
                 ▼
@@ -146,7 +146,7 @@ function PricingManagement({
             <button 
               className="collapse-btn"
               onClick={() => toggleSection('localMoving')}
-              title={collapsedSections.localMoving ? '展开' : '收起'}
+              title={collapsedSections.localMoving ? t('admin.expand') : t('admin.collapse')}
             >
               <span className={`collapse-icon ${collapsedSections.localMoving ? 'collapsed' : ''}`}>
                 ▼
@@ -158,10 +158,10 @@ function PricingManagement({
             
             {/* 标准区域价格 */}
             <div className="sub-section">
-              <h4>标准区域价格（大温哥华地区、卡尔加里、温尼伯）</h4>
+              <h4>{t('admin.pricing.standardAreaTitle')}</h4>
               <div className="local-moving-prices">
                 <div className="price-field">
-                  <label>需要车（1人+车）:</label>
+                  <label>{t('admin.pricing.withVehicle')}:</label>
                   <input
                     type="number"
                     value={pricingData.localMovingStandardArea.withVehicle.baseRate}
@@ -171,7 +171,7 @@ function PricingManagement({
                   <span>$/hour</span>
                 </div>
                 <div className="price-field">
-                  <label>额外人员费用:</label>
+                  <label>{t('admin.pricing.additionalPersonFee')}:</label>
                   <input
                     type="number"
                     value={pricingData.localMovingStandardArea.withVehicle.additionalPersonFee}
@@ -181,7 +181,7 @@ function PricingManagement({
                   <span>$/person</span>
                 </div>
                 <div className="price-field">
-                  <label>仅工人（不需要车）:</label>
+                  <label>{t('admin.pricing.withoutVehicle')}:</label>
                   <input
                     type="number"
                     value={pricingData.localMovingStandardArea.withoutVehicle.baseRate}
@@ -195,10 +195,10 @@ function PricingManagement({
             
             {/* 加价区域价格 */}
             <div className="sub-section">
-              <h4>加价区域价格（北温、西温、白石、兰里、枫树岭）</h4>
+              <h4>{t('admin.pricing.premiumAreaTitle')}</h4>
               <div className="local-moving-prices">
                 <div className="price-field">
-                  <label>需要车（1人+车）:</label>
+                  <label>{t('admin.pricing.withVehicle')}:</label>
                   <input
                     type="number"
                     value={pricingData.localMovingPremiumArea.withVehicle.baseRate}
@@ -208,7 +208,7 @@ function PricingManagement({
                   <span>$/hour</span>
                 </div>
                 <div className="price-field">
-                  <label>额外人员费用:</label>
+                  <label>{t('admin.pricing.additionalPersonFee')}:</label>
                   <input
                     type="number"
                     value={pricingData.localMovingPremiumArea.withVehicle.additionalPersonFee}
@@ -218,7 +218,7 @@ function PricingManagement({
                   <span>$/person</span>
                 </div>
                 <div className="price-field">
-                  <label>仅工人（不需要车）:</label>
+                  <label>{t('admin.pricing.withoutVehicle')}:</label>
                   <input
                     type="number"
                     value={pricingData.localMovingPremiumArea.withoutVehicle.baseRate}
@@ -232,20 +232,20 @@ function PricingManagement({
             
             {/* 同城搬家设置 */}
             <div className="sub-section">
-              <h4>同城搬家设置</h4>
+              <h4>{t('admin.pricing.localMovingSettings')}</h4>
               <div className="local-moving-settings">
                 <div className="setting-field">
-                  <label>最少小时数:</label>
+                  <label>{t('admin.pricing.minimumHours')}:</label>
                   <input
                     type="number"
                     value={pricingData.localMovingSettings.minimumHours}
                     onChange={(e) => onUpdateLocalMovingSettings('minimumHours', parseInt(e.target.value) || 0)}
                     min="0"
                   />
-                  <span>小时</span>
+                  <span>{t('admin.pricing.hours')}</span>
                 </div>
                 <div className="setting-field">
-                  <label>押金要求:</label>
+                  <label>{t('admin.pricing.depositRequired')}:</label>
                   <input
                     type="number"
                     value={pricingData.localMovingSettings.depositRequired}
@@ -255,7 +255,7 @@ function PricingManagement({
                   <span>%</span>
                 </div>
                 <div className="setting-field">
-                  <label>押金金额 (RMB):</label>
+                  <label>{t('admin.pricing.depositAmount')}:</label>
                   <input
                     type="number"
                     value={pricingData.localMovingSettings.depositRMB}
@@ -276,7 +276,7 @@ function PricingManagement({
             <button 
               className="collapse-btn"
               onClick={() => toggleSection('storage')}
-              title={collapsedSections.storage ? '展开' : '收起'}
+              title={collapsedSections.storage ? t('admin.expand') : t('admin.collapse')}
             >
               <span className={`collapse-icon ${collapsedSections.storage ? 'collapsed' : ''}`}>
                 ▼

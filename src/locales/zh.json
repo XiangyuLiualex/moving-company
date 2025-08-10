@@ -5,6 +5,7 @@
   },
   "storage": {
     "title": "需要存储什么物品？",
+    "loading": "加载中...",
     "subtitle": "选择您想要存储的物品。每件物品都有固定的月费。我们会妥善保管！",
     "chooseCity": "选择城市",
     "storageDuration": "存储时长",
@@ -75,6 +76,7 @@
   },
   "moving": {
     "title": "需要搬运什么物品？",
+    "loading": "加载中...",
     "subtitle": "选择您想要搬运到新家的物品。我们会为您处理一切！",
     "departureLocation": "出发地",
     "arriveLocation": "到达地",
@@ -132,6 +134,7 @@
   },
   "localMoving": {
     "title": "同城搬家服务",
+    "loading": "加载中...",
     "subtitle": "专业的同城搬家服务，灵活的按小时计费。完美适用于同城搬迁。",
     "serviceCities": "服务城市",
     "serviceRules": "服务规则和价格",
@@ -180,7 +183,15 @@
     "phone": "电话",
     "email": "邮箱",
     "address": "地址",
-    "close": "关闭"
+    "close": "关闭",
+    "minimumServiceTime": "最少服务时间",
+    "minimumServiceDescription": "所有服务最少需要{{hours}}小时",
+    "depositRequirement": "定金要求",
+    "depositRequirementDescription": "{{people}}人及以上需要预付定金",
+    "person": "人",
+    "hours": "小时",
+    "cad": "加币",
+    "rmb": "人民币"
   },
   "movingService": {
     "title": "选择搬家服务",
@@ -203,6 +214,9 @@
   "admin": {
     "title": "管理员控制面板",
     "subtitle": "管理网站配置和价格设置",
+    "expand": "展开",
+    "collapse": "收起",
+    "loading": "加载中...",
     "logout": "退出登录",
     "nav": {
       "pricing": "价格管理",
@@ -217,12 +231,21 @@
       "localServicesDesc": "管理取货和送货服务的价格",
       "localMoving": "同城搬家价格",
       "localMovingDesc": "管理同城搬家的价格设置",
+      "standardAreaTitle": "标准区域价格（大温哥华地区、卡尔加里、温尼伯）",
+      "premiumAreaTitle": "加价区域价格（北温、西温、白石、兰里、枫树岭）",
+      "localMovingSettings": "同城搬家设置",
+      "minimumHours": "最少小时数",
+      "hours": "小时",
+      "depositRequired": "押金要求",
+      "depositAmount": "押金金额 (RMB)",
       "storage": "存储家具价格",
       "storageDesc": "管理各类物品的存储价格",
       "from": "出发城市",
       "to": "到达城市",
       "price": "价格",
       "hourlyRate": "每人每小时费率",
+      "withVehicle": "需要车（1人+车）",
+      "withoutVehicle": "仅工人（不需要车）",
       "additionalPersonFee": "额外人员费用",
       "deposit": "押金",
       "save": "保存",
