@@ -316,7 +316,7 @@ main .buttons{
       &:last-child{
       }
     }
-    tr:nth-last-child(-n+2){
+    tr:last-child{
       font-weight: 800;
     }
   }

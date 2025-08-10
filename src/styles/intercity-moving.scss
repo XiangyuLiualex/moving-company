@@ -305,7 +305,7 @@ main.intercity-page {
         }
       }
 
-      tr:nth-last-child(-n + 2) {
+      tr:last-child {
         font-weight: 800;
         background-color: #bbdefb;
       }
